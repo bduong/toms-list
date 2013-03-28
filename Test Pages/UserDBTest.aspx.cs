@@ -10,6 +10,7 @@ public partial class Test_Pages_UserDBTest : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         User user = UserDataService.getUser("Ben");
+        info.Text = user.name + " " + user.password;
 
     }
 }
