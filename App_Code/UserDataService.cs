@@ -15,13 +15,29 @@ public class UserDataService
     public static User getUser(string name)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("SELECT * FROM Users where Name='" + name + "'", conn);
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Users where Name = @Name", conn);
+        cmd.Parameters.AddWithValue("@Name", name);
         SqlDataReader reader = cmd.ExecuteReader();
         reader.Read();
         string userName = (string) reader["Name"];
         string password = (string) reader["Password"];
         conn.Close();
         return new User(userName, password);
+    }
+
+    public static bool addUser(User user)
+    {
+        return false;
+    }
+
+    public static bool addUserToNetwork(User user, Network network)
+    {
+        return false;
+    }
+
+    public static bool removeUserFromNetwork(User user, Network network)
+    {
+        return false;
     }
 
 }
