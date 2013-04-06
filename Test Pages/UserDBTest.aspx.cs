@@ -12,5 +12,11 @@ public partial class Test_Pages_UserDBTest : System.Web.UI.Page
         User user = UserDataService.getUser("Ben");
         info.Text = user.name + " " + user.password;
 
+        UserController user_controller = new UserController();
+        User new_user = user_controller.getUser("hello");
+        test.Text = new_user.name + " " + new_user.password;
+
+
+
     }
 }
