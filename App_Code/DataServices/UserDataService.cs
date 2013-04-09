@@ -19,10 +19,11 @@ public class UserDataService
         cmd.Parameters.AddWithValue("@Name", name);
         SqlDataReader reader = cmd.ExecuteReader();
         reader.Read();
+        int uid = (int) reader["UserId"];
         string userName = (string) reader["Name"];
         string password = (string) reader["Password"];
         conn.Close();
-        return new User(userName, password);
+        return new User(uid, userName, password);
     }
 
     public static bool addUser(User user)
