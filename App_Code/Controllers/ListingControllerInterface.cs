@@ -43,7 +43,7 @@ public interface ListingControllerInterface
     /// </summary>
     /// <param name="listing">listing object to be posted</param>
     /// <returns>listing posted successfully</returns>
-    bool postListing(Listing listing);
+    Listing postListing(Listing listing);
 
     #endregion
 

@@ -16,11 +16,10 @@ public class ListingController: ListingControllerInterface
 
     public Listing getListing(String id)
     {
-        Listing listing = new Listing();
         
         // load listing from database
 
-        return listing;
+        return ListingDataService.getListing(id);
     }
 
     public ArrayList getLocationListings(String location, int limit)
@@ -42,25 +41,25 @@ public class ListingController: ListingControllerInterface
 
     }
 
-    public bool postListing(Listing listing)
+    public Listing postListing(Listing listing)
     {
         // post listing to database
 
-        return true;
+        return ListingDataService.addListing(listing);
     }
 
     public bool deleteListing(String id)
     {
         // delete listing from database
 
-        return true;
+        return ListingDataService.deleteListing(id);
     }
 
     public bool updateListing(String id, Listing listing)
     {
         // update listing in database
 
-        return true;
+        return ListingDataService.updateListing(id, listing);
     }
 
 

@@ -63,6 +63,23 @@ public class ListingDataService
         return (rowsAffected > 0);
     }
 
+    public static Boolean updateListing(String idToUpdate, Listing newListing)
+    {
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("UPDATE @TableName SET UserId = @UserId, Title = @Title, Description = @Description, Location = @Location, Date = @Date WHERE ListingId = @ListingId");
+        cmd.Parameters.AddWithValue("@TableName", LISTING_TABLE_NAME);
+        cmd.Parameters.AddWithValue("@UserId", newListing.userId);
+        cmd.Parameters.AddWithValue("@Title", newListing.title);
+        cmd.Parameters.AddWithValue("@Description", newListing.description);
+        cmd.Parameters.AddWithValue("@Location", newListing.location);
+        cmd.Parameters.AddWithValue("@Date", newListing.date);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+        conn.Close();
+
+        return (rowsAffected > 0);
+    }
+
     private static class ColumnNames
     {
         public static string ListingId = "ListingId";
