@@ -9,11 +9,10 @@ using System.Data.SqlClient;
 /// </summary>
 public class UserDataService
 {
-    private static string connectionString = DBConnector.getConnectionString();
-    private static SqlConnection conn = new SqlConnection(connectionString);	
 
     public static User getUser(Guid id)
     {
+        SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("SELECT * FROM Users where UserId = @GUID", conn);
         cmd.Parameters.AddWithValue("@GUID", id);
@@ -28,6 +27,7 @@ public class UserDataService
 
     public static bool addUser(User user)
     {
+        SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("INSERT INTO Users (UserId, Name, Email, Photo, Location) VALUES(@UserId, @Name, @Email, @Photo, @Location)", conn);
         cmd.Parameters.AddWithValue("@UserId", user.uid);
@@ -35,21 +35,14 @@ public class UserDataService
         cmd.Parameters.AddWithValue("@Email", user.email);
         cmd.Parameters.AddWithValue("@Photo", user.photo);
         cmd.Parameters.AddWithValue("@Location", user.location);
-        try
-        {
-            cmd.ExecuteNonQuery();
-        }
-        catch (Exception)
-        {
-            conn.Close(); 
-            return false;
-        }
+        int rowsAffected = cmd.ExecuteNonQuery();     
         conn.Close();
-        return true;            
+        return (rowsAffected > 0);            
     }
 
     public static bool deleteUser(Guid idToDelete)
     {
+        SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("DELETE FROM Users where UserId = @IdDelete", conn);
 
@@ -60,6 +53,7 @@ public class UserDataService
 
     public static bool updateUser(Guid idToUpdate, User newUser)
     {
+        SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("Update Users SET Name = @Name, Email = @Email, Photo = @Photo, Location = @Location where UserId = @UserId", conn);
         cmd.Parameters.AddWithValue("@Name", newUser.name);
@@ -76,12 +70,27 @@ public class UserDataService
 
     public static bool addUserToNetwork(User user, Network network)
     {
-        return false;
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("INSERT INTO UsersNetwork (UserId, NetworkId) VALUES (@UserId, @NetworkId)", conn);
+        cmd.Parameters.AddWithValue("@UserId", user.uid);
+        cmd.Parameters.AddWithValue("@NetworkId", network.id);
+        int rowsAffected = cmd.ExecuteNonQuery();
+        conn.Close();
+        return (rowsAffected > 0);
+            
     }
 
     public static bool removeUserFromNetwork(User user, Network network)
     {
-        return false;
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("DELETE FROM UsersNetwork where UserId = @UserId AND NetworkId = @NetworkId", conn);
+        cmd.Parameters.AddWithValue("@UserId", user.uid);
+        cmd.Parameters.AddWithValue("@NetworkId", network.id);
+        int rowsAffected = cmd.ExecuteNonQuery();
+        conn.Close();
+        return (rowsAffected > 0);
     }
 
 }

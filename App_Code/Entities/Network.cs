@@ -8,6 +8,9 @@ using System.Web;
 /// </summary>
 public class Network
 {
+    public int id { get; set; }
+    public string name { get; set; }
+    public string pattern { get; set; }
 	public Network()
 	{
 		//
