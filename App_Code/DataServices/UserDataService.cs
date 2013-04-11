@@ -12,14 +12,14 @@ public class UserDataService
     private static string connectionString = DBConnector.getConnectionString();
     private static SqlConnection conn = new SqlConnection(connectionString);	
 
-    public static User getUser(string name)
+    public static User getUser(string id)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("SELECT * FROM Users where Name = @Name", conn);
-        cmd.Parameters.AddWithValue("@Name", name);
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Users where UserId = @GUID", conn);
+        cmd.Parameters.AddWithValue("@GUID", id);
         SqlDataReader reader = cmd.ExecuteReader();
         reader.Read();
-        int uid = (int) reader["UserId"];
+        Guid uid = (Guid) reader["UserId"];
         string userName = (string) reader["Name"];
         string password = (string) reader["Password"];
         conn.Close();

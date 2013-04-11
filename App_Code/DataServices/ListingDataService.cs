@@ -9,35 +9,54 @@ using System.Data.SqlClient;
 /// </summary>
 public class ListingDataService
 {
-    private static class ColumnNames {
-    }
-    private const string LISTING_TABLE_NAME = "Listings";    
+
+    private const string LISTING_TABLE_NAME = "Listing";    
     private static string connectionString = DBConnector.getConnectionString();
     private static SqlConnection conn = new SqlConnection(connectionString);
 
     public static Listing getListing(String id)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("SELECT * FROM @TableName where @ID = @ListingId", conn);
-        cmd.Parameters.AddWithValue("@TableName", LISTING_TABLE_NAME);
-        cmd.Parameters.AddWithValue("@Id", ColumnNames.ListingId);
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Listing where ListingId = @ListingId", conn);
         cmd.Parameters.AddWithValue("@ListingId", id);
 
         SqlDataReader reader = cmd.ExecuteReader();
-        conn.Close();
+        reader.Read();
 
         int uid = (int) reader[ColumnNames.ListingId];
-        int userId = (int)reader[ColumnNames.UserId];
+        Guid userId = (Guid)reader[ColumnNames.UserId];
         string title = (string)reader[ColumnNames.Title];
         string location = (string)reader[ColumnNames.Location];
         DateTime date = (DateTime)reader[ColumnNames.Date];
+        conn.Close();
+
+        return new Listing(uid, userId, title, location, date);
+    }
+
+    
+    public static Listing getListingBy(String columnName, String value)
+    {
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value", conn);
+       // cmd.Parameters.AddWithValue("@ColumnName", columnName);
+        cmd.Parameters.AddWithValue("@Value", value);
+        SqlDataReader reader = cmd.ExecuteReader();
+        reader.Read();
+
+        int uid = (int)reader[ColumnNames.ListingId];
+        Guid userId = (Guid)reader[ColumnNames.UserId];
+        string title = (string)reader[ColumnNames.Title];
+        string location = (string)reader[ColumnNames.Location];
+        DateTime date = (DateTime)reader[ColumnNames.Date];
+        conn.Close();
+
         return new Listing(uid, userId, title, location, date);
     }
 
     public static Listing addListing(Listing listing)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("INSERT INTO @TableName (UserId, Title, Description, Location, Date) VALUES (@UserId, @Title, @Description, @Location, @Date); SELECT SCOPE_IDENTITY()", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO Listing (UserId, Title, Description, Location, Date) VALUES (@UserId, @Title, @Description, @Location, @Date); SELECT SCOPE_IDENTITY()", conn);
         cmd.Parameters.AddWithValue("@User", listing.userId);
         cmd.Parameters.AddWithValue("@Title", listing.title);
         cmd.Parameters.AddWithValue("@Description", listing.description);
@@ -53,8 +72,7 @@ public class ListingDataService
     public static Boolean deleteListing(String id)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("DELETE FROM @TableName where @ID = @ListingId", conn);
-        cmd.Parameters.AddWithValue("@TableName", LISTING_TABLE_NAME);
+        SqlCommand cmd = new SqlCommand("DELETE FROM Listing where @ID = @ListingId", conn);
         cmd.Parameters.AddWithValue("@ID", ColumnNames.ListingId);
         cmd.Parameters.AddWithValue("@ListingId", id);
 
@@ -66,13 +84,13 @@ public class ListingDataService
     public static Boolean updateListing(String idToUpdate, Listing newListing)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("UPDATE @TableName SET UserId = @UserId, Title = @Title, Description = @Description, Location = @Location, Date = @Date WHERE ListingId = @ListingId");
-        cmd.Parameters.AddWithValue("@TableName", LISTING_TABLE_NAME);
+        SqlCommand cmd = new SqlCommand("UPDATE Listing SET UserId = @UserId, Title = @Title, Description = @Description, Location = @Location, Date = @Date WHERE ListingId = @ListingId");
         cmd.Parameters.AddWithValue("@UserId", newListing.userId);
         cmd.Parameters.AddWithValue("@Title", newListing.title);
         cmd.Parameters.AddWithValue("@Description", newListing.description);
         cmd.Parameters.AddWithValue("@Location", newListing.location);
         cmd.Parameters.AddWithValue("@Date", newListing.date);
+        cmd.Parameters.AddWithValue("@ListingId", idToUpdate);
 
         int rowsAffected = cmd.ExecuteNonQuery();
         conn.Close();
@@ -80,7 +98,7 @@ public class ListingDataService
         return (rowsAffected > 0);
     }
 
-    private static class ColumnNames
+    public static class ColumnNames
     {
         public static string ListingId = "ListingId";
         public static string UserId = "UserId";

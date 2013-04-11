@@ -24,7 +24,7 @@
                 SQL retrieve and put into labels here<br />
                 <br />
                 Contact Seller:<br />
-                <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged" Width="349px"></asp:TextBox>
+                <asp:TextBox ID="TextBox1" runat="server" Width="349px"></asp:TextBox>
                 <asp:Button ID="messageSend" runat="server" Text="Send" Width="108px" />
                 <br />
             </div>
