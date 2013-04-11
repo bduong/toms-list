@@ -17,39 +17,37 @@ public class UserController: UserControllerInterface
 
     }
 
-    public User getUser(String id)
+    public User getUser(Guid id)
     {
-        User user = new User("test_user", "test_password");
-        return user;
+        return UserDataService.getUser(id);
     }
 
-    public ArrayList getUserListings(String id, int limit)
+    public List<Listing> getUserListings(Guid id, int limit = 0)
     {
-        ArrayList listings = new ArrayList();
 
         // get user listings
 
-        return listings;
+        return ListingDataService.getListingsBy(ListingDataService.ColumnNames.UserId, id.ToString(), limit);
     }
 
     public bool postUser(User user)
     {
         // post user to database
 
-        return true;
+        return UserDataService.addUser(user);
     }
 
-    public bool deleteUser(String id)
+    public bool deleteUser(Guid id)
     {
         // delete user from database
 
-        return true;
+        return UserDataService.deleteUser(id);
     }
 
-    public bool updateUser(String id, User user)
+    public bool updateUser(Guid id, User user)
     {
         // update user in database
 
-        return true;
+        return UserDataService.updateUser(id, user);
     }
 }

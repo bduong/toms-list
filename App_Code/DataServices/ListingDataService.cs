@@ -34,23 +34,35 @@ public class ListingDataService
     }
 
     
-    public static Listing getListingBy(String columnName, String value)
+    public static List<Listing> getListingsBy(String columnName, String value, int limit = 0)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value", conn);
-       // cmd.Parameters.AddWithValue("@ColumnName", columnName);
+        SqlCommand cmd;
+        if (limit > 0)
+        {
+            cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value LIMIT 0, @Limit", conn);
+            cmd.Parameters.AddWithValue("@Limit", limit);
+        }
+        else
+        {
+            cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value", conn);
+        }
         cmd.Parameters.AddWithValue("@Value", value);
         SqlDataReader reader = cmd.ExecuteReader();
-        reader.Read();
+        List<Listing> listings = new List<Listing>();
+        while (reader.Read())
+        {
 
-        int uid = (int)reader[ColumnNames.ListingId];
-        Guid userId = (Guid)reader[ColumnNames.UserId];
-        string title = (string)reader[ColumnNames.Title];
-        string location = (string)reader[ColumnNames.Location];
-        DateTime date = (DateTime)reader[ColumnNames.Date];
+            int uid = (int)reader[ColumnNames.ListingId];
+            Guid userId = (Guid)reader[ColumnNames.UserId];
+            string title = (string)reader[ColumnNames.Title];
+            string location = (string)reader[ColumnNames.Location];
+            DateTime date = (DateTime)reader[ColumnNames.Date];
+            listings.Add(new Listing(uid, userId, title, location, date));
+        }
         conn.Close();
 
-        return new Listing(uid, userId, title, location, date);
+        return listings;
     }
 
     public static Listing addListing(Listing listing)
@@ -72,8 +84,7 @@ public class ListingDataService
     public static Boolean deleteListing(String id)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("DELETE FROM Listing where @ID = @ListingId", conn);
-        cmd.Parameters.AddWithValue("@ID", ColumnNames.ListingId);
+        SqlCommand cmd = new SqlCommand("DELETE FROM Listing where ListingId = @ListingId", conn);
         cmd.Parameters.AddWithValue("@ListingId", id);
 
         int rowsAffected = cmd.ExecuteNonQuery();
