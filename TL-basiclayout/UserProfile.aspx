@@ -13,8 +13,8 @@
             <div class="header">
                 User Profile
              <br />
-                <asp:Button ID="UserPage" runat="server" Text="My Profile" PostBackUrl="~/UserProfile.aspx" />
-                <asp:Button ID="MainPage" runat="server" Text="Home" PostBackUrl="~/MainPage.aspx" />
+                <asp:Button ID="UserPage" runat="server" Text="My Profile" PostBackUrl="./UserProfile.aspx" />
+                <asp:Button ID="MainPage" runat="server" Text="Home" PostBackUrl="./MainPage.aspx" />
             </div>
 
             <div class="content">

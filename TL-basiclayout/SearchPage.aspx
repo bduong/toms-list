@@ -17,21 +17,21 @@
                 Search
             </div>
             <br />
-            <asp:Button ID="UserProfile" runat="server" Text="My Profile" PostBackUrl="~/UserProfile.aspx" />
-            <asp:Button ID="MainPage" runat="server" Text="Home" PostBackUrl="~/MainPage.aspx" />
+            <asp:Button ID="UserProfile" runat="server" Text="My Profile" PostBackUrl="./UserProfile.aspx" />
+            <asp:Button ID="MainPage" runat="server" Text="Home" PostBackUrl="./MainPage.aspx" />
             <div id="content">
                 <asp:TextBox ID="SearchBox" runat="server"></asp:TextBox>
-                <asp:Button ID="searchButton" runat="server" Text="Search" PostBackUrl="~/SearchPage.aspx" OnClick="searchButton_Click" />
+                <asp:Button ID="searchButton" runat="server" Text="Search" PostBackUrl="./SearchPage.aspx" OnClick="searchButton_Click" />
                 <br />
                 results: (after query, these repopulate)
             <br />
-                <asp:Button ID="Button1" runat="server" Text="Item1" PostBackUrl="~/ItemListing.aspx" />
+                <asp:Button ID="Button1" runat="server" Text="Item1" PostBackUrl="./ItemListing.aspx" />
                 <br />
-                <asp:Button ID="Button2" runat="server" Text="Item2" PostBackUrl="~/ItemListing.aspx" />
+                <asp:Button ID="Button2" runat="server" Text="Item2" PostBackUrl="./ItemListing.aspx" />
                 <br />
-                <asp:Button ID="Button3" runat="server" Text="Item3" PostBackUrl="~/ItemListing.aspx" />
+                <asp:Button ID="Button3" runat="server" Text="Item3" PostBackUrl="./ItemListing.aspx" />
                 <br />
-                <asp:Button ID="Button4" runat="server" Text="Item4" PostBackUrl="~/ItemListing.aspx" />
+                <asp:Button ID="Button4" runat="server" Text="Item4" PostBackUrl="./ItemListing.aspx" />
                 <br />
             </div>
             <div class="push"></div>
