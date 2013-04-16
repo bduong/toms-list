@@ -20,8 +20,18 @@ public class NetworkDataService
 		//
 	}
 
-    public Boolean createNewNetwork(Network newNetwork)
+    public static Network createNewNetwork(Network newNetwork)
+    {
+        return new Network();
+    }
+
+    public static Boolean deleteNetwork(int id)
     {
         return false;
+    }
+
+    public static Network getNetwork(int id)
+    {
+        return new Network();
     }
 }
