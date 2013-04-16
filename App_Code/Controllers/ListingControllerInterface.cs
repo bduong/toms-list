@@ -24,7 +24,7 @@ public interface ListingControllerInterface
     /// <param name="location">location or neighborhood of the listings</param>
     /// <param name="limit">limit on the size of the result set</param>
     /// <returns>list of listings</returns>
-    ArrayList getLocationListings(String location, int limit);
+    List<Listing> getLocationListings(String location, int limit);
 
     /// <summary>
     /// get the recently posted listings for a specific type (furniture/electronics/...) in a given location
@@ -33,7 +33,7 @@ public interface ListingControllerInterface
     /// <param name="location">location of the listings</param>
     /// <param name="limit">limit on the size of the result set</param>
     /// <returns>list of listings</returns>
-    ArrayList getTypeAndLocationListings(String type, String location, int limit);
+    List<Listing> getTypeAndLocationListings(String type, String location, int limit);
     #endregion
 
     #region post_functions
