@@ -9,7 +9,11 @@ public partial class Test_Pages_ListingDBTest : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Listing listing = ListingDataService.getListingBy(ListingDataService.ColumnNames.ListingId, "4");
-        OUT.Text = listing.title;
+        List<Listing> listing = ListingDataService.getListingsBy(ListingDataService.ColumnNames.ListingId, "4");
+        for (int i = 0; i < listing.Count; i++)
+        {
+            OUT.Text += listing[i].title;
+        }
+       
     }
 }
