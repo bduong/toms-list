@@ -1,15 +1,15 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Tomslist-Main Page</title>
+    <title>Tomslist Main Page</title>
     <link href="PageStyles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="wrapper">
             <div class="header">
-                MainPage
-                <br />
+                <asp:ImageButton ID="TLogo" runat="server" Height="116px" ImageUrl="~/Logo.png" Width="110px" PostBackUrl="~/MainPage.aspx" />
+                &nbsp;<br />
                 <asp:Button ID="UserProfile" runat="server" Text="My Profile" PostBackUrl="~/UserProfile.aspx" />
                 <asp:Button ID="MainPage" runat="server" Text="Home" PostBackUrl="~/MainPage.aspx" />
             </div>

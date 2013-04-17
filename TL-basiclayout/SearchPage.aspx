@@ -4,16 +4,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Tomslist-Search</title>
+    <title>Tomslist Search</title>
     <link href="PageStyles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="wrapper">
             <div class="header">
-                TomsList<br />
-                Boston University<br />
-                <br />
+                <asp:ImageButton ID="TLogo" runat="server" Height="116px" ImageUrl="~/Logo.png" Width="110px" PostBackUrl="~/MainPage.aspx" />
+                &nbsp;<br />
                 Search
             </div>
             <br />

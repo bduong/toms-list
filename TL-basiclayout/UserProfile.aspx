@@ -4,13 +4,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Tomslist-User Profile</title>
+    <title>Tomslist User Profile</title>
     <link href="PageStyles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="wrapper">
             <div class="header">
+                <asp:ImageButton ID="ImageButton1" runat="server" Height="94px" ImageUrl="~/Logo.png" Width="108px" />
+                <br />
                 User Profile
              <br />
                 <asp:Button ID="UserPage" runat="server" Text="My Profile" PostBackUrl="~/UserProfile.aspx" />

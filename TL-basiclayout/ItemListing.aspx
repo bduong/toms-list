@@ -4,15 +4,17 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Tomslist-Item Listing</title>
+    <title>Tomslist Item Listing</title>
     <link href="PageStyles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="wrapper">
             <div class="header">
+                <asp:ImageButton ID="TLogo" runat="server" Height="116px" ImageUrl="~/Logo.png" Width="110px" PostBackUrl="~/MainPage.aspx" />
+                &nbsp;<br />
                 itemlisting 
-            <br />
+                <br />
                 <asp:Button ID="UserProfile" runat="server" Text="My Profile" PostBackUrl="~/UserProfile.aspx" />
                 <asp:Button ID="MainPage" runat="server" Text="Home" PostBackUrl="~/MainPage.aspx" />
             </div>
@@ -24,7 +26,7 @@
                 SQL retrieve and put into labels here<br />
                 <br />
                 Contact Seller:<br />
-                <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged" Width="349px"></asp:TextBox>
+                <asp:TextBox ID="TextBox1" runat="server" Width="349px"></asp:TextBox>
                 <asp:Button ID="messageSend" runat="server" Text="Send" Width="108px" />
                 <br />
             </div>
