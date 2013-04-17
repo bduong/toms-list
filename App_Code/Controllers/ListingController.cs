@@ -22,22 +22,19 @@ public class ListingController: ListingControllerInterface
         return ListingDataService.getListing(id);
     }
 
-    public ArrayList getLocationListings(String location, int limit)
+    public List<Listing> getLocationListings(String location, int limit=0)
     {
-        ArrayList listings = new ArrayList();
-
         // get location listings
 
-        return listings;
+        return ListingDataService.getListingsBy(ListingDataService.ColumnNames.Location, location, limit);
     }
 
-    public ArrayList getTypeAndLocationListings(String type, String location, int limit)
+    public List<Listing> getTypeAndLocationListings(String type, String location, int limit)
     {
-        ArrayList listings = new ArrayList();
 
         // get listings based on a specific type and a location
 
-        return listings;
+        return new List<Listing>();
 
     }
 

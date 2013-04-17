@@ -8,21 +8,23 @@ using System.Web;
 /// </summary>
 public class User
 {
-    public int uid { get; private set; }
+    public Guid uid { get; set; }
     public string name { get; set; }
-    public string password { get; set; }
     public string email { get; set; }
     public string location { get; set; }
+    public byte[] photo { get; set; }
 
-	public User(string name, string password)
+	public User(string name, string email)
 	{
         this.name = name;
-        this.password = password;
+        this.email = email;
+        photo = new byte[1];
+        location = "";
 		//
 		// TODO: Add constructor logic here
 		//
 	}
-    public User(int uid, string name, string password) : this(name,password)
+    public User(Guid uid, string name, string email) : this(name,email)
     {
         this.uid = uid;
     }

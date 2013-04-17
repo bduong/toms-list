@@ -9,7 +9,7 @@ using System.Web;
 public class Listing
 {
     public int uid { get; set; }
-    public int userId { get; set; }
+    public Guid userId { get; set; }
     public string title { get; set; }
     public string description { get; set; }
     public string location { get; set; }
@@ -17,15 +17,17 @@ public class Listing
     public DateTime date { get; set; }
 
 
-	public Listing(int userId, string title, string location, DateTime date)
+	public Listing(Guid userId, string title, string location, DateTime date)
 	{
         this.userId = userId;
         this.title = title;
         this.location = location;
         this.date = date;
+        this.description = "";
+        this.tags = new List<String>();
 	}
 
-    public Listing(int uid, int userId, string title, string location, DateTime date)
+    public Listing(int uid, Guid userId, string title, string location, DateTime date)
         : this(userId, title, location, date)
     {
         this.uid = uid;
