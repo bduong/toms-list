@@ -69,12 +69,12 @@ public class ListingDataService
     {
         conn.Open();
         SqlCommand cmd = new SqlCommand("INSERT INTO Listing (UserId, Title, Description, Location, Date) VALUES (@UserId, @Title, @Description, @Location, @Date); SELECT SCOPE_IDENTITY()", conn);
-        cmd.Parameters.AddWithValue("@User", listing.userId);
+        cmd.Parameters.AddWithValue("@UserId", listing.userId);
         cmd.Parameters.AddWithValue("@Title", listing.title);
         cmd.Parameters.AddWithValue("@Description", listing.description);
         cmd.Parameters.AddWithValue("@Location", listing.location);
         cmd.Parameters.AddWithValue("@Date", listing.date);
-        int uid = (int)cmd.ExecuteScalar();
+        int uid = Convert.ToInt32(cmd.ExecuteScalar());
         conn.Close();
         listing.uid = uid;
 
