@@ -11,4 +11,8 @@ public partial class AddListing : System.Web.UI.Page
     {
 
     }
+    protected void searchButton_Click(object sender, EventArgs e)
+    {
+
+    }
 }
