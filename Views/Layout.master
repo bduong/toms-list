@@ -13,7 +13,7 @@
     <script type="text/javascript" src="../public/js/script.js"></script>
 
 </head>
-<body>
+<body runat="server">
 
     <div id="main-frame">
         <header>    
@@ -27,8 +27,27 @@
             </div>
         </header>
         <hr />
+
+
         <form id="form1" runat="server">
-            
+
+                <nav>
+                    <ul id="menu" runat="server">
+                        <li>
+                            <asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">Search</asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">Post</asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">Profile</asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">Notifications</asp:LinkButton>
+                        </li>
+                    </ul>
+                </nav>
+
                 <asp:ContentPlaceHolder id="MainContent" runat="server">
 
                 </asp:ContentPlaceHolder>

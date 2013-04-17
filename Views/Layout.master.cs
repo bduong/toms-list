@@ -11,4 +11,22 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
     {
 
     }
+
+    protected void go_search(object sender, EventArgs e)
+    {
+        Response.Redirect("./Search.aspx");
+    }
+    protected void go_post(object sender, EventArgs e)
+    {
+        Response.Redirect("./Post.aspx");
+    }
+    protected void go_profile(object sender, EventArgs e)
+    {
+        Response.Redirect("./Profile.aspx");
+    }
+    protected void go_notifications(object sender, EventArgs e)
+    {
+        Response.Redirect("./Notifications.aspx");
+    }
+
 }
