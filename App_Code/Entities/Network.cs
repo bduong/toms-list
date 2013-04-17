@@ -17,6 +17,11 @@ public class Network
 		// TODO: Add constructor logic here
 		//
 	}
+    public Network(string name, string pattern)
+    {
+        this.name = name;
+        this.pattern = pattern;
+    }
     public Network(Guid id, string name, string pattern)
     {
         this.id = id;

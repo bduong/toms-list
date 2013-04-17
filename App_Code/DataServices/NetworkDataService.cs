@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 /// </summary>
 public class NetworkDataService
 {
-    private const string LISTING_TABLE_NAME = "Network"; 
+    private const string NETWORKS_TABLE_NAME = "Networks"; 
     private static string connectionString = DBConnector.getConnectionString();
     private static SqlConnection conn = new SqlConnection(connectionString);
 
@@ -21,20 +21,10 @@ public class NetworkDataService
 		//
 	}
 
-    public static Network createNewNetwork(Network newNetwork)
-    {
-        return new Network();
-    }
-
-    public static Boolean deleteNetwork(int id)
-    {
-        return false;
-    }
-
     public static Network getNetwork(int id)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("SELECT * FROM Network where NetworkId = @NetworkId", conn);
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Networks where NetworkId = @NetworkId", conn);
         cmd.Parameters.AddWithValue("@NetworkId", id);
 
         SqlDataReader reader = cmd.ExecuteReader();
@@ -54,12 +44,12 @@ public class NetworkDataService
         SqlCommand cmd;
         if (limit > 0)
         {
-            cmd = new SqlCommand("SELECT * FROM Network where " + columnName + " = @Value LIMIT 0, @Limit", conn);
+            cmd = new SqlCommand("SELECT * FROM Networks where " + columnName + " = @Value LIMIT 0, @Limit", conn);
             cmd.Parameters.AddWithValue("@Limit", limit);
         }
         else
         {
-            cmd = new SqlCommand("SELECT * FROM Network where " + columnName + " = @Value", conn);
+            cmd = new SqlCommand("SELECT * FROM Networks where " + columnName + " = @Value", conn);
         }
         cmd.Parameters.AddWithValue("@Value", value);
         SqlDataReader reader = cmd.ExecuteReader();
@@ -76,13 +66,13 @@ public class NetworkDataService
         return networks;
     }
 
-    public static Network addListing(Network network)
+    public static Network addNetwork(Network network)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("INSERT INTO Network (name, pattern) VALUES (@name, @pattern); SELECT SCOPE_IDENTITY()", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO Networks (Name, Match_Pattern) VALUES (@name, @pattern); SELECT SCOPE_IDENTITY()", conn);
         cmd.Parameters.AddWithValue("@name", network.name);
         cmd.Parameters.AddWithValue("@pattern", network.pattern);
-        int id = (int)cmd.ExecuteScalar();
+        Guid id = (Guid)cmd.ExecuteScalar();
         conn.Close();
         network.id = id;
 
@@ -92,7 +82,7 @@ public class NetworkDataService
     public static Boolean deleteNetwork(String id)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("DELETE FROM Network where id = @id", conn);
+        SqlCommand cmd = new SqlCommand("DELETE FROM Networks where NetworkId = @id", conn);
         cmd.Parameters.AddWithValue("@id", id);
 
         int rowsAffected = cmd.ExecuteNonQuery();
@@ -103,7 +93,7 @@ public class NetworkDataService
     public static Boolean updateListing(String idToUpdate, Network newNetwork)
     {
         conn.Open();
-        SqlCommand cmd = new SqlCommand("UPDATE Network SET name = @name, pattern = @pattern WHERE id = @id");
+        SqlCommand cmd = new SqlCommand("UPDATE Networks SET Name = @name, Match_Pattern = @pattern WHERE NetworkId = @id");
         cmd.Parameters.AddWithValue("@name", newNetwork.name);
         cmd.Parameters.AddWithValue("@pattern", newNetwork.pattern);
         cmd.Parameters.AddWithValue("@id", idToUpdate);
@@ -117,9 +107,9 @@ public class NetworkDataService
 
     public class ColumnNames
     {
-        public static String Id = "id";
-        public static String Name = "name";
-        public static String Pattern = "pattern";
+        public static String Id = "NetworkId";
+        public static String Name = "Name";
+        public static String Pattern = "Match_Pattern";
 
     }
 }
