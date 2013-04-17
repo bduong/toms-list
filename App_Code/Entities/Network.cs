@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class Network
 {
-    public int id { get; set; }
+    public Guid id { get; set; }
     public string name { get; set; }
     public string pattern { get; set; }
 	public Network()
@@ -17,4 +17,10 @@ public class Network
 		// TODO: Add constructor logic here
 		//
 	}
+    public Network(Guid id, string name, string pattern)
+    {
+        this.id = id;
+        this.name = name;
+        this.pattern = pattern;
+    }
 }
