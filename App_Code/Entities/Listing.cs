@@ -23,6 +23,8 @@ public class Listing
         this.title = title;
         this.location = location;
         this.date = date;
+        this.description = "";
+        this.tags = new List<String>();
 	}
 
     public Listing(int uid, Guid userId, string title, string location, DateTime date)

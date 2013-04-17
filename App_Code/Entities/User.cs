@@ -18,6 +18,8 @@ public class User
 	{
         this.name = name;
         this.email = email;
+        photo = new byte[1];
+        location = "";
 		//
 		// TODO: Add constructor logic here
 		//

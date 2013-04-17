@@ -12,7 +12,7 @@
         <div class="wrapper">
             <div class="header">header</div>
             <div class="content">
-                <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" ContinueDestinationPageUrl="~/private/MainPage.aspx">
+                <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" ContinueDestinationPageUrl="~/private/MainPage.aspx" OnCreatedUser="CreateUserWizard1_CreatedUser">
                     <WizardSteps>
                         <asp:CreateUserWizardStep runat="server" />
                         <asp:CompleteWizardStep runat="server" />
