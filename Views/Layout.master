@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Layout.master.cs" Inherits="Views_MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Tomslist | Boston University Craigslist</title>
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../public/css/style.css">
+
+    <!-- javascript -->
+    <script type="text/javascript" src="../public/js/script.js"></script>
+
+</head>
+<body>
+
+    <div id="main-frame">
+        <header>    
+            <div id="masthead" class="left">
+                TomsList
+                <br />
+                Boston University
+            </div>
+            <div id="login" class="right">
+                Login
+            </div>
+        </header>
+        <hr />
+        <form id="form1" runat="server">
+            
+                <asp:ContentPlaceHolder id="MainContent" runat="server">
+
+                </asp:ContentPlaceHolder>
+        
+        </form>
+        <hr />
+        <footer>
+            <div id="copyright" class="right">
+                Footer
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

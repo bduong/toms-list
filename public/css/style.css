@@ -1,2 +1,32 @@
 ﻿body {
+    background-color: #188;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+header {
+    height: 100px;
+    padding: 30px;
+}
+
+footer {
+    height: 100px;
+    padding: 30px;
+}
+
+#main-frame {
+    background-color: #fff;
+}
+#main-content {
+    height: 500px;
+    padding: 30px;
+}
+
+.left {
+    position: relative;
+    float: left;
+}
+
+.right {
+    position: relative;
+    float: right;
 }
