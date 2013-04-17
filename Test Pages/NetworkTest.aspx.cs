@@ -9,7 +9,7 @@ public partial class Test_Pages_NetworkTest : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Network network = new Network("Boston", "Pattern");
+        Network network = new Network("Boston", "*bu.edu");
         Network newNetwork = NetworkDataService.addNetwork(network);
         network_id.Text = newNetwork.id.ToString();
         

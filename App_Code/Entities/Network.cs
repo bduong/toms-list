@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class Network
 {
-    public Guid id { get; set; }
+    public int id { get; set; }
     public string name { get; set; }
     public string pattern { get; set; }
 	public Network()
@@ -22,7 +22,7 @@ public class Network
         this.name = name;
         this.pattern = pattern;
     }
-    public Network(Guid id, string name, string pattern)
+    public Network(int id, string name, string pattern)
     {
         this.id = id;
         this.name = name;

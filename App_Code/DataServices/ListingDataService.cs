@@ -11,11 +11,10 @@ public class ListingDataService
 {
 
     private const string LISTING_TABLE_NAME = "Listing";    
-    private static string connectionString = DBConnector.getConnectionString();
-    private static SqlConnection conn = new SqlConnection(connectionString);
 
     public static Listing getListing(String id)
     {
+        SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("SELECT * FROM Listing where ListingId = @ListingId", conn);
         cmd.Parameters.AddWithValue("@ListingId", id);
@@ -36,6 +35,7 @@ public class ListingDataService
     
     public static List<Listing> getListingsBy(String columnName, String value, int limit = 0)
     {
+        SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd;
         if (limit > 0)
@@ -67,6 +67,7 @@ public class ListingDataService
 
     public static Listing addListing(Listing listing)
     {
+        SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("INSERT INTO Listing (UserId, Title, Description, Location, Date) VALUES (@UserId, @Title, @Description, @Location, @Date); SELECT SCOPE_IDENTITY()", conn);
         cmd.Parameters.AddWithValue("@UserId", listing.userId);
@@ -83,6 +84,7 @@ public class ListingDataService
 
     public static Boolean deleteListing(String id)
     {
+        SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("DELETE FROM Listing where ListingId = @ListingId", conn);
         cmd.Parameters.AddWithValue("@ListingId", id);
@@ -94,6 +96,7 @@ public class ListingDataService
 
     public static Boolean updateListing(String idToUpdate, Listing newListing)
     {
+        SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("UPDATE Listing SET UserId = @UserId, Title = @Title, Description = @Description, Location = @Location, Date = @Date WHERE ListingId = @ListingId");
         cmd.Parameters.AddWithValue("@UserId", newListing.userId);
