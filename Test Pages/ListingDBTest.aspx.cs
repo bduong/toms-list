@@ -14,6 +14,12 @@ public partial class Test_Pages_ListingDBTest : System.Web.UI.Page
         {
             OUT.Text += listing[i].title;
         }
+
+        Guid guid = new Guid();
+        guid = Guid.NewGuid();
+        Listing newListing = new Listing(guid, "Chair", "Fenway", DateTime.Now);
+        ListingDataService.addListing(newListing);
+
        
     }
 }
