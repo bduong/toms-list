@@ -15,8 +15,9 @@ public partial class Test_Pages_ListingDBTest : System.Web.UI.Page
             OUT.Text += listing[i].title;
         }*/
 
+        decimal price = 300;
         Guid guid = new Guid("70d833c6-83e3-419d-b4e2-d61ce2bb668f");
-        Listing newListing = new Listing(guid, "Chair", "Fenway", DateTime.Now);
+        Listing newListing = new Listing(guid, "Chair", "Good quality chair", price, "Fenway", DateTime.Now);
         newListing.description = "hello";
         ListingDataService.addListing(newListing);
 
