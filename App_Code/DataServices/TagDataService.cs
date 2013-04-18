@@ -34,6 +34,23 @@ public class TagDataService
         return new Tag(id, name);
 
     }
+    public static List<Tag> getTagsByName(string name)
+    {
+        List<Tag> returnList = new List<Tag>();
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Tags where Name = @Name", conn);
+        cmd.Parameters.AddWithValue("@Name", name);
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            int id = (int)reader["TagId"];
+            Tag t = new Tag(id, name);
+            returnList.Add(t);
+        }
+        conn.Close();
+        return returnList;
+    }
 
     public static Boolean deleteTag(Tag tag)
     {

@@ -112,6 +112,25 @@ public class ListingDataService
         return (rowsAffected > 0);
     }
 
+    public static List<int> getListingOfTag(String id)
+    {
+        List<int> returnList = new List<int>();
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM ListingTags where TagId = @TagId", conn);
+        cmd.Parameters.AddWithValue("@TagId", id);
+
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            int listingId = (int)reader["ListingId"];
+            returnList.Add(listingId);
+        }
+        conn.Close();
+
+        return returnList;
+    }
+
     public static class ColumnNames
     {
         public static string ListingId = "ListingId";

@@ -1,38 +1,118 @@
-﻿body {
-    background-color: #188;
-    padding-left: 50px;
-    padding-right: 50px;
+﻿/* Global */
+html {
+    background: url('../../public/img/grey_wash_wall.png') repeat;
+
+    background-size: 50px 50px;
+    background-color: #0ae;
+    background-image: -webkit-linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+    background-image: -moz-linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+    background-image: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+    -pie-background: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent) 0 0 / 50px #0ae;
+
+}
+body {
+    //background-color: #188;
+    padding-left: 100px;
+    padding-right: 100px;
+    font-family: Calibri;
+
+
 }
 header {
-    height: 100px;
+    height: 80px;
     padding: 30px;
+
 }
 
 footer {
-    height: 100px;
+    height: 80px;
     padding: 30px;
 }
 
+hr {
+    height: 1px;
+    border: 0;
+    background-color: #999;
+
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+
+}
+
+h1 {
+    font-family: 'Fjalla One';
+    line-height: 10px;
+    color: #333;
+    //letter-spacing: 9px;
+
+}
+
+h2 {
+    font-family: Calibri;
+    font-family: 'Fjalla One';
+    line-height: 10px;
+    color: #333;
+    font-family: 'Fjalla One';
+}
+
+/* Master Page */
+
 #main-frame {
     background-color: #fff;
+    //box-shadow: 0px 0px 9px #000;
+    border-bottom-right-radius: 10px;
+    border-top-left-raduis: 10px;
+
 }
 #main-content {
 
     padding: 30px;
     margin: auto;
-   // width: 200px;
+    height: 400px;
+    
+}
+
+/* Search */
+#search {
+    padding: 10px;
+}
+
+#hr_search {
+    width: 900px;
+    background-color: #aaa;
+}
+
+.featured {
+    width: 300px;
+    height: 300px;
+    background-color: #ddd;
 }
 
 nav #menu {
-    text-align: center;
+    text-align: center;    
 }
+
 nav #menu li {
     list-style: none;
     display: inline;
+    width: 400px;
+    
 
     padding-left: 10px;
     padding-right: 20px;
+
+
 }
+    nav #menu li a {
+        text-decoration: none;
+    }
+        nav #menu li a:hover {
+            color: #ff6a00;
+        }
 
 .left {
     position: relative;
