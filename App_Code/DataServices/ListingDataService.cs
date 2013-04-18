@@ -26,7 +26,7 @@ public class ListingDataService
         Guid userId = (Guid)reader[ColumnNames.UserId];
         string title = (string)reader[ColumnNames.Title];
         string description = (string)reader[ColumnNames.Description];
-        decimal price = (decimal)reader[ColumnNames.Price];
+        decimal price = Convert.ToDecimal(reader[ColumnNames.Price]);
         string location = (string)reader[ColumnNames.Location];
         DateTime date = (DateTime)reader[ColumnNames.Date];
         conn.Close();
