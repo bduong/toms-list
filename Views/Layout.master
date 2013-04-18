@@ -7,7 +7,7 @@
     <title>Tomslist | Boston University Craigslist</title>
 
     <!-- stylesheets -->
-    <link rel="stylesheet" type="text/css" href="../public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/styles.css">
 
     <!-- javascript -->
     <script type="text/javascript" src="../public/js/script.js"></script>
@@ -18,33 +18,22 @@
     <div id="main-frame">
         <header>    
             <div id="masthead" class="left">
-                TomsList
-                <br />
-                Boston University
+                <h2>Boston University Craigslist</h2>
             </div>
-            <div id="login" class="right">
+            <!--div id="login" class="right">
                 Login
-            </div>
+            </div-->
         </header>
         <hr />
 
 
         <form id="form1" runat="server">
-
                 <nav>
                     <ul id="menu" runat="server">
-                        <li>
-                            <asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">Search</asp:LinkButton>
-                        </li>
-                        <li>
-                            <asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">Post</asp:LinkButton>
-                        </li>
-                        <li>
-                            <asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">Profile</asp:LinkButton>
-                        </li>
-                        <li>
-                            <asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">Notifications</asp:LinkButton>
-                        </li>
+                        <li><asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">Search</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">Post</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">Profile</asp:LinkButton></li>
+                        <li><asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">Notifications</asp:LinkButton></li>
                     </ul>
                 </nav>
 

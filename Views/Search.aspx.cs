@@ -9,6 +9,30 @@ public partial class Views_Landing : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        fr_view.ActiveViewIndex = 0;
+    }
+
+    protected void search(object sender, EventArgs e)
+    {
+        fr_view.ActiveViewIndex = 1;
+
+        /* get values from database table */
+        string[] words = search_box.Text.Split(' ');
+        foreach (string word in words)
+        {
+            List<Tag> taglist = TagDataService.getTagsByName(word);
+            foreach(Tag tag in taglist) {
+                String id = tag.id.ToString();
+                List<int> listingIds = ListingDataService.getListingOfTag(id);
+                foreach (int listingId in listingIds)
+                {
+                    Listing listing = ListingDataService.getListing(listingId.ToString());
+                    ListBox1.Items.Add(new ListItem(listing.title, listing.description));
+                }
+            }
+        }
+       
+
 
     }
 }
