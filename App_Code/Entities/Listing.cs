@@ -17,18 +17,19 @@ public class Listing
     public DateTime date { get; set; }
 
 
-	public Listing(Guid userId, string title, string location, DateTime date)
+	public Listing(Guid userId, string title, string description, string location, DateTime date)
 	{
         this.userId = userId;
         this.title = title;
         this.location = location;
+        this.description = description;
         this.date = date;
         this.description = "";
         this.tags = new List<String>();
 	}
 
-    public Listing(int uid, Guid userId, string title, string location, DateTime date)
-        : this(userId, title, location, date)
+    public Listing(int uid, Guid userId, string title, string description, string location, DateTime date)
+        : this(userId, title, description, location, date)
     {
         this.uid = uid;
     }

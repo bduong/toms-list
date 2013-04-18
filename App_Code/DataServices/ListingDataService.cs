@@ -25,11 +25,12 @@ public class ListingDataService
         int uid = (int) reader[ColumnNames.ListingId];
         Guid userId = (Guid)reader[ColumnNames.UserId];
         string title = (string)reader[ColumnNames.Title];
+        string description = (string)reader[ColumnNames.Description];
         string location = (string)reader[ColumnNames.Location];
         DateTime date = (DateTime)reader[ColumnNames.Date];
         conn.Close();
 
-        return new Listing(uid, userId, title, location, date);
+        return new Listing(uid, userId, title, description, location, date);
     }
 
     
@@ -56,9 +57,10 @@ public class ListingDataService
             int uid = (int)reader[ColumnNames.ListingId];
             Guid userId = (Guid)reader[ColumnNames.UserId];
             string title = (string)reader[ColumnNames.Title];
+            string description = (string)reader[ColumnNames.Description];
             string location = (string)reader[ColumnNames.Location];
             DateTime date = (DateTime)reader[ColumnNames.Date];
-            listings.Add(new Listing(uid, userId, title, location, date));
+            listings.Add(new Listing(uid, userId, title, description, location, date));
         }
         conn.Close();
 
