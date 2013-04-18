@@ -48,9 +48,12 @@
                     </ul>
                 </nav>
 
-                <asp:ContentPlaceHolder id="MainContent" runat="server">
+                <div id="main-content" style="text-align: center">
+                    <asp:ContentPlaceHolder id="MainContent" runat="server">
 
-                </asp:ContentPlaceHolder>
+                    </asp:ContentPlaceHolder>
+                </div>
+
         
         </form>
         <hr />

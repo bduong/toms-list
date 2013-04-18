@@ -17,8 +17,10 @@ footer {
     background-color: #fff;
 }
 #main-content {
-    height: 500px;
+
     padding: 30px;
+    margin: auto;
+   // width: 200px;
 }
 
 .left {
@@ -30,3 +32,26 @@ footer {
     position: relative;
     float: right;
 }
+
+.inline {
+    display: inline;
+}
+
+
+fieldset {
+    border: none;
+    //width: 600px;
+    margin: 0px;
+}
+.form_label {
+    display:inline-block;
+    width:100px;
+    margin-right:30px;
+    text-align:right;
+    vertical-align: top;
+}
+.form_field {
+    width: 200px;
+}
+
+

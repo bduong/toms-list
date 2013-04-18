@@ -9,7 +9,7 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Redirect("./TL-basiclayout/MainPage.aspx");
-       // Response.Redirect("./Views/Search.aspx");
+        // Response.Redirect("./TL-basiclayout/MainPage.aspx");
+        Response.Redirect("./Views/Search.aspx");
     }
 }
