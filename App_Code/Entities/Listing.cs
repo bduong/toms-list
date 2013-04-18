@@ -24,7 +24,7 @@ public class Listing
         this.location = location;
         this.description = description;
         this.date = date;
-        this.description = "";
+        this.description = description;
         this.tags = new List<String>();
 	}
 

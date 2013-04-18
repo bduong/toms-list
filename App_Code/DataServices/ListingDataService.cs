@@ -29,8 +29,8 @@ public class ListingDataService
         string location = (string)reader[ColumnNames.Location];
         DateTime date = (DateTime)reader[ColumnNames.Date];
         conn.Close();
-
-        return new Listing(uid, userId, title, description, location, date);
+        Listing returnListing = new Listing(userId, title, description, location, date);
+        return returnListing;
     }
 
     
