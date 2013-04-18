@@ -27,7 +27,7 @@ public partial class Views_Landing : System.Web.UI.Page
                 foreach (int listingId in listingIds)
                 {
                     Listing listing = ListingDataService.getListing(listingId.ToString());
-                    String objectHTML = "<div><p>" + listing.title + "</p><p>" + listing.description + "</p><p>" + listing.date.ToString() + "</p></div><br/>";
+                    String objectHTML = "<div><p>" + listing.title + "</p><p>" + listing.description + "</p><p>" + listing.date.ToString() + "</p></div><br/><br/>";
                     results.InnerHtml += objectHTML;
                     ListBox1.Items.Add(new ListItem(listing.description, listing.description));
                 }
