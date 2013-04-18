@@ -26,10 +26,11 @@ public class ListingDataService
         Guid userId = (Guid)reader[ColumnNames.UserId];
         string title = (string)reader[ColumnNames.Title];
         string description = (string)reader[ColumnNames.Description];
+        decimal price = (decimal)reader[ColumnNames.Price];
         string location = (string)reader[ColumnNames.Location];
         DateTime date = (DateTime)reader[ColumnNames.Date];
         conn.Close();
-        Listing returnListing = new Listing(userId, title, description, location, date);
+        Listing returnListing = new Listing(userId, title, description, price, location, date);
         return returnListing;
     }
 
@@ -58,9 +59,10 @@ public class ListingDataService
             Guid userId = (Guid)reader[ColumnNames.UserId];
             string title = (string)reader[ColumnNames.Title];
             string description = (string)reader[ColumnNames.Description];
+            decimal price = (decimal)reader[ColumnNames.Price];
             string location = (string)reader[ColumnNames.Location];
             DateTime date = (DateTime)reader[ColumnNames.Date];
-            listings.Add(new Listing(uid, userId, title, description, location, date));
+            listings.Add(new Listing(uid, userId, title, description, price, location, date));
         }
         conn.Close();
 
@@ -71,10 +73,11 @@ public class ListingDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("INSERT INTO Listing (UserId, Title, Description, Location, Date) VALUES (@UserId, @Title, @Description, @Location, @Date); SELECT SCOPE_IDENTITY()", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO Listing (UserId, Title, Description, Price, , Location, Date) VALUES (@UserId, @Title, @Description, @Price, @Location, @Date); SELECT SCOPE_IDENTITY()", conn);
         cmd.Parameters.AddWithValue("@UserId", listing.userId);
         cmd.Parameters.AddWithValue("@Title", listing.title);
         cmd.Parameters.AddWithValue("@Description", listing.description);
+        cmd.Parameters.AddWithValue("@Price", listing.price);
         cmd.Parameters.AddWithValue("@Location", listing.location);
         cmd.Parameters.AddWithValue("@Date", listing.date);
         int uid = Convert.ToInt32(cmd.ExecuteScalar());
@@ -100,10 +103,11 @@ public class ListingDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("UPDATE Listing SET UserId = @UserId, Title = @Title, Description = @Description, Location = @Location, Date = @Date WHERE ListingId = @ListingId");
+        SqlCommand cmd = new SqlCommand("UPDATE Listing SET UserId = @UserId, Title = @Title, Description = @Description, Price = @Price, Location = @Location, Date = @Date WHERE ListingId = @ListingId");
         cmd.Parameters.AddWithValue("@UserId", newListing.userId);
         cmd.Parameters.AddWithValue("@Title", newListing.title);
         cmd.Parameters.AddWithValue("@Description", newListing.description);
+        cmd.Parameters.AddWithValue("@Price", newListing.price);
         cmd.Parameters.AddWithValue("@Location", newListing.location);
         cmd.Parameters.AddWithValue("@Date", newListing.date);
         cmd.Parameters.AddWithValue("@ListingId", idToUpdate);
@@ -139,6 +143,7 @@ public class ListingDataService
         public static string UserId = "UserId";
         public static string Title = "Title";
         public static string Description = "Description";
+        public static string Price = "Price";
         public static string Location = "Location";
         public static string Date = "Date";
     }
