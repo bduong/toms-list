@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿body {
 
 }
@@ -30,47 +29,8 @@ font-family:Comic Sans MS;
     text-align: center;
 }
 
-.columns
-{
-columns:100px 3;
--webkit-columns:100px 3; /* Safari and Chrome */
--moz-columns:100px 3; /* Firefox */
-=======
-﻿body {
-
-}
-h1
-{
-color:Blue;
-background-color:Yellow;
-font-family:Comic Sans MS;
-}
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -44px; /* -44px being the size of the footer */
-    width: 1000px;
-}
-
-.header {
-    height: 86px;
-    background-color: cadetblue;
-}
-
-.push {
-    height: 44px;
-    background-color: azure;
-}
-
-.footer {
-    text-align: center;
-}
-
-.columns
-{
-columns:100px 3;
--webkit-columns:100px 3; /* Safari and Chrome */
--moz-columns:100px 3; /* Firefox */
->>>>>>> a50fd820358d7239a9cff682c1f2c97d67eed80e
+.columns {
+    columns: 100px 3;
+    -webkit-columns: 100px 3; /* Safari and Chrome */
+    -moz-columns: 100px 3; /* Firefox */
 }

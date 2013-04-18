@@ -22,7 +22,7 @@
                     <asp:Login ID="Login1" runat="server" BackColor="#F7F7DE" BorderColor="#CCCC99" BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" Font-Size="10pt">
                         <TitleTextStyle BackColor="#6B696B" Font-Bold="True" ForeColor="#FFFFFF" />
                     </asp:Login>
-                    <asp:Button ID="loggedin" runat="server" Text="Logged In" PostBackUrl="~/MainPage.aspx" />
+                    <asp:Button ID="loggedin" runat="server" Text="Logged In" PostBackUrl="~/TL-basiclayout/MainPage.aspx" />
                 </div>
                 <br />
                 <br />
