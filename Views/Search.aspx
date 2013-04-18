@@ -11,13 +11,15 @@
             <asp:View ID="view_featured" runat="server">
                 <table id="table_featured" align="center">
                     <tr>
-                        <td class="featured">&nbsp;</td>
-                        <td class="featured"></td>
-                        <td class="featured"></td>
+                        <td id="featured1" class="featured"></td>
+                        <td id="featured2" class="featured"></td>
+                        <td id="featured3" class="featured"></td>
                     </tr>
                 </table>
             </asp:View>
             <asp:View ID="view_results" runat="server">
+                <div id="results" runat="server">
+                </div>
                 <asp:ListBox ID="ListBox1" runat="server"></asp:ListBox>
             </asp:View>
         </asp:MultiView>
