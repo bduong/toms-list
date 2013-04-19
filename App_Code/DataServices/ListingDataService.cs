@@ -180,6 +180,4 @@ public class ListingDataService
         public static string Location = "Location";
         public static string Date = "Date";
     }
-
-
 }

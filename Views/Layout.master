@@ -7,7 +7,7 @@
     <title>Tomslist | Boston University Craigslist</title>
 
     <!-- stylesheets -->
-    <link rel="stylesheet" type="text/css" href="../public/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/style.css">
 
     <!-- javascript -->
     <script type="text/javascript" src="../public/js/script.js"></script>
