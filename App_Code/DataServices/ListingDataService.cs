@@ -22,7 +22,7 @@ public class ListingDataService
         SqlDataReader reader = cmd.ExecuteReader();
         reader.Read();
 
-        int uid = (int) reader[ColumnNames.ListingId];
+        int ListingId = (int)reader[ColumnNames.ListingId];
         Guid userId = (Guid)reader[ColumnNames.UserId];
         string title = (string)reader[ColumnNames.Title];
         string description = (string)reader[ColumnNames.Description];
@@ -30,7 +30,7 @@ public class ListingDataService
         string location = (string)reader[ColumnNames.Location];
         DateTime date = (DateTime)reader[ColumnNames.Date];
         conn.Close();
-        Listing returnListing = new Listing(userId, title, description, price, location, date);
+        Listing returnListing = new Listing(ListingId, userId, title, description, price, location, date);
         return returnListing;
     }
 
@@ -115,7 +115,7 @@ public class ListingDataService
         cmd.Parameters.AddWithValue("@Date", listing.date);
         int uid = Convert.ToInt32(cmd.ExecuteScalar());
         conn.Close();
-        listing.uid = uid;
+        listing.ListingId = uid;
 
         return listing;
     }
