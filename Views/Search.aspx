@@ -12,9 +12,13 @@
                 featured items will show here
                 <table id="table_featured" align="center">
                     <tr>
-                        <td id="featured1" class="featured" runat="server"></td>
-                        <td id="featured2" class="featured" runat="server"></td>
-                        <td id="featured3" class="featured" runat="server"></td>
+                        <td id="featured1" class="featured" runat="server">
+                            
+                        </td>
+                        <td id="featured2" class="featured" runat="server">
+                        </td>
+                        <td id="featured3" class="featured" runat="server">
+                        </td>
                     </tr>
                 </table>
             </asp:View>

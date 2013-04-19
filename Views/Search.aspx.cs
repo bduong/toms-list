@@ -23,8 +23,8 @@ public partial class Views_Landing : System.Web.UI.Page
         
         /* get recently posted listings from database */
         returnList = ListingDataService.getRecentListings(3);
-        
-        featured1.InnerHtml = "";
+
+        featured1.InnerHtml = "<span> Recently Posted Items</span>";
         foreach (Listing listing in returnList)
             featured1.InnerHtml += createFeaturedItemDiv(listing);
     }
@@ -32,14 +32,15 @@ public partial class Views_Landing : System.Web.UI.Page
     private void putRecentApts()
     {
         List<Listing> returnList = new List<Listing>();
-        Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
-        returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
+        // Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
+        // returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
 
         /* get recently posted appartments and rooms from database */
         string[] tagslist = {"appartment", "appartments", "apt", "apts", "condo", "condos"};
         foreach (string tag in tagslist)
             returnList.AddRange(searchWithTag(tag));
 
+        featured2.InnerHtml = "<span> Nearby Appartments</span>";
         foreach (Listing listing in returnList)
             featured2.InnerHtml += createFeaturedItemDiv(listing);
     }
@@ -47,11 +48,15 @@ public partial class Views_Landing : System.Web.UI.Page
     private void putHighlights()
     {
         List<Listing> returnList = new List<Listing>();
-        Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
-        returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
+        //Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
+        //returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
+
+        string[] tagslist = { "electronics", "electro", "gadget", "device" };
+        foreach (string tag in tagslist)
+            returnList.AddRange(searchWithTag(tag));
 
         /* get most viewed items from database */
-
+        featured3.InnerHtml = "<span> Electronics / Gadgets </span>";
         foreach (Listing listing in returnList)
             featured3.InnerHtml += createFeaturedItemDiv(listing);
     }
