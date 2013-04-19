@@ -1,79 +1,128 @@
 ﻿/* Global */
-html {
-    background: url('../../public/img/grey_wash_wall.png') repeat;
+@font-face {
+    font-family: 'sosa';
+    src: url('../../public/fonts/general-foundicons.eot') format('truetype');
+}
+@font-face {
+    font-family: 'sosa';
+    src: url('../../public/fonts/general-foundicons.ttf') format('truetype');
+}
 
+html {
+    
+    /*
     background-size: 50px 50px;
     background-color: #0ae;
     background-image: -webkit-linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
     background-image: -moz-linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
     background-image: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
     -pie-background: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent) 0 0 / 50px #0ae;
+        */
+background: rgb(135,224,253); /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  rgba(135,224,253,1) 0%, rgba(83,203,241,1) 40%, rgba(5,171,224,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(135,224,253,1)), color-stop(40%,rgba(83,203,241,1)), color-stop(100%,rgba(5,171,224,1))); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+    // background: url('../../public/img/grey_wash_wall.png') repeat;
+    background-color: #d3ce95;
 
 }
 body {
     /*background-color: #188;*/
     padding-left: 100px;
     padding-right: 100px;
-    font-family: Calibri;
-
+    // font-family: Calibri;
+    font-family: 'Open Sans';
 
 }
+a {
+    font-size: 15px;
+}
+span {
+    font-size: 15px;
+}
+p {
+    font-size: 15px;
+}
 header {
-    height: 80px;
+    height: 60px;
     padding: 30px;
+    //background-color: #999;
+    //background: url('../../public/img/grey_wash_wall.png') repeat;
+    text-shadow: 0px 1px 0px #999;
 
 }
 
 footer {
     height: 80px;
     padding: 30px;
-    background-color: #188;
+   // background-color: #188;
 }
 
 hr {
     height: 1px;
     border: 0;
-    background-color: #999;
+    background-color: #fff;
+    box-shadow: 0px 1px 2px #000;
 
+    /*
     border: 0;
     height: 1px;
     background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
     background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
     background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
     background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+        */
 
 }
 
 h1 {
-    font-family: 'Fjalla One';
+    text-align: left;
+    font-family: 'Lora';
+    font-weight: 700;
     line-height: 10px;
-    color: #333;
+    // color: #333;
+    color: #fff;
+    text-shadow: 0px 1px 2px #000;
     /*letter-spacing: 9px;*/
 
 }
 
 h2 {
-    font-family: Calibri;
-    font-family: 'Fjalla One';
+    text-align: center;
+    font-family: 'Lora';
+    // text-shadow: 0px 1px 1px #fff;
+    text-shadow: 0px 1px 2px #000;
+    // font-family: 'Fjalla One';
     line-height: 10px;
-    color: #333;
-    font-family: 'Fjalla One';
+    color: #fff;
 }
 
 /* Master Page */
-
+#form {
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 5px;
+}
 #main-frame {
-    background-color: #fff;
+    //background-color: #fff;
     /*box-shadow: 0px 0px 9px #000;*/
     border-bottom-right-radius: 10px;
     border-top-left-radius: 10px;
+    //background-color: rgba(255,255,255,0.2);
+    //box-shadow: 0px 2px 1px #fff;
 
 }
 #main-content {
 
     padding: 30px;
     margin: auto;
-    height: 400px;
+    height: 600px;
+
+    
     
 }
 
@@ -88,16 +137,77 @@ h2 {
 }
 
 .featured {
-    width: 300px;
+    //width: 300px;
     height: 300px;
     background-color: #ddd;
 }
+
+.featured_item_div {
+    padding: 10px;
+}
+.featured_item_img {
+    display: inline;
+    padding: inherit;
+}
+.featured_item_title {
+    display: inline;
+    padding: inherit;
+}
+.featured_item_description {
+    display: inline;
+    padding: inherit;
+}
+.featured_item_price {
+    display: inline;
+    padding: inherit;
+}
+
+
+.search_item_div {
+    padding: 10px;
+    background-color: #eee;
+    cursor: pointer;
+}
+    .search_item_div:hover {
+        box-shadow: 0px 0px 2px #08f;
+    }
+.search_item_img {
+    display: inline;
+    padding: inherit;
+}
+.search_item_title {
+    display: inline;
+    padding: inherit;
+}
+.search_item_description {
+    display: inline;
+    padding: inherit;
+}
+.search_item_price {
+    display: inline;
+    padding: inherit;
+}
+
+.preview_item {
+    text-align: left;
+}
+
+
+
+
+
+
+
+
 
 nav #menu {
     text-align: center;    
 }
 
 nav #menu li {
+    
+    font-size: 10px;
+    
     list-style: none;
     display: inline;
     width: 400px;
@@ -145,5 +255,82 @@ fieldset {
 .form_field {
     width: 200px;
 }
+
+
+
+
+/* Notifications */
+.message_receiver_div {
+    border: 1px #000;
+}
+.message_receiver_img {
+}
+.message_receiver_user {
+}
+.message_receiver_message {
+}
+.message_receiver_date {
+}
+
+
+.message_sender_div {
+    border: 1px #000;
+}
+.message_sender_user {
+}
+.message_sender_message {
+}
+.message_sender_date {
+}
+
+
+
+.notification_div {
+    border: 1px #000;
+    color: #ff6a00;
+    background-color: #eee;
+    padding: 10px;
+    cursor: pointer;
+    height: 25px;
+    border-radius: 5px;
+}
+.notification_div:hover {
+    box-shadow: 0px 0px 1px #08f;
+}
+
+.notification_img {
+    padding: inherit;
+
+}
+.notification_user {
+    display: inline;
+    color: #333;
+    padding: inherit;
+    float: left;
+
+}
+.notification_message {
+    display: inline;
+    color: #333;
+    padding: inherit;
+    float: left;
+}
+.notification_date {
+    display: inline;
+    color: #333;
+    padding: inherit;
+    float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
