@@ -28,6 +28,7 @@ public class Listing
         this.date = date;
         this.description = description;
         this.tags = new List<String>();
+        price = 0;
 	}
 
     public Listing(int uid, Guid userId, string title, string description, decimal price, string location, DateTime date)
