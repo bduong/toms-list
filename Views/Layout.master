@@ -11,6 +11,11 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lora:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>
 
     <!-- javascript -->
     <script type="text/javascript" src="../public/js/script.js"></script>
@@ -19,19 +24,40 @@
 <body runat="server">
 
     <div id="main-frame">
+        <form id="form1" runat="server">
         <header>    
             <div id="masthead" class="left">
                 <h1>Tomslist</h1>
-                <h2>Boston University Craigslist</h2>
+                <div id="div-h2">
+                    <h2>Boston University Craigslist</!h2>
+                </div>
+                
+            </div>
+            <div id="login" class="right">
+                <table vertical-align="center">
+                    <tr>
+                        <td>
+                            <span class="ep">Email</span><br />
+                            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox><br />
+                            <asp:CheckBox ID="CheckBox1" runat="server" /> 
+                            <span class="login-option">Keep Me Logged In</span>
+                        </td>
+                        <td>
+                            <span class="ep">Password</span><br />
+                            <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox><br />
+                            <span class="login-option">Forgot Your Password?</span>
+                            
+                        </td>
+                    </tr>
+                </table>
+                
             </div>
             <!--div id="login" class="right">
                 Login
             </div-->
         </header>
-        <hr />
-
-
-        <form id="form1" runat="server">
+        <!--hr /-->
+        
             <div id="form">
 
             
@@ -43,6 +69,8 @@
                         <li><asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">Notifications</asp:LinkButton></li>
                     </ul>
                 </nav>
+                <!--hr id="stitch" /-->
+                <hr id="hr-top" />
 
                 <div id="main-content" style="text-align: center">
                     <asp:ContentPlaceHolder id="MainContent" runat="server">
@@ -52,7 +80,6 @@
 
             </div>
         </form>
-        <hr />
         <footer>
             <div id="copyright" class="right">
                 Footer
