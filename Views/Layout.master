@@ -8,6 +8,9 @@
 
     <!-- stylesheets -->
     <link rel="stylesheet" type="text/css" href="../public/css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lora:700' rel='stylesheet' type='text/css'>
 
     <!-- javascript -->
     <script type="text/javascript" src="../public/js/script.js"></script>
@@ -18,6 +21,7 @@
     <div id="main-frame">
         <header>    
             <div id="masthead" class="left">
+                <h1>Tomslist</h1>
                 <h2>Boston University Craigslist</h2>
             </div>
             <!--div id="login" class="right">
@@ -28,6 +32,9 @@
 
 
         <form id="form1" runat="server">
+            <div id="form">
+
+            
                 <nav>
                     <ul id="menu" runat="server">
                         <li><asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">Search</asp:LinkButton></li>
@@ -43,7 +50,7 @@
                     </asp:ContentPlaceHolder>
                 </div>
 
-        
+            </div>
         </form>
         <hr />
         <footer>

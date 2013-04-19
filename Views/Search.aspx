@@ -14,21 +14,25 @@
     <div id="featured-results">
         <asp:MultiView ID="fr_view" runat="server">
             <asp:View ID="view_item" runat="server">
-                <table>
+                <table align="center">
                     <tr>
                         <td>
                             <img />
                         </td>
                         <td>
-                            <asp:Label ID="Label1" runat="server" Text="Label">Title:</asp:Label><asp:Label ID="view_item_title" runat="server" Text="Label"></asp:Label><br />
-                            <asp:Label ID="Label3" runat="server" Text="Label">Description:</asp:Label><asp:Label ID="view_item_description" runat="server" Text="Label"></asp:Label><br />
-                            <asp:Label ID="Label4" runat="server" Text="Label">Price:</asp:Label><asp:Label ID="view_item_price" runat="server" Text="Label"></asp:Label><br />
-                            <asp:Label ID="Label2" runat="server" Text="Label">Location:</asp:Label><asp:Label ID="view_item_location" runat="server" Text="Label"></asp:Label><br />
-                            <asp:Label ID="Label5" runat="server" Text="Label">Posting Date: </asp:Label><asp:Label ID="view_item_date" runat="server" Text="Label"></asp:Label><br />
-                            <asp:Label ID="Label6" runat="server" Text="Label">Seller:</asp:Label><asp:Label ID="view_item_user" runat="server" Text="Label"></asp:Label><br /><br />
-                            <asp:Label ID="Label7" runat="server" Text="Label">Contact Seller:</asp:Label>
-                            <textarea id="TextArea1" cols="20" rows="2" runat="server"></textarea>
-                            <asp:Button ID="Button2" runat="server" Text="Button" />
+                            <div class="preview_item">
+                                <fieldset>
+                                    <asp:Label ID="Label1" class="form_label" runat="server" Text="Label">Title: </asp:Label><asp:Label ID="view_item_title" runat="server" Text="Label"></asp:Label><br />
+                                    <asp:Label ID="Label3" class="form_label" runat="server" Text="Label">Description: </asp:Label><asp:Label ID="view_item_description" runat="server" Text="Label"></asp:Label><br />
+                                    <asp:Label ID="Label4" class="form_label" runat="server" Text="Label">Price: </asp:Label><asp:Label ID="view_item_price" runat="server" Text="Label"></asp:Label><br />
+                                    <asp:Label ID="Label2" class="form_label" runat="server" Text="Label">Location: </asp:Label><asp:Label ID="view_item_location" runat="server" Text="Label"></asp:Label><br />
+                                    <asp:Label ID="Label5" class="form_label" runat="server" Text="Label">Posting Date: </asp:Label><asp:Label ID="view_item_date" runat="server" Text="Label"></asp:Label><br />
+                                    <asp:Label ID="Label6" class="form_label" runat="server" Text="Label">Seller:</asp:Label><asp:Label ID="view_item_user" runat="server" Text="Label"></asp:Label><br /><br />
+                                    <asp:Label ID="Label7" class="form_label" runat="server" Text="Label">Contact Seller:</asp:Label>
+                                    <textarea id="TextArea1" cols="20" rows="2" runat="server"></textarea>
+                                    <asp:Button ID="Button2" runat="server" Text="Button" />
+                                </fieldset>
+                            </div>
                         </td>
                     </tr>
                 </table>

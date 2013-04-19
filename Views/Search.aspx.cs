@@ -167,7 +167,7 @@ public partial class Views_Landing : System.Web.UI.Page
         
         //objectHTML = "<input type=\"button\" id=\"btnSave\" onclick=\"javascript:preview(" + listing.ListingId + ")\" value=\"click me\"/>";
 
-        objectHTML += "<div class=\"search_item_div_\" onclick=\"javascript:preview(" + listing.ListingId + ")\" runat=\"server\">";
+        objectHTML += "<div class=\"search_item_div\" onclick=\"javascript:preview(" + listing.ListingId + ")\" runat=\"server\">";
 
         /* object image */
         objectHTML += "<div class=\"search_item_img\"><img>" + "" + "</img></div>";

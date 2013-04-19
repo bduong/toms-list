@@ -14,7 +14,8 @@ public partial class Views_Notifications : System.Web.UI.Page
         if (parameter != null && parameter != "")
         {
             notifications_multiview.ActiveViewIndex = 0;
-            showNotifications(parameter);
+            conversation_div.InnerHtml = "";
+            showConversation(parameter);
         }
         else
         {
@@ -26,6 +27,7 @@ public partial class Views_Notifications : System.Web.UI.Page
 
 
             /* show results on page */
+            notifications_div.InnerHtml = "";
             foreach (Notification n in notifications)
             {
                 String objectHTML = createNotificationDiv(n);
@@ -35,7 +37,7 @@ public partial class Views_Notifications : System.Web.UI.Page
 
     }
 
-    private void showNotifications(String senderId)
+    private void showConversation(String senderId)
     {
         List<Notification> notifications_1 = new List<Notification>();
         List<Notification> notifications_2 = new List<Notification>();
@@ -81,13 +83,13 @@ public partial class Views_Notifications : System.Web.UI.Page
         objectHTML += "<div class=\"message_receiver_div\">";
 
         /* add item thumbnail */
-        objectHTML += "<img class=\"message_receiver_image\">" + "" + "</img>";
+        objectHTML += "<img class=\"message_receiver_image\" align=\"left\">" + "" + "</img>";
 
         /* add person name */
         objectHTML += "<div class=\"message_receiver_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
 
         /* add item title */
-        objectHTML += "<div class=\"message_receiver_item\">" + n.message + "</div>";
+        objectHTML += "<div class=\"message_receiver_message\">" + n.message + "</div>";
 
         /* add last message details */
         objectHTML += "<div class=\"message_receiver_date\">" + n.sentDate + "</div>";
@@ -108,7 +110,7 @@ public partial class Views_Notifications : System.Web.UI.Page
         objectHTML += "<div class=\"message_sender_user\">" + UserDataService.getUser(n.recieverId).name + "</div>";
 
         /* add item title */
-        objectHTML += "<div class=\"message_sender_item\">" + n.message + "</div>";
+        objectHTML += "<div class=\"message_sender_message\">" + n.message + "</div>";
 
         /* add last message details */
         objectHTML += "<div class=\"message_sender_date\">" + n.sentDate + "</div>";
@@ -117,21 +119,19 @@ public partial class Views_Notifications : System.Web.UI.Page
         return objectHTML;
     }
 
-
-
     private string createNotificationDiv(Notification n)
     {
         string objectHTML = "";
         objectHTML += "<div class=\"notification_div\" onclick=\"javascript:previewchat('" + n.senderId + "')\" runat=\"server\">";
         
         /* add item thumbnail */
-        objectHTML += "<img class=\"notification_image\">" + "" + "</img>";
+        objectHTML += "<img class=\"notification_image\" align=\"left\">" + "" + "</img>";
 
         /* add person name */
         objectHTML += "<div class=\"notification_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
 
         /* add item title */
-        objectHTML += "<div class=\"notification_item\">" + n.message + "</div>";
+        objectHTML += "<div class=\"notification_message\">" + n.message + "</div>";
 
         /* add last message details */
         objectHTML += "<div class=\"notification_date\">" + n.sentDate + "</div>";
@@ -144,5 +144,7 @@ public partial class Views_Notifications : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         notifications_multiview.ActiveViewIndex = 1;
+        
+        
     }
 }
