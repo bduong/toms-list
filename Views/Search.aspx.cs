@@ -28,7 +28,7 @@ public partial class Views_Landing : System.Web.UI.Page
         /* object price */
         objectHTML += "<div class=\"item_price\">" + listing.price + "</div>";
 
-        objectHTML += "</div>";
+        objectHTML += "</div></br>";
 
         return objectHTML;
     }
