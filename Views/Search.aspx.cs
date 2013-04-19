@@ -9,8 +9,40 @@ public partial class Views_Landing : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        fr_view.ActiveViewIndex = 0;
-        getFeatured();
+        string parameter = Request["__EVENTARGUMENT"];
+        if (parameter != null)
+        {
+            if (parameter == "")
+            {
+                fr_view.ActiveViewIndex = 2;
+            }
+            /* preview page */
+            else
+            {
+                fr_view.ActiveViewIndex = 0;
+                preview(parameter);
+            }
+        }
+        else
+        {
+            fr_view.ActiveViewIndex = 1;
+            getFeatured();
+        }
+
+    }
+
+    private void preview(String id)
+    {
+        Listing listing = ListingDataService.getListing(id);
+        view_item_title.Text = listing.title;
+        view_item_description.Text = listing.description;
+        view_item_price.Text = listing.price.ToString();
+        view_item_location.Text = listing.location;
+        view_item_date.Text = listing.date.ToString();
+
+        User user = UserDataService.getUser(listing.userId);
+        view_item_user.Text = user.name;
+        view_item_user.Attributes.Add("userId", listing.userId.ToString());
     }
 
 
@@ -94,7 +126,7 @@ public partial class Views_Landing : System.Web.UI.Page
 
     protected void search(object sender, EventArgs e)
     {
-        fr_view.ActiveViewIndex = 1;
+        fr_view.ActiveViewIndex = 2;
         results.InnerHtml = "";
 
         /* get values from database table */
@@ -131,7 +163,11 @@ public partial class Views_Landing : System.Web.UI.Page
     /* search items will have larger divisions */
     private string createSearchItemDiv(Listing listing)
     {
-        string objectHTML = "<div class=\"search_item_div_\">";
+        string objectHTML = "";
+        
+        //objectHTML = "<input type=\"button\" id=\"btnSave\" onclick=\"javascript:preview(" + listing.ListingId + ")\" value=\"click me\"/>";
+
+        objectHTML += "<div class=\"search_item_div_\" onclick=\"javascript:preview(" + listing.ListingId + ")\" runat=\"server\">";
 
         /* object image */
         objectHTML += "<div class=\"search_item_img\"><img>" + "" + "</img></div>";
