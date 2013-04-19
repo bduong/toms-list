@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class Listing
 {
-    public int uid { get; set; }
+    public int ListingId { get; set; }
     public Guid userId { get; set; }
     public string title { get; set; }
     public decimal price { get; set; }
@@ -33,6 +33,6 @@ public class Listing
     public Listing(int uid, Guid userId, string title, string description, decimal price, string location, DateTime date)
         : this(userId, title, description, price, location, date)
     {
-        this.uid = uid;
+        this.ListingId = uid;
     }
 }
