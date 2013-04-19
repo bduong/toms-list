@@ -143,6 +143,6 @@ public partial class Views_Notifications : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        notifications_multiview.ActiveViewIndex = 0;
+        notifications_multiview.ActiveViewIndex = 1;
     }
 }

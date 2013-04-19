@@ -10,14 +10,14 @@
 
         <asp:MultiView ID="notifications_multiview" runat="server">
             <asp:View ID="onenotification_view" runat="server">
-                one message
+                one message <br />
                 <div id="conversation_div" runat="server">
 
                 </div>
                 <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Back to Messages" />
             </asp:View>
             <asp:View ID="notifications_view" runat="server">
-                all messages
+                all messages<br />
                 <div id="notifications_div" runat="server">
 
                 </div>
