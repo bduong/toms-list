@@ -26,8 +26,8 @@ public class NotificationDataService
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
 
-        SqlCommand cmd = new SqlCommand("SELECT * FROM Notifications where RecieverId = @RecieverId ORDER By Date", conn);
-        cmd.Parameters.AddWithValue("@RecieverId", ReceiverId);
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Notifications where ReceiverId = @ReceiverId ORDER By Date", conn);
+        cmd.Parameters.AddWithValue("@ReceiverId", ReceiverId);
         SqlDataReader reader = cmd.ExecuteReader();
         List<Listing> listings = new List<Listing>();
         Guid receiverId = new Guid(ReceiverId);
@@ -58,9 +58,9 @@ public class NotificationDataService
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
 
-        SqlCommand cmd = new SqlCommand("SELECT * FROM Notifications where senderId = @SenderId and RecieverId = @RecieverId", conn);
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Notifications where senderId = @SenderId and ReceiverId = @ReceiverId", conn);
         cmd.Parameters.AddWithValue("@SenderId", SenderId);
-        cmd.Parameters.AddWithValue("@RecieverId", ReceiverId);
+        cmd.Parameters.AddWithValue("@ReceiverId", ReceiverId);
         SqlDataReader reader = cmd.ExecuteReader();
         List<Listing> listings = new List<Listing>();
         Guid senderId = new Guid(SenderId);
@@ -83,7 +83,7 @@ public class NotificationDataService
         public static string NotificationId = "NotificationId";
         public static string Message = "Message";
         public static string SenderId = "SenderId";
-        public static string ReceiverId = "RecieverId";
+        public static string ReceiverId = "ReceiverId";
         public static string Date = "Date";
         public static string ParentId = "ParentId";
     }
