@@ -14,19 +14,19 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
 
     protected void go_search(object sender, EventArgs e)
     {
-        Response.Redirect("./Views/Search.aspx");
+        Response.Redirect("./Search.aspx");
     }
     protected void go_post(object sender, EventArgs e)
     {
-        Response.Redirect("./Views/Private/Post.aspx");
+        Response.Redirect("./Post.aspx");
     }
     protected void go_profile(object sender, EventArgs e)
     {
-        Response.Redirect("./Views/Private/Profile.aspx");
+        Response.Redirect("./Profile.aspx");
     }
     protected void go_notifications(object sender, EventArgs e)
     {
-        Response.Redirect("./Views/Private/Notifications.aspx");
+        Response.Redirect("./Notifications.aspx");
     }
 
 }
