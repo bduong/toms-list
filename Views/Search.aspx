@@ -18,9 +18,7 @@
                 </table>
             </asp:View>
             <asp:View ID="view_results" runat="server">
-                <div id="results" runat="server">
-                </div>
-                <asp:ListBox ID="ListBox1" runat="server"></asp:ListBox>
+                <div id="results" runat="server"></div>
             </asp:View>
         </asp:MultiView>
     </div>

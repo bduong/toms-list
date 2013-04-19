@@ -12,6 +12,27 @@ public partial class Views_Landing : System.Web.UI.Page
         fr_view.ActiveViewIndex = 0;
     }
 
+    private string createItemDiv(Listing listing)
+    {
+        string objectHTML = "<div class=\"item_div\">";
+
+        /* object image */
+        objectHTML += "<div class=\"item_img\"><img>" + "" + "</img></div>";
+
+        /* object title */
+        objectHTML += "<div class=\"item_title\">" + listing.title + "</div>";
+
+        /* object description */
+        objectHTML += "<div class=\"item_description\">" + listing.description + "</div>";
+
+        /* object price */
+        objectHTML += "<div class=\"item_price\">" + listing.price + "</div>";
+
+        objectHTML += "</div>";
+
+        return objectHTML;
+    }
+
     protected void search(object sender, EventArgs e)
     {
         fr_view.ActiveViewIndex = 1;
@@ -27,9 +48,8 @@ public partial class Views_Landing : System.Web.UI.Page
                 foreach (int listingId in listingIds)
                 {
                     Listing listing = ListingDataService.getListing(listingId.ToString());
-                    String objectHTML = "<div><p>" + listing.title + "</p><p>" + listing.description + "</p><p>" + listing.date.ToString() + "</p></div><br/><br/>";
+                    string objectHTML = createItemDiv(listing);
                     results.InnerHtml += objectHTML;
-                    ListBox1.Items.Add(new ListItem(listing.description, listing.description));
                 }
             }
         }
