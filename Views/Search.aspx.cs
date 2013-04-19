@@ -10,28 +10,54 @@ public partial class Views_Landing : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         fr_view.ActiveViewIndex = 0;
+        getFeatured();
     }
 
-    private string createItemDiv(Listing listing)
+
+
+    private void putRecentlyListings()
     {
-        string objectHTML = "<div class=\"item_div\">";
+        List<Listing> returnList = new List<Listing>();
+        Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
+        returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
+        /* get recently posted listings from database */
 
-        /* object image */
-        objectHTML += "<div class=\"item_img\"><img>" + "" + "</img></div>";
-
-        /* object title */
-        objectHTML += "<div class=\"item_title\">" + listing.title + "</div>";
-
-        /* object description */
-        objectHTML += "<div class=\"item_description\">" + listing.description + "</div>";
-
-        /* object price */
-        objectHTML += "<div class=\"item_price\">" + listing.price + "</div>";
-
-        objectHTML += "</div></br>";
-
-        return objectHTML;
+        featured1.InnerHtml = "";
+        foreach (Listing listing in returnList)
+            featured1.InnerHtml += createFeaturedItemDiv(listing);
     }
+
+    private void putRecentApts()
+    {
+        List<Listing> returnList = new List<Listing>();
+        Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
+        returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
+
+        /* get recently posted appartments and rooms from database */
+        foreach (Listing listing in returnList)
+            featured2.InnerHtml += createFeaturedItemDiv(listing);
+    }
+
+    private void putHighlights()
+    {
+        List<Listing> returnList = new List<Listing>();
+        Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
+        returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
+
+        /* get most viewed items from database */
+
+        foreach (Listing listing in returnList)
+            featured3.InnerHtml += createFeaturedItemDiv(listing);
+    }
+
+    private void getFeatured()
+    {
+        putRecentlyListings();
+        putRecentApts();
+        putHighlights();
+    }
+
+
 
     protected void search(object sender, EventArgs e)
     {
@@ -48,13 +74,57 @@ public partial class Views_Landing : System.Web.UI.Page
                 foreach (int listingId in listingIds)
                 {
                     Listing listing = ListingDataService.getListing(listingId.ToString());
-                    string objectHTML = createItemDiv(listing);
+                    string objectHTML = createSearchItemDiv(listing);
                     results.InnerHtml += objectHTML;
                 }
             }
         }
-       
-
 
     }
+
+
+    /* search items will have larger divisions */
+    private string createSearchItemDiv(Listing listing)
+    {
+        string objectHTML = "<div class=\"search_item_div_\">";
+
+        /* object image */
+        objectHTML += "<div class=\"search_item_img\"><img>" + "" + "</img></div>";
+
+        /* object title */
+        objectHTML += "<div class=\"search_item_title\">" + listing.title + "</div>";
+
+        /* object description */
+        objectHTML += "<div class=\"search_item_description\">" + listing.description + "</div>";
+
+        /* object price */
+        objectHTML += "<div class=\"search_item_price\">" + listing.price + "</div>";
+
+        objectHTML += "</div></br>";
+
+        return objectHTML;
+    }
+
+    /* featured items will have smaller divisions */
+    private string createFeaturedItemDiv(Listing listing)
+    {
+        string objectHTML = "<div id=\"featured_item_div\">";
+
+        /* object image */
+        objectHTML += "<div class=\"featured_item_img\"><img>" + "" + "</img></div>";
+
+        /* object title */
+        objectHTML += "<div class=\"featured_item_title\">" + listing.title + "</div>";
+
+        /* object description */
+        objectHTML += "<div class=\"featured_item_description\">" + listing.description + "</div>";
+
+        /* object price */
+        objectHTML += "<div class=\"featured_item_price\">" + listing.price + "</div>";
+
+        objectHTML += "</div></br>";
+
+        return objectHTML;
+    }
+
 }

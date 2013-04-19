@@ -26,6 +26,7 @@ public partial class Views_Notifications : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        notifications_multiview.ActiveViewIndex = 1;
         /* dummy list of notifications for testing display */
         List<notification> notifications = new List<notification>();
         notifications.Add(new notification("Marc", "Speakers", "random message sample ... ", DateTime.Now));
@@ -63,4 +64,8 @@ public partial class Views_Notifications : System.Web.UI.Page
     }
 
 
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        notifications_multiview.ActiveViewIndex = 0;
+    }
 }
