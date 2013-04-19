@@ -42,7 +42,7 @@ public class ListingDataService
         SqlCommand cmd;
         if (limit > 0)
         {
-            cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value LIMIT 0, @Limit order by date", conn);
+            cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value LIMIT 0, @Limit", conn);
             cmd.Parameters.AddWithValue("@Limit", limit);
         }
         else
@@ -50,6 +50,39 @@ public class ListingDataService
             cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value", conn);
         }
         cmd.Parameters.AddWithValue("@Value", value);
+        SqlDataReader reader = cmd.ExecuteReader();
+        List<Listing> listings = new List<Listing>();
+        while (reader.Read())
+        {
+
+            int uid = (int)reader[ColumnNames.ListingId];
+            Guid userId = (Guid)reader[ColumnNames.UserId];
+            string title = (string)reader[ColumnNames.Title];
+            string description = (string)reader[ColumnNames.Description];
+            decimal price = (decimal)reader[ColumnNames.Price];
+            string location = (string)reader[ColumnNames.Location];
+            DateTime date = (DateTime)reader[ColumnNames.Date];
+            listings.Add(new Listing(uid, userId, title, description, price, location, date));
+        }
+        conn.Close();
+
+        return listings;
+    }
+
+    public static List<Listing> getRecentListings(int limit = 0)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd;
+        if (limit > 0)
+        {
+            cmd = new SqlCommand("SELECT TOP " + limit + " * FROM Listing ORDER BY Date", conn);
+            //cmd.Parameters.AddWithValue("@Limit", limit);
+        }
+        else
+        {
+            cmd = new SqlCommand("SELECT * FROM Listing ORDER BY Date", conn);
+        }
         SqlDataReader reader = cmd.ExecuteReader();
         List<Listing> listings = new List<Listing>();
         while (reader.Read())

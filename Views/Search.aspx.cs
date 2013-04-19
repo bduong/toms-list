@@ -20,7 +20,9 @@ public partial class Views_Landing : System.Web.UI.Page
         List<Listing> returnList = new List<Listing>();
         Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
         returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
+        
         /* get recently posted listings from database */
+        
 
         featured1.InnerHtml = "";
         foreach (Listing listing in returnList)
@@ -58,15 +60,36 @@ public partial class Views_Landing : System.Web.UI.Page
     }
 
 
+    private List<Listing> searchWithTag(string word)
+    {
+        List<Listing> returnList = new List<Listing>();
+
+        List<Tag> taglist = TagDataService.getTagsByName(word);
+        foreach (Tag tag in taglist)
+        {
+            String id = tag.id.ToString();
+            List<int> listingIds = ListingDataService.getListingOfTag(id);
+            foreach (int listingId in listingIds)
+            {
+                Listing listing = ListingDataService.getListing(listingId.ToString());
+                returnList.Add(listing);
+            }
+        }
+
+        return returnList;
+    }
 
     protected void search(object sender, EventArgs e)
     {
         fr_view.ActiveViewIndex = 1;
+        results.InnerHtml = "";
 
         /* get values from database table */
+        List<Listing> all_results = new List<Listing>();
         string[] words = search_box.Text.Split(' ');
         foreach (string word in words)
         {
+            /*
             List<Tag> taglist = TagDataService.getTagsByName(word);
             foreach(Tag tag in taglist) {
                 String id = tag.id.ToString();
@@ -78,6 +101,15 @@ public partial class Views_Landing : System.Web.UI.Page
                     results.InnerHtml += objectHTML;
                 }
             }
+            */
+            List<Listing> word_results = searchWithTag(word);
+            all_results.AddRange(word_results);
+        }
+
+        foreach (Listing listing in all_results)
+        {
+            string objectHTML = createSearchItemDiv(listing);
+            results.InnerHtml += objectHTML;
         }
 
     }
