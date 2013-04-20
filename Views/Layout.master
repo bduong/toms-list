@@ -61,15 +61,32 @@
             <div id="form">
 
             
-                <nav>
-                    <ul id="menu" runat="server">
-                        <li><asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">Search</asp:LinkButton></li>
-                        <li><asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">Post</asp:LinkButton></li>
-                        <li><asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">Profile</asp:LinkButton></li>
-                        <li><asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">Notifications</asp:LinkButton></li>
-                    </ul>
-                </nav>
-                <!--hr id="stitch" /-->
+                <div id="menu_bar">
+                    <table align="center">
+                        <tr>
+                            <td style="text-align: right;">
+                                            <a id="search_icon" style="padding: 10px;">]</a><asp:TextBox ID="search_bar" runat="server"></asp:TextBox><br />
+                                            <a id="search_example">Example: big fat leather couch</a>
+                            </td>
+                            <td>
+                                <nav>
+                                    <ul id="menu" runat="server">
+                                        <!-- <li><asp:LinkButton ID="nav_test" runat="server">abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()-=_+,./;'[]\<>?:"{}|</asp:LinkButton></li> -->
+                                        <li><asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">n</asp:LinkButton></li>
+                                        <li><asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">â</asp:LinkButton></li>
+                                        <li><asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">l</asp:LinkButton></li>
+                                        <li><asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">h</asp:LinkButton></li>
+                                    </ul>
+                                </nav>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                
+
+
+                <hr id="stitch" />
                 <hr id="hr-top" />
 
                 <div id="main-content" style="text-align: center">
@@ -82,7 +99,24 @@
         </form>
         <footer>
             <div id="copyright" class="right">
-                Footer
+                <table id="contact-us">
+                    <tr>
+                        <td>
+                            <a class="social_network">Ļ</a>
+                        </td>
+                        <td>
+                            <a class="social_network">ĵ</a>
+                        </td>
+                        <td>
+                            <a class="social_network">Ķ</a>
+                        </td>
+                    </tr>
+                </table>
+                
+                
+                
+                
+
             </div>
         </footer>
     </div>
