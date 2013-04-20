@@ -19,7 +19,9 @@ public partial class TL_basiclayout_UserRegistration : System.Web.UI.Page
 
         User user = new User(guid, info.UserName, info.Email);
         UserDataService.addUser(user);
+        
     }
+
     protected void CreateUserWizard1_SendingMail(object sender, MailMessageEventArgs e)
     {
         MembershipUser newUser = Membership.GetUser(CreateUserWizard1.UserName);
