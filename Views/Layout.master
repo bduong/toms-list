@@ -55,6 +55,7 @@
                                         <asp:HyperLink ID="LoginLink" runat="server" NavigateUrl="~/Views/Login.aspx">Login</asp:HyperLink>
                                     </AnonymousTemplate>
                                     <LoggedInTemplate>
+                                        <asp:LoginStatus ID="LoginStatus1" runat="server" OnLoggingOut="LoginStatus1_LoggingOut" />
                                     </LoggedInTemplate>
                                 </asp:LoginView>
             </div>

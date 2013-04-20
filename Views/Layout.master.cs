@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Security;
 
 public partial class Views_MasterPage : System.Web.UI.MasterPage
 {
@@ -29,4 +30,15 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
         Response.Redirect("./Notifications.aspx");
     }
 
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+
+    }
+    protected void LoginStatus1_LoggingOut(object sender, LoginCancelEventArgs e)
+    {
+        FormsAuthentication.SignOut();
+        Roles.DeleteCookie();
+        Session.Clear();
+        Response.Redirect("./Login.aspx");
+    }
 }
