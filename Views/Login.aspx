@@ -3,7 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
     <div>
-        <asp:Login ID="Login1" runat="server" Height="165px" DestinationPageUrl="~/Views/Profile.aspx">
+        <asp:Login ID="Login1" runat="server" Height="165px" DestinationPageUrl="~/Views/Private/Profile.aspx">
         </asp:Login>
         <br />
     </div>
