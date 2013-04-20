@@ -39,6 +39,6 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
         FormsAuthentication.SignOut();
         Roles.DeleteCookie();
         Session.Clear();
-        Response.Redirect("./Login.aspx");
+        Response.Redirect("~/Views/Login.aspx");
     }
 }
