@@ -1,28 +1,19 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UserRegistration.aspx.cs" Inherits="TL_basiclayout_UserRegistration" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Views/Layout.master" CodeFile="UserRegistration.aspx.cs" Inherits="TL_basiclayout_UserRegistration" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
+    <div>
+        <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" ContinueDestinationPageUrl="~/Views/Landing.aspx" OnCreatedUser="CreateUserWizard1_CreatedUser" OnSendingMail="CreateUserWizard1_SendingMail" Height="400px" Width="445px">
+            <WizardSteps>
+                <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server" />
+                <asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server" />
+            </WizardSteps>
+            <MailDefinition BodyFileName="~/Templates/NewAccountTemplate.html" From="toms.list.verify@gmail.com" IsBodyHtml="true" Subject="Welcome to Toms List" Priority="High" />
+        </asp:CreateUserWizard>
+        <br />
+    </div>
+    <div>
+        <asp:HyperLink ID="ReturnLogin" runat="server" NavigateUrl="~/Views/Login.aspx">Return to Login Page</asp:HyperLink>
+    </div>
+    &nbsp;
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Register</title>
-    <link href="../public/css/style.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div class="wrapper">
-            <div class="header">header</div>
-            <div class="content">
-                <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" ContinueDestinationPageUrl="~/Views/Landing.aspx" OnCreatedUser="CreateUserWizard1_CreatedUser" OnSendingMail="CreateUserWizard1_SendingMail">
-                    <WizardSteps>
-                        <asp:CreateUserWizardStep runat="server" />
-                        <asp:CompleteWizardStep runat="server" />
-                    </WizardSteps>
-                    <MailDefinition BodyFileName="~/Templates/NewAccountTemplate.html" From="toms.list.verify@gmail.com" IsBodyHtml="true" Subject="Welcome to Toms List" Priority="High" />
-                </asp:CreateUserWizard>
-            </div>
-            <div class="push"></div>
-        </div>
-        <div class="footer">footer</div>
-    </form>
-</body>
-</html>

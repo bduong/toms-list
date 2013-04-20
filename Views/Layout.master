@@ -20,7 +20,7 @@
     <!-- javascript -->
     <script type="text/javascript" src="../public/js/script.js"></script>
 
-</head>
+    </head>
 <body runat="server">
 
     <div id="main-frame">
@@ -34,23 +34,29 @@
                 
             </div>
             <div id="login" class="right">
-                <table vertical-align="center">
-                    <tr>
-                        <td>
-                            <span class="ep">Email</span><br />
-                            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox><br />
-                            <asp:CheckBox ID="CheckBox1" runat="server" /> 
-                            <span class="login-option">Keep Me Logged In</span>
-                        </td>
-                        <td>
-                            <span class="ep">Password</span><br />
-                            <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox><br />
-                            <span class="login-option">Forgot Your Password?</span>
-                            
-                        </td>
-                    </tr>
-                </table>
-                
+                            <span class="ep">Hello 
+                            <asp:LoginView ID="LoginView1" runat="server">
+                                <AnonymousTemplate>
+                                    Guest
+                                </AnonymousTemplate>
+                                <LoggedInTemplate>
+                                    <span class="ep">
+                                    <asp:LoginName ID="LoginName1" runat="server" />
+                                    </span>
+                                </LoggedInTemplate>
+                                </asp:LoginView>
+                                
+                                !<br />
+                                </span>
+                                <asp:LoginView ID="LoginView2" runat="server">
+                                    <AnonymousTemplate>
+                                        <asp:HyperLink ID="RegisterLink" runat="server" NavigateUrl="~/Views/UserRegistration.aspx">Register</asp:HyperLink>
+                                        &nbsp;or
+                                        <asp:HyperLink ID="LoginLink" runat="server" NavigateUrl="~/Views/Login.aspx">Login</asp:HyperLink>
+                                    </AnonymousTemplate>
+                                    <LoggedInTemplate>
+                                    </LoggedInTemplate>
+                                </asp:LoginView>
             </div>
             <!--div id="login" class="right">
                 Login
