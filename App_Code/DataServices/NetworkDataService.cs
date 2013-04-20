@@ -92,7 +92,7 @@ public class NetworkDataService
         return (rowsAffected > 0);
     }
 
-    public static Boolean updateListing(String idToUpdate, Network newNetwork)
+    public static Boolean updateNetwork(String idToUpdate, Network newNetwork)
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
@@ -106,7 +106,6 @@ public class NetworkDataService
 
         return (rowsAffected > 0);
     }
-
 
     public class ColumnNames
     {

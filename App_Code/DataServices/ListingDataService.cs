@@ -21,16 +21,8 @@ public class ListingDataService
 
         SqlDataReader reader = cmd.ExecuteReader();
         reader.Read();
-
-        int ListingId = (int)reader[ColumnNames.ListingId];
-        Guid userId = (Guid)reader[ColumnNames.UserId];
-        string title = (string)reader[ColumnNames.Title];
-        string description = (string)reader[ColumnNames.Description];
-        decimal price = Convert.ToDecimal(reader[ColumnNames.Price]);
-        string location = (string)reader[ColumnNames.Location];
-        DateTime date = (DateTime)reader[ColumnNames.Date];
+        Listing returnListing = extractListing(reader);
         conn.Close();
-        Listing returnListing = new Listing(ListingId, userId, title, description, price, location, date);
         return returnListing;
     }
 
@@ -54,20 +46,15 @@ public class ListingDataService
         List<Listing> listings = new List<Listing>();
         while (reader.Read())
         {
-
-            int uid = (int)reader[ColumnNames.ListingId];
-            Guid userId = (Guid)reader[ColumnNames.UserId];
-            string title = (string)reader[ColumnNames.Title];
-            string description = (string)reader[ColumnNames.Description];
-            decimal price = (decimal)reader[ColumnNames.Price];
-            string location = (string)reader[ColumnNames.Location];
-            DateTime date = (DateTime)reader[ColumnNames.Date];
-            listings.Add(new Listing(uid, userId, title, description, price, location, date));
+            Listing listing = extractListing(reader);
+            listings.Add(listing);
         }
         conn.Close();
 
         return listings;
     }
+
+
 
     public static List<Listing> getRecentListings(int limit = 0)
     {
@@ -87,15 +74,7 @@ public class ListingDataService
         List<Listing> listings = new List<Listing>();
         while (reader.Read())
         {
-
-            int uid = (int)reader[ColumnNames.ListingId];
-            Guid userId = (Guid)reader[ColumnNames.UserId];
-            string title = (string)reader[ColumnNames.Title];
-            string description = (string)reader[ColumnNames.Description];
-            decimal price = (decimal)reader[ColumnNames.Price];
-            string location = (string)reader[ColumnNames.Location];
-            DateTime date = (DateTime)reader[ColumnNames.Date];
-            listings.Add(new Listing(uid, userId, title, description, price, location, date));
+            listings.Add(extractListing(reader));
         }
         conn.Close();
 
@@ -170,6 +149,31 @@ public class ListingDataService
         return returnList;
     }
 
+    public static List<Listing> getAllListingsInNetwork(Network network)
+    {
+        List<Listing> listings = new List<Listing>();
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand findUsers = new SqlCommand("SELECT UserId FROM UserNetworks where NetworkId = @NetworkId", conn);
+        findUsers.Parameters.AddWithValue("@NetworkId", network.id);
+        SqlDataReader userReader = findUsers.ExecuteReader();
+        List<string> usersInNetwork = new List<string>();
+        while (userReader.Read())
+        {
+            usersInNetwork.Add("'" + (Guid)userReader["UserId"] + "'");
+        }
+        userReader.Close();
+        findUsers.Dispose();
+        SqlCommand findListings = new SqlCommand("SELECT * FROM Listing where UserId in (" +  String.Join(", ", usersInNetwork.ToArray()) + ") ORDER BY Date DESC", conn);        
+        SqlDataReader listingReader = findListings.ExecuteReader();
+        while (listingReader.Read())
+        {
+            listings.Add(extractListing(listingReader));
+        }
+        conn.Close();
+        return listings;
+    }
+
     public static class ColumnNames
     {
         public static string ListingId = "ListingId";
@@ -179,5 +183,18 @@ public class ListingDataService
         public static string Price = "Price";
         public static string Location = "Location";
         public static string Date = "Date";
+    }
+
+    private static Listing extractListing(SqlDataReader reader)
+    {
+
+        int uid = (int)reader[ColumnNames.ListingId];
+        Guid userId = (Guid)reader[ColumnNames.UserId];
+        string title = (string)reader[ColumnNames.Title];
+        string description = (string)reader[ColumnNames.Description];
+        decimal price = (decimal)reader[ColumnNames.Price];
+        string location = (string)reader[ColumnNames.Location];
+        DateTime date = (DateTime)reader[ColumnNames.Date];
+        return new Listing(uid, userId, title, description, price, location, date);        
     }
 }

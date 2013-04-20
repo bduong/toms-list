@@ -15,12 +15,18 @@ public partial class Test_Pages_ListingDBTest : System.Web.UI.Page
             OUT.Text += listing[i].title;
         }*/
 
-        decimal price = 300;
+       /* decimal price = 300;
         Guid guid = new Guid("70d833c6-83e3-419d-b4e2-d61ce2bb668f");
         Listing newListing = new Listing(guid, "Chair", "Good quality chair", price, "Fenway", DateTime.Now);
         newListing.description = "hello";
-        ListingDataService.addListing(newListing);
+        ListingDataService.addListing(newListing);*/
 
        
+    }
+    protected void TestButton_Click(object sender, EventArgs e)
+    {
+        Network test = NetworkDataService.getNetwork(1);
+        List<Listing> listings = ListingDataService.getAllListingsInNetwork(test);
+        Test.Text = listings.Count.ToString();
     }
 }

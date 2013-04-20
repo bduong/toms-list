@@ -23,6 +23,8 @@ public class TagDataService
         }
         else
         {
+            reader.Close();
+            find.Dispose();
             SqlCommand cmd = new SqlCommand("INSERT INTO Tags (Name) VALUES (@Name); SELECT SCOPE_IDENTITY()", conn);
             cmd.Parameters.AddWithValue("@Name", name);
             id = (int)cmd.ExecuteScalar();
