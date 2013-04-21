@@ -14,10 +14,14 @@
         <br /><br />
         E-mail: 
         <asp:TextBox ID="EmailTextBox" runat="server"></asp:TextBox>
-        <br /><br />
+        <br />
+        <br />
+        <asp:Button ID="ChangePassword" runat="server" Text="Change My Password" PostBackUrl="~/Views/Private/ChangePassword.aspx" />
     </div>
+            <br /><br />
     <div>
         <asp:Button ID="ChangeInfo" runat="server" Text="Update My Info" OnClick="ChangeInfo_Click" />
+        <br /><br />
     </div>
 </asp:Content>
 

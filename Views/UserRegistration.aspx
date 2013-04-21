@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
     <div>
-        <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" ContinueDestinationPageUrl="~/Views/Landing.aspx" OnCreatedUser="CreateUserWizard1_CreatedUser" OnSendingMail="CreateUserWizard1_SendingMail" Height="400px" Width="445px">
+        <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" ContinueDestinationPageUrl="~/Views/Private/UpdateProfile.aspx" OnCreatedUser="CreateUserWizard1_CreatedUser" OnSendingMail="CreateUserWizard1_SendingMail" Height="400px" Width="445px">
             <WizardSteps>
                 <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server" />
                 <asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server" />
