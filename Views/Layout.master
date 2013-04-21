@@ -41,7 +41,7 @@
                                 </AnonymousTemplate>
                                 <LoggedInTemplate>
                                     <span class="ep">
-                                    <asp:LoginName ID="LoginName1" runat="server" />
+                                    <a href="<%= ResolveUrl("~/Views/Private/Profile.aspx") %>"><asp:LoginName ID="LoginName1" runat="server" /></a>
                                     </span>
                                 </LoggedInTemplate>
                                 </asp:LoginView>

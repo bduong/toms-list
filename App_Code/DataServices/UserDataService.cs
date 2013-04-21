@@ -21,8 +21,9 @@ public class UserDataService
         Guid uid = (Guid) reader["UserId"];
         string userName = (string) reader["Name"];
         string email = (string) reader["Email"];
+        string location = (string) reader["Location"];
         conn.Close();
-        return new User(uid, userName, email);
+        return new User(uid, userName, email, location);
     }
 
     public static bool addUser(User user)
