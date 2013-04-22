@@ -13,6 +13,14 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
 
     }
 
+    protected void search_query(object sender, EventArgs e)
+    {
+        if(search_bar.Text != "" && search_bar.Text != null) {
+            String query = search_bar.Text.Trim();
+            Response.Redirect("~/Views/Search.aspx?query=" + query);
+        }
+        
+    }
     protected void go_search(object sender, EventArgs e)
     {
         Response.Redirect("~/Views/Search.aspx");

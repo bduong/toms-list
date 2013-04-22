@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Security;
 
 public partial class Views_Landing : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         string parameter = Request["__EVENTARGUMENT"];
+        string query = Request.Params["query"];
         if (parameter != null)
         {
             if (parameter == "")
@@ -23,6 +25,11 @@ public partial class Views_Landing : System.Web.UI.Page
                 preview(parameter);
             }
         }
+        else if (query != "" && query != null)
+        {
+            fr_view.ActiveViewIndex = 2;
+            doQuery(query);
+        }
         else
         {
             fr_view.ActiveViewIndex = 1;
@@ -31,9 +38,44 @@ public partial class Views_Landing : System.Web.UI.Page
 
     }
 
+    protected void contact_seller(object sender, EventArgs e)
+    {
+        string message = textarea_message.Value.ToString();
+        if (message != null && message != "")
+        {
+            Guid receiverId = new Guid(view_item_userid.Value.ToString());
+
+            MembershipUser user = Membership.GetUser();
+            Guid senderId = (Guid)user.ProviderUserKey;
+
+            Notification notification = new Notification(message, senderId, receiverId, DateTime.Now, 0);
+            NotificationDataService.saveNotification(notification);
+
+            contact_log.Style.Add("color", "#00ff00");
+            contact_log.Text = "Your message has been sent!";
+        }
+        else
+        {
+            contact_log.Style.Add("color", "#ff0000");
+            contact_log.Text = "Please enter your message";
+        }
+    }
+
+    protected void backto_featured(object sender, EventArgs e)
+    {
+        fr_view.ActiveViewIndex = 1;
+        getFeatured();
+    }
+
+    protected void backto_search(object sender, EventArgs e)
+    {
+        fr_view.ActiveViewIndex = 2;
+    }
+
     private void preview(String id)
     {
         Listing listing = ListingDataService.getListing(id);
+        view_item_userid.Value = listing.userId.ToString();
         view_item_title.Text = listing.title;
         view_item_description.Text = listing.description;
         view_item_price.Text = listing.price.ToString();
@@ -124,14 +166,14 @@ public partial class Views_Landing : System.Web.UI.Page
         return returnList;
     }
 
-    protected void search(object sender, EventArgs e)
+    protected void doQuery(String q)
     {
         fr_view.ActiveViewIndex = 2;
         results.InnerHtml = "";
 
         /* get values from database table */
         List<Listing> all_results = new List<Listing>();
-        string[] words = search_box.Text.Split(' ');
+        string[] words = q.Split(' ');
         foreach (string word in words)
         {
             /*
@@ -156,7 +198,6 @@ public partial class Views_Landing : System.Web.UI.Page
             string objectHTML = createSearchItemDiv(listing);
             results.InnerHtml += objectHTML;
         }
-
     }
 
 

@@ -2,9 +2,7 @@
 
 <asp:Content ID="Search" ContentPlaceHolderID="MainContent" Runat="Server">
     Do your search here
-    <div id="search">
-        <asp:TextBox ID="search_box" runat="server"></asp:TextBox><span> </span><asp:Button ID="Button1" runat="server" Text="Button" OnClick="search"/>
-    </div>
+
     <script type="text/javascript">
         function preview(parameter) {
             __doPostBack('', parameter)
@@ -21,7 +19,9 @@
                         </td>
                         <td>
                             <div class="preview_item">
+                                <asp:Button ID="Button1" runat="server" Text="Back To Search" OnClick="backto_search"/>
                                 <fieldset>
+                                    <asp:HiddenField ID="view_item_userid" runat="server" />
                                     <asp:Label ID="Label1" class="form_label" runat="server" Text="Label">Title: </asp:Label><asp:Label ID="view_item_title" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label3" class="form_label" runat="server" Text="Label">Description: </asp:Label><asp:Label ID="view_item_description" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label4" class="form_label" runat="server" Text="Label">Price: </asp:Label><asp:Label ID="view_item_price" runat="server" Text="Label"></asp:Label><br />
@@ -29,8 +29,9 @@
                                     <asp:Label ID="Label5" class="form_label" runat="server" Text="Label">Posting Date: </asp:Label><asp:Label ID="view_item_date" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label6" class="form_label" runat="server" Text="Label">Seller:</asp:Label><asp:Label ID="view_item_user" runat="server" Text="Label"></asp:Label><br /><br />
                                     <asp:Label ID="Label7" class="form_label" runat="server" Text="Label">Contact Seller:</asp:Label>
-                                    <textarea id="TextArea1" cols="20" rows="2" runat="server"></textarea>
-                                    <asp:Button ID="Button2" runat="server" Text="Button" />
+                                    <textarea id="textarea_message" cols="20" rows="2" runat="server"></textarea>
+                                    <asp:Label ID="contact_log" runat="server" Text=""></asp:Label>
+                                    <asp:Button ID="Button2" runat="server" Text="Send" OnClick="contact_seller"/>
                                 </fieldset>
                             </div>
                         </td>
@@ -52,6 +53,7 @@
                 </table>
             </asp:View>
             <asp:View ID="view_results" runat="server">
+                <asp:Button ID="Button3" runat="server" Text="Back to Featured" OnClick="backto_featured"/>
                 <div id="results" runat="server"></div>
             </asp:View>
         </asp:MultiView>

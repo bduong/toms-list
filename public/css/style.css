@@ -382,30 +382,79 @@ fieldset {
 
 
 /* Notifications */
+.conversation_window {
+    margin: auto;
+    width: 600px;
+    padding: 10px;
+}
+.conversation_title {
+    clear: both;
+    margin: auto;
+}
+.conversation_div {
+
+}
 .message_receiver_div {
-    border: 1px #000;
+    padding: 5px;
+    box-shadow: 0px 0px 3px #08f inset;
+    border-radius: 6px;
+    width: 250px;
+    text-align: right;
+    background-color: #eee;
+    float: right;
+    clear: both;
 }
 .message_receiver_img {
+    float: right;
 }
 .message_receiver_user {
 }
 .message_receiver_message {
 }
 .message_receiver_date {
+    font-size: smaller;
+    text-align: left;
 }
 
 
 .message_sender_div {
-    border: 1px #000;
+    padding: 5px;
+    box-shadow: 0px 0px 3px #08f inset;
+    border-radius: 6px;
+    width: 250px;
+    text-align: left;
+    background-color: #eee;
+    clear: both;
 }
 .message_sender_user {
 }
 .message_sender_message {
 }
 .message_sender_date {
+    font-size: smaller;
+    text-align: right;
+}
+
+.ver_space {
+    height: 10px;
+    float: left;
+    clear: both;
+}
+.backto_messages {
+    float: left;
+    clear: both;
+}
+.chat-area {
+    width: 600px;
+    clear: both;
+    float: right; 
 }
 
 
+.notification_window {
+    width: 600px;
+    margin: auto;
+}
 
 .notification_div {
     border: 1px #000;
