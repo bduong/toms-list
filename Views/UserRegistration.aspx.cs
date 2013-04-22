@@ -27,7 +27,7 @@ public partial class TL_basiclayout_UserRegistration : System.Web.UI.Page
         MembershipUser newUser = Membership.GetUser(CreateUserWizard1.UserName);
         Guid newUserId = (Guid)newUser.ProviderUserKey;
 
-        string baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+        string baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + (Request.ApplicationPath.Equals("/") ? "" : Request.ApplicationPath);
         string verifyUrl = "/Views/AccountVerify.aspx?ID=" + newUserId.ToString();
         e.Message.Body = e.Message.Body.Replace("<%VerifyUrl%>", baseUrl + verifyUrl);
     }

@@ -27,14 +27,14 @@ public class NetworkDataService
         cmd.Parameters.AddWithValue("@NetworkId", id);
 
         SqlDataReader reader = cmd.ExecuteReader();
-        reader.Read();
-
-        int networkId = (int)reader[ColumnNames.Id];
-        string name = (string)reader[ColumnNames.Name];
-        string pattern = (string)reader[ColumnNames.Pattern];
+        Network network = null;
+        if (reader.Read())
+        {
+            network = extractNetwork(reader);
+        }        
         conn.Close();
 
-        return new Network(networkId, name, pattern);
+        return network;
     }
 
     public static List<Network> getNetworkBy(String columnName, String value, int limit)
@@ -56,13 +56,26 @@ public class NetworkDataService
         List<Network> networks = new List<Network>();
         while (reader.Read())
         {
-            int id = (int)reader[ColumnNames.Id];
-            string name = (string)reader[ColumnNames.Name];
-            string pattern = (string)reader[ColumnNames.Pattern];
-            networks.Add(new Network(id, name, pattern));
+            networks.Add(extractNetwork(reader));
         }
         conn.Close();
 
+        return networks;
+    }
+
+    public static List<Network> searchForNetworksByName(String pattern)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Networks where Name LIKE @Pattern", conn);
+        cmd.Parameters.AddWithValue("@Pattern", "%" + pattern + "%");
+        SqlDataReader reader = cmd.ExecuteReader();
+        List<Network> networks = new List<Network>();
+        while (reader.Read())
+        {
+            networks.Add(extractNetwork(reader));
+        }
+        conn.Close();
         return networks;
     }
 
@@ -107,11 +120,32 @@ public class NetworkDataService
         return (rowsAffected > 0);
     }
 
+    public static Boolean doesUserBelongToNetwork(User user, Network network)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM UserNetworks WHERE UserId = @UserId AND NetworkId = @NetworkId", conn);
+        cmd.Parameters.AddWithValue("@UserId", user.uid);
+        cmd.Parameters.AddWithValue("@NetworkId", network.id);
+        SqlDataReader reader = cmd.ExecuteReader();
+        bool result = reader.Read();
+        conn.Close();
+        return result;
+    }
+
     public class ColumnNames
     {
         public static String Id = "NetworkId";
         public static String Name = "Name";
         public static String Pattern = "Match_Pattern";
 
+    }
+
+    private static Network extractNetwork(SqlDataReader reader)
+    {
+        int id = (int)reader[ColumnNames.Id];
+        string name = (string)reader[ColumnNames.Name];
+        string pattern = (string)reader[ColumnNames.Pattern];
+        return new Network(id, name, pattern);
     }
 }
