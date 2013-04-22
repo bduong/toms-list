@@ -19,37 +19,54 @@ public class NotificationDataService
 		//
 	}
 
-    public static List<Notification> getNotifications(String ReceiverId)
+    public static List<Notification> getNotifications(String userId)
     {
         List<Notification> returnList = new List<Notification>();
 
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
 
-        SqlCommand cmd = new SqlCommand("SELECT * FROM Notifications where ReceiverId = @ReceiverId ORDER By Date", conn);
-        cmd.Parameters.AddWithValue("@ReceiverId", ReceiverId);
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Notifications where ReceiverId = @ReceiverId OR SenderId = @SenderId ORDER By Date", conn);
+        cmd.Parameters.AddWithValue("@ReceiverId", userId);
+        cmd.Parameters.AddWithValue("@SenderId", userId);
         SqlDataReader reader = cmd.ExecuteReader();
         List<Listing> listings = new List<Listing>();
-        Guid receiverId = new Guid(ReceiverId);
+
+
+        /* pick one notification out of every conversation */
         HashSet<Guid> ids = new HashSet<Guid>();
+
         while (reader.Read())
         {
             Guid SenderId = (Guid)reader[ColumnNames.SenderId];
-            if (!ids.Contains(SenderId))
+            Guid ReceiverId = (Guid)reader[ColumnNames.ReceiverId];
+            if (SenderId.ToString().Equals(userId))
             {
-                int NotificationId = (int)reader[ColumnNames.NotificationId];
-                
-                string Message = (string)reader[ColumnNames.Message];
-                DateTime date = (DateTime)reader[ColumnNames.Date];
-                int ParentId = (int)reader[ColumnNames.ParentId];
-                returnList.Add(new Notification(Message, SenderId, receiverId, date, ParentId));
-                ids.Add(SenderId);
+                if (!ids.Contains(ReceiverId))
+                {
+                    string Message = (string)reader[ColumnNames.Message];
+                    int NotificationId = (int)reader[ColumnNames.NotificationId];
+                    DateTime Date = (DateTime)reader[ColumnNames.Date];
+                    int ParentId = (int)reader[ColumnNames.ParentId];
+                    returnList.Add(new Notification(Message, SenderId, ReceiverId, Date, ParentId));
+                    ids.Add(ReceiverId);
+                }
+            } else if(ReceiverId.ToString().Equals(userId)) {
+                if(!ids.Contains(SenderId)) {
+                    string Message = (string)reader[ColumnNames.Message];
+                    int NotificationId = (int)reader[ColumnNames.NotificationId];
+                    DateTime Date = (DateTime)reader[ColumnNames.Date];
+                    int ParentId = (int)reader[ColumnNames.ParentId];
+                    returnList.Add(new Notification(Message, SenderId, ReceiverId, Date, ParentId));
+                    ids.Add(SenderId);
+                }
             }
         }
         conn.Close();
 
         return returnList;
     }
+
 
     public static List<Notification> getConversation(String SenderId, String ReceiverId)
     {
@@ -76,6 +93,20 @@ public class NotificationDataService
         conn.Close();
 
         return returnList;
+    }
+
+    public static void saveNotification(Notification notification)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("INSERT INTO Notifications (Message, SenderId, ReceiverId, Date, ParentId) VALUES (@Message, @SenderId, @ReceiverId, @Date, @ParentId); SELECT CONVERT(int, SCOPE_IDENTITY())", conn);
+        cmd.Parameters.AddWithValue("@Message", notification.message);
+        cmd.Parameters.AddWithValue("@SenderId", notification.senderId);
+        cmd.Parameters.AddWithValue("@ReceiverId", notification.recieverId);
+        cmd.Parameters.AddWithValue("@Date", notification.sentDate);
+        cmd.Parameters.AddWithValue("@ParentId", notification.parentId);
+        int uid = Convert.ToInt32(cmd.ExecuteScalar());
+        conn.Close();
     }
 
     private static class ColumnNames
