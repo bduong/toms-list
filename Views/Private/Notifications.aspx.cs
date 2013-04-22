@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Security;
 
 public partial class Views_Notifications : System.Web.UI.Page
 {
@@ -19,19 +20,27 @@ public partial class Views_Notifications : System.Web.UI.Page
         }
         else
         {
-            notifications_multiview.ActiveViewIndex = 1;
-            /* dummy list of notifications for testing display */
-            List<Notification> notifications = new List<Notification>();
-            notifications = NotificationDataService.getNotifications("70d833c6-83e3-419d-b4e2-d61ce2bb668f");
-            notifications.Add(new Notification("random message sample", new Guid("70d833c6-83e3-419d-b4e2-d61ce2bb668f"), new Guid("70d833c6-83e3-419d-b4e2-d61ce2bb668f"), DateTime.Now, 2));
-
-
-            /* show results on page */
-            notifications_div.InnerHtml = "";
-            foreach (Notification n in notifications)
+            if (User.Identity.IsAuthenticated)
             {
-                String objectHTML = createNotificationDiv(n);
-                notifications_div.InnerHtml += objectHTML;
+                notifications_multiview.ActiveViewIndex = 1;
+                /* dummy list of notifications for testing display */
+                List<Notification> notifications = new List<Notification>();
+
+                MembershipUser user = Membership.GetUser();
+                Guid userId = (Guid)user.ProviderUserKey;
+
+                notifications = NotificationDataService.getNotifications(userId.ToString());
+                // notifications = NotificationDataService.getNotifications("70d833c6-83e3-419d-b4e2-d61ce2bb668f");
+                notifications.Add(new Notification("random message sample", new Guid("70d833c6-83e3-419d-b4e2-d61ce2bb668f"), new Guid("70d833c6-83e3-419d-b4e2-d61ce2bb668f"), DateTime.Now, 2));
+
+
+                /* show results on page */
+                notifications_div.InnerHtml = "";
+                foreach (Notification n in notifications)
+                {
+                    String objectHTML = createNotificationDiv(n);
+                    notifications_div.InnerHtml += objectHTML;
+                }
             }
         }
 
