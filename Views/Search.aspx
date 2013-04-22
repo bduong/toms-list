@@ -21,6 +21,7 @@
                             <div class="preview_item">
                                 <asp:Button ID="Button1" runat="server" Text="Back To Search" OnClick="backto_search"/>
                                 <fieldset>
+                                    <asp:HiddenField ID="view_item_userid" runat="server" />
                                     <asp:Label ID="Label1" class="form_label" runat="server" Text="Label">Title: </asp:Label><asp:Label ID="view_item_title" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label3" class="form_label" runat="server" Text="Label">Description: </asp:Label><asp:Label ID="view_item_description" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label4" class="form_label" runat="server" Text="Label">Price: </asp:Label><asp:Label ID="view_item_price" runat="server" Text="Label"></asp:Label><br />
@@ -28,8 +29,9 @@
                                     <asp:Label ID="Label5" class="form_label" runat="server" Text="Label">Posting Date: </asp:Label><asp:Label ID="view_item_date" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label6" class="form_label" runat="server" Text="Label">Seller:</asp:Label><asp:Label ID="view_item_user" runat="server" Text="Label"></asp:Label><br /><br />
                                     <asp:Label ID="Label7" class="form_label" runat="server" Text="Label">Contact Seller:</asp:Label>
-                                    <textarea id="TextArea1" cols="20" rows="2" runat="server"></textarea>
-                                    <asp:Button ID="Button2" runat="server" Text="Button" />
+                                    <textarea id="textarea_message" cols="20" rows="2" runat="server"></textarea>
+                                    <asp:Label ID="contact_log" runat="server" Text=""></asp:Label>
+                                    <asp:Button ID="Button2" runat="server" Text="Send" OnClick="contact_seller"/>
                                 </fieldset>
                             </div>
                         </td>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Security;
 
 public partial class Views_Landing : System.Web.UI.Page
 {
@@ -37,6 +38,29 @@ public partial class Views_Landing : System.Web.UI.Page
 
     }
 
+    protected void contact_seller(object sender, EventArgs e)
+    {
+        string message = textarea_message.Value.ToString();
+        if (message != null && message != "")
+        {
+            Guid receiverId = new Guid(view_item_userid.Value.ToString());
+
+            MembershipUser user = Membership.GetUser();
+            Guid senderId = (Guid)user.ProviderUserKey;
+
+            Notification notification = new Notification(message, senderId, receiverId, DateTime.Now, 0);
+            NotificationDataService.saveNotification(notification);
+
+            contact_log.Style.Add("color", "#00ff00");
+            contact_log.Text = "Your message has been sent!";
+        }
+        else
+        {
+            contact_log.Style.Add("color", "#ff0000");
+            contact_log.Text = "Please enter your message";
+        }
+    }
+
     protected void backto_featured(object sender, EventArgs e)
     {
         fr_view.ActiveViewIndex = 1;
@@ -51,6 +75,7 @@ public partial class Views_Landing : System.Web.UI.Page
     private void preview(String id)
     {
         Listing listing = ListingDataService.getListing(id);
+        view_item_userid.Value = listing.userId.ToString();
         view_item_title.Text = listing.title;
         view_item_description.Text = listing.description;
         view_item_price.Text = listing.price.ToString();
