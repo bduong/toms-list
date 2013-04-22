@@ -26,13 +26,11 @@ public partial class Views_Notifications : System.Web.UI.Page
                 /* dummy list of notifications for testing display */
                 List<Notification> notifications = new List<Notification>();
 
+                /* get the key of the user from the session */
                 MembershipUser user = Membership.GetUser();
                 Guid userId = (Guid)user.ProviderUserKey;
 
                 notifications = NotificationDataService.getNotifications(userId.ToString());
-                // notifications = NotificationDataService.getNotifications("70d833c6-83e3-419d-b4e2-d61ce2bb668f");
-                notifications.Add(new Notification("random message sample", new Guid("70d833c6-83e3-419d-b4e2-d61ce2bb668f"), new Guid("70d833c6-83e3-419d-b4e2-d61ce2bb668f"), DateTime.Now, 2));
-
 
                 /* show results on page */
                 notifications_div.InnerHtml = "";
