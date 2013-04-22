@@ -36,7 +36,15 @@ public partial class Views_Notifications : System.Web.UI.Page
                 notifications_div.InnerHtml = "";
                 foreach (Notification n in notifications)
                 {
-                    String objectHTML = createNotificationDiv(n);
+                    String objectHTML = "";
+                    if (n.senderId.ToString().Equals(userId.ToString()))
+                    {
+                        objectHTML = createNotificationDiv(n, true);
+                    }
+                    else
+                    {
+                        objectHTML = createNotificationDiv(n, false);
+                    }
                     notifications_div.InnerHtml += objectHTML;
                 }
             }
@@ -44,18 +52,19 @@ public partial class Views_Notifications : System.Web.UI.Page
 
     }
 
-    private void showConversation(String senderId)
+    private void showConversation(String uid)
     {
+        conversation_title.Text = "Conversation with " + UserDataService.getUser(new Guid(uid)).name;
         MembershipUser user = Membership.GetUser();
-        Guid userId = (Guid)user.ProviderUserKey;
+        Guid myId = (Guid)user.ProviderUserKey;
 
         List<Notification> notifications_1 = new List<Notification>();
         List<Notification> notifications_2 = new List<Notification>();
 
         /* sender notifications */
-        notifications_1 = NotificationDataService.getConversation(senderId, userId.ToString());
+        notifications_1 = NotificationDataService.getConversation(uid, myId.ToString());
         /* receiver notifications */
-        notifications_2 = NotificationDataService.getConversation(userId.ToString(), senderId);
+        notifications_2 = NotificationDataService.getConversation(myId.ToString(), uid);
 
         int i1 = 0;
         int i2 = 0;
@@ -98,13 +107,12 @@ public partial class Views_Notifications : System.Web.UI.Page
         /* add person name */
         objectHTML += "<div class=\"message_receiver_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
 
-        /* add item title */
         objectHTML += "<div class=\"message_receiver_message\">" + n.message + "</div>";
 
-        /* add last message details */
+        /* add date */
         objectHTML += "<div class=\"message_receiver_date\">" + n.sentDate + "</div>";
 
-        objectHTML += "</div></br>";
+        objectHTML += "</div><div class=\"ver_space\"></div>";
         return objectHTML;
     }
 
@@ -117,37 +125,72 @@ public partial class Views_Notifications : System.Web.UI.Page
         objectHTML += "<img class=\"message_sender_image\">" + "" + "</img>";
 
         /* add person name */
-        objectHTML += "<div class=\"message_sender_user\">" + UserDataService.getUser(n.recieverId).name + "</div>";
+        objectHTML += "<div class=\"message_sender_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
 
-        /* add item title */
         objectHTML += "<div class=\"message_sender_message\">" + n.message + "</div>";
 
-        /* add last message details */
+        /* add date */
         objectHTML += "<div class=\"message_sender_date\">" + n.sentDate + "</div>";
 
-        objectHTML += "</div></br>";
+        objectHTML += "</div><div class=\"ver_space\"></div>";
         return objectHTML;
     }
 
-    private string createNotificationDiv(Notification n)
+    private string createNotificationDiv(Notification n, bool sender)
     {
         string objectHTML = "";
-        objectHTML += "<div class=\"notification_div\" onclick=\"javascript:previewchat('" + n.senderId + "')\" runat=\"server\">";
-        
-        /* add item thumbnail */
-        objectHTML += "<img class=\"notification_image\" align=\"left\">" + "" + "</img>";
+        if (sender)
+        {
+            /* if i'm the sender, put information about the receiving user */
+            objectHTML += "<div class=\"notification_div\" onclick=\"javascript:previewchat('" + n.recieverId + "')\" runat=\"server\">";
 
-        /* add person name */
-        objectHTML += "<div class=\"notification_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
+            /* add item thumbnail */
+            objectHTML += "<img class=\"notification_image\" align=\"left\">" + "" + "</img>";
 
-        /* add item title */
-        objectHTML += "<div class=\"notification_message\">" + n.message + "</div>";
+            /* add person name */
+            objectHTML += "<div class=\"notification_user\">" + UserDataService.getUser(n.recieverId).name + "</div>";
 
-        /* add last message details */
-        objectHTML += "<div class=\"notification_date\">" + n.sentDate + "</div>";
+            /* add message */
+            String message = n.message;
+            if (n.message.Length > 30)
+            {
+                message = n.message.Substring(0, 32) + "...";
+            }
+            objectHTML += "<div class=\"notification_message\">" + message + "</div>";
 
-        objectHTML += "</div></br>";
+            /* add date */
+            objectHTML += "<div class=\"notification_date\">" + n.sentDate + "</div>";
+
+            objectHTML += "</div></br>";
+
+        }
+        else
+        {
+            /* if i'm the receiver, put information about the sending user */
+            objectHTML += "<div class=\"notification_div\" onclick=\"javascript:previewchat('" + n.senderId + "')\" runat=\"server\">";
+
+            /* add item thumbnail */
+            objectHTML += "<img class=\"notification_image\" align=\"left\">" + "" + "</img>";
+
+            /* add person name */
+            objectHTML += "<div class=\"notification_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
+
+            /* add message */
+            String message = n.message;
+            if (n.message.Length > 30)
+            {
+                message = n.message.Substring(0, 32) + "...";
+            }
+            objectHTML += "<div class=\"notification_message\">" + message + "</div>";
+
+            /* add date */
+            objectHTML += "<div class=\"notification_date\">" + n.sentDate + "</div>";
+
+            objectHTML += "</div></br>";
+        }
         return objectHTML;
+
+
     }
 
 
