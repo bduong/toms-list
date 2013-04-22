@@ -2,9 +2,7 @@
 
 <asp:Content ID="Search" ContentPlaceHolderID="MainContent" Runat="Server">
     Do your search here
-    <div id="search">
-        <asp:TextBox ID="search_box" runat="server"></asp:TextBox><span> </span><asp:Button ID="Button1" runat="server" Text="Button" OnClick="search"/>
-    </div>
+
     <script type="text/javascript">
         function preview(parameter) {
             __doPostBack('', parameter)
