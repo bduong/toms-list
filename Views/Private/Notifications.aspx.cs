@@ -46,13 +46,16 @@ public partial class Views_Notifications : System.Web.UI.Page
 
     private void showConversation(String senderId)
     {
+        MembershipUser user = Membership.GetUser();
+        Guid userId = (Guid)user.ProviderUserKey;
+
         List<Notification> notifications_1 = new List<Notification>();
         List<Notification> notifications_2 = new List<Notification>();
 
         /* sender notifications */
-        notifications_1 = NotificationDataService.getConversation(senderId, "70d833c6-83e3-419d-b4e2-d61ce2bb668f");
+        notifications_1 = NotificationDataService.getConversation(senderId, userId.ToString());
         /* receiver notifications */
-        notifications_2 = NotificationDataService.getConversation("70d833c6-83e3-419d-b4e2-d61ce2bb668f", senderId);
+        notifications_2 = NotificationDataService.getConversation(userId.ToString(), senderId);
 
         int i1 = 0;
         int i2 = 0;
