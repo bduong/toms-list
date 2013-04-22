@@ -15,8 +15,8 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
 
     protected void search_query(object sender, EventArgs e)
     {
-        if(search_box.Text != "" && search_box.Text != null) {
-            String query = search_box.Text.Trim();
+        if(search_bar.Text != "" && search_bar.Text != null) {
+            String query = search_bar.Text.Trim();
             Response.Redirect("~/Views/Search.aspx?query=" + query);
         }
         

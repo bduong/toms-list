@@ -19,6 +19,7 @@
                         </td>
                         <td>
                             <div class="preview_item">
+                                <asp:Button ID="Button1" runat="server" Text="Back To Search" OnClick="backto_search"/>
                                 <fieldset>
                                     <asp:Label ID="Label1" class="form_label" runat="server" Text="Label">Title: </asp:Label><asp:Label ID="view_item_title" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label3" class="form_label" runat="server" Text="Label">Description: </asp:Label><asp:Label ID="view_item_description" runat="server" Text="Label"></asp:Label><br />
@@ -50,6 +51,7 @@
                 </table>
             </asp:View>
             <asp:View ID="view_results" runat="server">
+                <asp:Button ID="Button3" runat="server" Text="Back to Featured" OnClick="backto_featured"/>
                 <div id="results" runat="server"></div>
             </asp:View>
         </asp:MultiView>

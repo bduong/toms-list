@@ -37,6 +37,17 @@ public partial class Views_Landing : System.Web.UI.Page
 
     }
 
+    protected void backto_featured(object sender, EventArgs e)
+    {
+        fr_view.ActiveViewIndex = 1;
+        getFeatured();
+    }
+
+    protected void backto_search(object sender, EventArgs e)
+    {
+        fr_view.ActiveViewIndex = 2;
+    }
+
     private void preview(String id)
     {
         Listing listing = ListingDataService.getListing(id);
