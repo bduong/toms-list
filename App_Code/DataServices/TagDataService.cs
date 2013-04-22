@@ -15,6 +15,7 @@ public class TagDataService
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand find = new SqlCommand("SELECT TagId FROM Tags where Name = @Name", conn);
+        find.Parameters.AddWithValue("@Name", name);
         SqlDataReader reader = find.ExecuteReader();
         int id;
         if (reader.Read())
@@ -25,7 +26,7 @@ public class TagDataService
         {
             reader.Close();
             find.Dispose();
-            SqlCommand cmd = new SqlCommand("INSERT INTO Tags (Name) VALUES (@Name); SELECT SCOPE_IDENTITY()", conn);
+            SqlCommand cmd = new SqlCommand("INSERT INTO Tags (Name) VALUES (@Name); SELECT CONVERT(int, SCOPE_IDENTITY())", conn);
             cmd.Parameters.AddWithValue("@Name", name);
             id = (int)cmd.ExecuteScalar();
         }
