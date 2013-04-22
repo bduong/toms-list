@@ -73,7 +73,7 @@ public class UserDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("INSERT INTO UsersNetwork (UserId, NetworkId) VALUES (@UserId, @NetworkId)", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO UserNetworks (UserId, NetworkId) VALUES (@UserId, @NetworkId)", conn);
         cmd.Parameters.AddWithValue("@UserId", user.uid);
         cmd.Parameters.AddWithValue("@NetworkId", network.id);
         int rowsAffected = cmd.ExecuteNonQuery();
@@ -86,7 +86,7 @@ public class UserDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("DELETE FROM UsersNetwork where UserId = @UserId AND NetworkId = @NetworkId", conn);
+        SqlCommand cmd = new SqlCommand("DELETE FROM UserNetworks where UserId = @UserId AND NetworkId = @NetworkId", conn);
         cmd.Parameters.AddWithValue("@UserId", user.uid);
         cmd.Parameters.AddWithValue("@NetworkId", network.id);
         int rowsAffected = cmd.ExecuteNonQuery();
