@@ -85,7 +85,7 @@ public class ListingDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("INSERT INTO Listing (UserId, Title, Description, Price, , Location, Date) VALUES (@UserId, @Title, @Description, @Price, @Location, @Date); SELECT SCOPE_IDENTITY()", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO Listing (UserId, Title, Description, Price, Location, Date) VALUES (@UserId, @Title, @Description, @Price, @Location, @Date); SELECT SCOPE_IDENTITY()", conn);
         cmd.Parameters.AddWithValue("@UserId", listing.userId);
         cmd.Parameters.AddWithValue("@Title", listing.title);
         cmd.Parameters.AddWithValue("@Description", listing.description);
@@ -148,6 +148,19 @@ public class ListingDataService
 
         return returnList;
     }
+    public static void addListingTag(Listing listing, Tag tag)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("INSERT INTO ListingTags (ListingId, TagId) VALUES (@ListingId, @TagId); SELECT SCOPE_IDENTITY()", conn);
+        cmd.Parameters.AddWithValue("@ListingId", listing.ListingId);
+        cmd.Parameters.AddWithValue("@TagId", tag.id);
+        cmd.ExecuteNonQuery();
+        conn.Close();
+    }
+
+
+
 
     public static List<Listing> getAllListingsInNetwork(Network network)
     {
