@@ -21,20 +21,22 @@ public class UserDataService
         Guid uid = (Guid) reader["UserId"];
         string userName = (string) reader["Name"];
         string email = (string) reader["Email"];
+        int imageId = (int)reader["ImageId"];
         string location = (string) reader["Location"];
         conn.Close();
-        return new User(uid, userName, email, location);
+        return new User(uid, userName, email, location, imageId);
     }
 
     public static bool addUser(User user)
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("INSERT INTO Users (UserId, Name, Email, Photo, Location) VALUES(@UserId, @Name, @Email, @Photo, @Location)", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO Users (UserId, Name, Email, ImageId, Location) VALUES(@UserId, @Name, @Email, @ImageId, @Location)", conn);
+        
         cmd.Parameters.AddWithValue("@UserId", user.uid);
         cmd.Parameters.AddWithValue("@Name", user.name);
         cmd.Parameters.AddWithValue("@Email", user.email);
-        cmd.Parameters.AddWithValue("@Photo", user.photo);
+        cmd.Parameters.AddWithValue("@ImageId", user.imageId);
         cmd.Parameters.AddWithValue("@Location", user.location);
         int rowsAffected = cmd.ExecuteNonQuery();     
         conn.Close();
@@ -59,7 +61,7 @@ public class UserDataService
         SqlCommand cmd = new SqlCommand("Update Users SET Name = @Name, Email = @Email, Photo = @Photo, Location = @Location where UserId = @UserId", conn);
         cmd.Parameters.AddWithValue("@Name", newUser.name);
         cmd.Parameters.AddWithValue("@Email", newUser.email);
-        cmd.Parameters.AddWithValue("@Photo", newUser.photo);
+        cmd.Parameters.AddWithValue("@ImageId", newUser.imageId);
         cmd.Parameters.AddWithValue("@Location", newUser.location);
         cmd.Parameters.AddWithValue("@UserId", idToUpdate);
 

@@ -16,6 +16,7 @@ public class Listing
     public string location { get; set; }
     public List<String> tags { get; set; }
     public DateTime date { get; set; }
+    public int imageId { get; set; }
 
 
 	public Listing(Guid userId, string title, string description, decimal price, string location, DateTime date)
@@ -28,6 +29,7 @@ public class Listing
         this.date = date;
         this.description = description;
         this.tags = new List<String>();
+        imageId = 0;
 	}
 
     public Listing(int uid, Guid userId, string title, string description, decimal price, string location, DateTime date)

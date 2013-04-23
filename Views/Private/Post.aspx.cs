@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using System.IO;
+using System.Drawing;
 
 public partial class Views_Post : System.Web.UI.Page
 {
@@ -33,6 +35,12 @@ public partial class Views_Post : System.Web.UI.Page
                 Guid userId = (Guid)user.ProviderUserKey;
 
                 Listing listing = new Listing(userId, title, description, price, location, DateTime.Now);
+                if (imageUpload.HasFile)
+                {
+                    int imageId = saveImageFile();
+                    listing.imageId = imageId;
+                }
+
                 Listing newListing = ListingDataService.addListing(listing);
 
                 /* save the tags along with the listing id */
@@ -81,8 +89,54 @@ public partial class Views_Post : System.Web.UI.Page
 
         }
 
+    }
 
+    private int saveImageFile() {
+        string ext = Path.GetExtension(imageUpload.PostedFile.FileName).ToLower();
+        string contentType = "";
+        switch (ext)
+        {
+            case ".jpg":               
+            case ".jpeg":
+                contentType = "image/jpg";
+                break;
+            case ".png":
+                contentType = "image/png";
+                break;
+            case ".gif":
+                contentType = "image/gif";
+                break;
+            case ".bmp":
+                contentType = "image/bmp";
+                break;
+        }
 
+        Stream stream = imageUpload.PostedFile.InputStream;
+        BinaryReader binReader = new BinaryReader(stream);
+        byte[] data = binReader.ReadBytes(Convert.ToInt32(stream.Length));
+        System.Drawing.Image temp = System.Drawing.Image.FromStream(stream);
+        int width = (int)temp.Width;
+        int height = (int)temp.Height;
+        temp.Dispose();
 
+        int thumbWidth = 100;
+        int thumbHeight = thumbWidth * (int)((double)width / (double)height);
+
+        System.Drawing.Image thumb = System.Drawing.Image.FromStream(stream);
+        Bitmap tempThumb = new Bitmap(thumb, thumbWidth, thumbHeight);
+        Graphics g = Graphics.FromImage(tempThumb);
+        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        g.DrawImage(thumb, 0, 0, tempThumb.Width, tempThumb.Height);
+        MemoryStream memStream = new MemoryStream();
+        tempThumb.Save(memStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+        byte[] thumbData = memStream.ToArray();
+
+        thumb.Dispose();
+        tempThumb.Dispose();
+        g.Dispose();
+        Image fullImage = new Image(data, contentType, height, width);
+        Image thumbImage = new Image(thumbData, "image/jpg", thumbHeight, thumbWidth);
+        return ImageDataService.addImage(fullImage, thumbImage);
     }
 }
