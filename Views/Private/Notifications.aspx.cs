@@ -52,8 +52,29 @@ public partial class Views_Notifications : System.Web.UI.Page
 
     }
 
+    protected void send_message(object sender, EventArgs e) {
+
+        string message = chat_area.Value.ToString().Trim();
+        if (message != null && message != "")
+        {
+            Guid receiverId = new Guid(otherUserId.Value.ToString());
+
+            MembershipUser user = Membership.GetUser();
+            Guid senderId = (Guid)user.ProviderUserKey;
+
+            Notification notification = new Notification(message, senderId, receiverId, DateTime.Now, 0);
+            NotificationDataService.saveNotification(notification);
+            
+            chat_area.Value = "";
+            conversation_div.InnerHtml += createReceiverDiv(notification);
+            notifications_multiview.ActiveViewIndex = 0;
+        }
+
+    }
+
     private void showConversation(String uid)
     {
+        otherUserId.Value = uid;
         conversation_title.Text = "Conversation with " + UserDataService.getUser(new Guid(uid)).name;
         MembershipUser user = Membership.GetUser();
         Guid myId = (Guid)user.ProviderUserKey;
@@ -63,7 +84,7 @@ public partial class Views_Notifications : System.Web.UI.Page
 
         /* sender notifications */
         notifications_1 = NotificationDataService.getConversation(uid, myId.ToString());
-        /* receiver notifications */
+        /* receiver notifications (i am the receiver) */
         notifications_2 = NotificationDataService.getConversation(myId.ToString(), uid);
 
         int i1 = 0;
@@ -199,5 +220,9 @@ public partial class Views_Notifications : System.Web.UI.Page
         notifications_multiview.ActiveViewIndex = 1;
         
         
+    }
+    protected void Timer1_Tick(object sender, EventArgs e)
+    {
+        showConversation(otherUserId.Value);
     }
 }
