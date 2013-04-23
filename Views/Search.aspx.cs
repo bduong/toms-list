@@ -174,8 +174,10 @@ public partial class Views_Landing : System.Web.UI.Page
         /* get values from database table */
         List<Listing> all_results = new List<Listing>();
         string[] words = q.Split(' ');
+        // subscribe.Text = "Subscribe to search: ";
         foreach (string word in words)
         {
+            // subscribe.Text += word + " - ";
             /*
             List<Tag> taglist = TagDataService.getTagsByName(word);
             foreach(Tag tag in taglist) {
