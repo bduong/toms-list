@@ -121,7 +121,7 @@
                             <a class="social_network">ĵ</a>
                         </td>
                         <td>
-                            <a class="social_network">Ķ</a>
+                            <a id="tweeter" href="https://twitter.com/toms_list_bu" class="social_network">Ķ</a>
                         </td>
                     </tr>
                 </table>
