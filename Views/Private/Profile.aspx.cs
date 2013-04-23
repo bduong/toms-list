@@ -18,6 +18,7 @@ public partial class Views_Profile : System.Web.UI.Page
             name.Text = user.name;
             location.Text = user.location;
             email.Text = user.email;
+            user_photo.ImageUrl = "~/Helpers/GetImage.ashx?ID=" + user.imageId;
         }
         catch (System.NullReferenceException)
         {

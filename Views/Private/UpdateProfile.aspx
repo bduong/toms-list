@@ -1,10 +1,24 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Layout.master" AutoEventWireup="true" CodeFile="UpdateProfile.aspx.cs" Inherits="Views_UpdateProfile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+     <script type="text/javascript">
+         function changeImagePreview(uploadControl) {
+             if (uploadControl.files && uploadControl.files[0]) {
+                 var fileReader = new FileReader();
+                 fileReader.onload = function (x) {
+                     document.getElementById('MainContent_user_photo').setAttribute('src', x.target.result);
+                 };
+                 fileReader.readAsDataURL(uploadControl.files[0]);
+             } else {
+                 document.getElementById('MainContent_user_photo').setAttribute('src', "../../public/img/grey_wash_wall.png");
+             }
+         }
+    </script>
     Hello <asp:LoginName ID="LoginName1" runat="server" />!<br /><br />
     <div style="text-align:left">Profile Info:<br /><br /><br />
         You:<br /><br />
-        <asp:Image ID="Image1" runat="server" />
+        <asp:FileUpload ID="imageUpload" runat="server" onchange="changeImagePreview(this)"/><br />
+        <asp:Image Width="300px" Height="300px" ID="user_photo" runat="server" />
         <br /><br /><br /><br />
         Name: 
         <asp:Label ID="NameLabel" runat="server" Text="Label"></asp:Label>
