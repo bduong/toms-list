@@ -197,6 +197,7 @@ public class ListingDataService
         public static string Price = "Price";
         public static string Location = "Location";
         public static string Date = "Date";
+        public static string ImageId = "Image";
     }
 
     private static Listing extractListing(SqlDataReader reader)
@@ -209,6 +210,7 @@ public class ListingDataService
         decimal price = (decimal)reader[ColumnNames.Price];
         string location = (string)reader[ColumnNames.Location];
         DateTime date = (DateTime)reader[ColumnNames.Date];
-        return new Listing(uid, userId, title, description, price, location, date);        
+        int imageId = (int)reader[ColumnNames.ImageId];
+        return new Listing(uid, userId, title, description, price, location, date, imageId);        
     }
 }

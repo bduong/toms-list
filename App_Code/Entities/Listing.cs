@@ -37,4 +37,10 @@ public class Listing
     {
         this.ListingId = uid;
     }
+
+    public Listing(int uid, Guid userId, string title, string description, decimal price, string location, DateTime date, int imageId)
+        : this(uid, userId, title, description, price, location, date)
+    {
+        this.imageId = imageId;
+    }
 }

@@ -15,7 +15,7 @@
                 <table align="center">
                     <tr>
                         <td>
-                            <img />
+                            <asp:Image ID="item_image" runat="server" Width="200" Height="200"/>
                         </td>
                         <td>
                             <div class="preview_item">
