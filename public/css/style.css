@@ -308,7 +308,7 @@ h2 {
     background-color: #ccc;
     // background: url('../../public/img/bg-hr-1.gif');
 }
-nav #menu {
+nav .menu {
     text-align: center; 
     // background-color: #eee;   
     // background: url('../../public/img/bg-middle-top.gif');
@@ -319,7 +319,7 @@ nav #menu {
 
 }
 
-nav #menu li {
+nav .menu li {
     
     
     font-family: 'sosa';
@@ -336,7 +336,7 @@ nav #menu li {
 
 
 }
-    nav #menu li a {
+    nav .menu li a {
         text-decoration: none;
         text-shadow: 0px 1px 1px #000;
         
@@ -345,7 +345,7 @@ nav #menu li {
         color: #fff;
     }
 
-        nav #menu li a:hover {
+        nav .menu li a:hover {
             // color: #ff6a00;
             // text-shadow: 0px 0px 10px #ffd303 ;
             color: #ffd303;
