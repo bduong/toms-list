@@ -9,31 +9,14 @@
 }
 
 html {
-    
-    /*
-    background-size: 50px 50px;
-    background-color: #0ae;
-    background-image: -webkit-linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
-    background-image: -moz-linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
-    background-image: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
-    -pie-background: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent) 0 0 / 50px #0ae;
-        */
-background: rgb(135,224,253); /* Old browsers */
-background: -moz-radial-gradient(center, ellipse cover,  rgba(135,224,253,1) 0%, rgba(83,203,241,1) 40%, rgba(5,171,224,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(135,224,253,1)), color-stop(40%,rgba(83,203,241,1)), color-stop(100%,rgba(5,171,224,1))); /* Chrome,Safari4+ */
-background: -webkit-radial-gradient(center, ellipse cover,  rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-radial-gradient(center, ellipse cover,  rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%); /* Opera 12+ */
-background: -ms-radial-gradient(center, ellipse cover,  rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%); /* IE10+ */
-background: radial-gradient(ellipse at center,  rgba(135,224,253,1) 0%,rgba(83,203,241,1) 40%,rgba(5,171,224,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
     // background: url('../../public/img/grey_wash_wall.png') repeat;
     background-color: #d3ce95;
-
     background: url('../../public/img/bg-middle-top.gif');
 }
 body {
+
     /*background-color: #188;*/
+
     //padding-left: 100px;
     //padding-right: 100px;
     // font-family: Calibri;
@@ -42,8 +25,6 @@ body {
     margin-top: -5px;
     font-family: 'Open Sans';
     background-color: #eee;
-
-
     
     margin-left: -10px;
     margin-right: -10px;
@@ -327,7 +308,7 @@ h2 {
     background-color: #ccc;
     // background: url('../../public/img/bg-hr-1.gif');
 }
-nav #menu {
+nav .menu {
     text-align: center; 
     // background-color: #eee;   
     // background: url('../../public/img/bg-middle-top.gif');
@@ -338,7 +319,7 @@ nav #menu {
 
 }
 
-nav #menu li {
+nav .menu li {
     
     
     font-family: 'sosa';
@@ -355,7 +336,7 @@ nav #menu li {
 
 
 }
-    nav #menu li a {
+    nav .menu li a {
         text-decoration: none;
         text-shadow: 0px 1px 1px #000;
         
@@ -364,7 +345,7 @@ nav #menu li {
         color: #fff;
     }
 
-        nav #menu li a:hover {
+        nav .menu li a:hover {
             // color: #ff6a00;
             // text-shadow: 0px 0px 10px #ffd303 ;
             color: #ffd303;
@@ -427,6 +408,11 @@ fieldset {
     width: 600px;
     padding: 10px;
 }
+.conversation_window_chat {
+    margin: auto;
+    width: 600px;
+    padding: 10px;
+}
 .conversation_title {
     clear: both;
     margin: auto;
@@ -484,10 +470,14 @@ fieldset {
     float: left;
     clear: both;
 }
-.chat-area {
+.chat_area {
     width: 600px;
     clear: both;
     float: right; 
+}
+.chat_send {
+    clear: both;
+    float: right;
 }
 
 
