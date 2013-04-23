@@ -9,7 +9,7 @@
         }
     </script>
     <!--hr id="hr_search"/-->
-    <div id="featured-results">
+    <div id="featured-results">        
         <asp:MultiView ID="fr_view" runat="server">
             <asp:View ID="view_item" runat="server">
                 <table align="center">
