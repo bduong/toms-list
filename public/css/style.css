@@ -533,7 +533,17 @@ fieldset {
     float: right;
 }
 
+.error_title {
+    color:red;
+    font-size: 18px;
+    padding:1px;
+}
 
+.error_text {
+    color:black;
+    font-size: 16px;
+    padding:1px;
+}
 
 
 
