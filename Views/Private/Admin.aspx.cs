@@ -22,24 +22,86 @@ public partial class Views_Admin : System.Web.UI.Page
         }
 
     }
-    protected void Deletebutton_Click(object sender, EventArgs e)
+    protected void Delete_user(object sender, EventArgs e)
     {
         if (ListBox1.SelectedItem != null)
         {
-            string name;
-            Guid userid;
+            string name = ListBox1.SelectedItem.Text;
+            Guid userid = (Guid)Membership.GetUser(name).ProviderUserKey;
             try
             {
-                name = ListBox1.SelectedItem.Text;
-                userid = (Guid)Membership.GetUser(name).ProviderUserKey;
                 Membership.DeleteUser(name, true);
                 UserDataService.deleteUser(userid);
                 ListBox1.DataBind();
             }
             catch (NullReferenceException ex)
             {
-                Console.WriteLine("The ID does not exist.  Did you hit the back button?");
+                Console.WriteLine("The name does not exist.  Did you hit the back button?");
             }
         }
+    }
+
+    protected void Delete_network(object sender, EventArgs e)
+    {
+        if (ListBox2.SelectedItem != null)
+        {
+            string network = ListBox2.SelectedItem.Text;
+            List<Network> networks = NetworkDataService.searchForNetworksByName(network);
+
+            try
+            {
+                List<int> id = networks.Select(t => t.id).ToList();
+                NetworkDataService.deleteNetwork(id[ListBox2.SelectedIndex]);
+                ListBox2.DataBind();
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine("The network does not exist.  Did you hit the back button?");
+            }
+        }
+    }
+
+    protected void Delete_tag(object sender, EventArgs e)
+    {
+        if (ListBox3.SelectedItem != null)
+        {
+            string tag = ListBox3.SelectedItem.Text;
+            List<Tag> tags = TagDataService.searchForTagByName(tag);
+
+            try
+            {
+                List<int> id = tags.Select(t => t.id).ToList();
+                TagDataService.deleteTag(id[ListBox3.SelectedIndex]);
+                ListBox3.DataBind();
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine("The tag does not exist.  Did you hit the back button?");
+            }
+        }
+    }
+    protected void User_search(object sender, EventArgs e)
+    {
+        string search = TextBox1.Text;
+        List<User> users = UserDataService.searchForUserByName(search);
+
+        ListBox1.DataSource = users.Select(t => t.name).ToList();
+        ListBox1.DataBind();
+    }
+    protected void Network_search(object sender, EventArgs e)
+    {
+        string search = TextBox2.Text; ;
+        List<Network> networks = NetworkDataService.searchForNetworksByName(search);
+
+        ListBox2.DataSource = networks.Select(t => t.name).ToList();
+        ListBox2.DataBind();
+    }
+    protected void Tag_search(object sender, EventArgs e)
+    {
+        string search = TextBox3.Text; ;
+        List<Tag> tags = TagDataService.getTagsByName(search);
+               
+        ListBox3.DataSource = tags.Select(t => t.name).ToList();
+        ListBox3.DataBind();
     }
 }

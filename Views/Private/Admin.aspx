@@ -34,61 +34,58 @@
         <table style="table-layout:fixed; width: 100%;">
             <tr>
                 <td>
-                    <div id="user" style="display: none; text-align: left">
+                    <div id="user" style="display: block; text-align: left">
                         <br /><br />
                         Query User:<br />
                         <br />
                         <asp:TextBox ID="TextBox1" runat="server" Height="21px" Width="328px"></asp:TextBox>
                         &nbsp;
         <br />
+                        <asp:Button ID="Usersearch" runat="server" OnClick="User_search" Text="Search" />
                         <br />
-                        <asp:ListBox ID="ListBox1" runat="server" DataSourceID="SqlDataSource2" DataTextField="Name" DataValueField="UserId" Width="201px"></asp:ListBox>
-                        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:TomsListConnString %>" SelectCommand="SELECT [UserId], [Name] FROM [Users] WHERE [Name] = @username" DeleteCommand="DELETE FROM Users">
-                            <SelectParameters>
-                                <asp:ControlParameter ControlID="TextBox1" DefaultValue=" " Name="username" PropertyName="Text" />
-                            </SelectParameters>
-                        </asp:SqlDataSource>
-                        <asp:Button ID="Deletebutton" runat="server" Text="Delete User" OnClick="Deletebutton_Click" />
+                        <br />
+                        <asp:ListBox ID="ListBox1" runat="server" Width="201px"></asp:ListBox>
+                        <br />
+                        <br />
+                        <asp:Button ID="Deleteuser" runat="server" Text="Delete User" OnClick="Delete_user" />
                         <br />
                         <br />
                     </div>
                 </td>
                 <td>
-                    <div id="network" style="display: none; text-align: left">
+                    <div id="network" style="display: block; text-align: left">
                         <br /><br />
                         Query Network:<br />
                         <br />
                         <asp:TextBox ID="TextBox2" runat="server" Height="21px" Width="328px"></asp:TextBox>
                         &nbsp;
+                        <br />
+                        <asp:Button ID="Networksearch" runat="server" OnClick="Network_search" Text="Search" />
         <br />
                         <br />
-                        <asp:ListBox ID="ListBox2" runat="server" DataSourceID="SqlDataSource2" DataTextField="Name" DataValueField="UserId" Width="201px"></asp:ListBox>
-                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TomsListConnString %>" SelectCommand="SELECT [UserId], [Name] FROM [Users] WHERE [Name] = @username" DeleteCommand="DELETE FROM Users">
-                            <SelectParameters>
-                                <asp:ControlParameter ControlID="TextBox1" DefaultValue=" " Name="username" PropertyName="Text" />
-                            </SelectParameters>
-                        </asp:SqlDataSource>
-                        <asp:Button ID="Button1" runat="server" Text="Delete Network" OnClick="Deletebutton_Click" />
+                        <asp:ListBox ID="ListBox2" runat="server" Width="201px"></asp:ListBox>
+                        <br />
+                        <br />
+                        <asp:Button ID="Deletenetwork" runat="server" Text="Delete Network" OnClick="Delete_network" />
                         <br />
                         <br />
                     </div>
                 </td>
                 <td>
-                    <div id="tags" style="display: none; text-align: left">
+                    <div id="tags" style="display: block; text-align: left">
                         <br /><br />
                         Query Tags:<br />
                         <br />
                         <asp:TextBox ID="TextBox3" runat="server" Height="21px" Width="328px"></asp:TextBox>
                         &nbsp;
                           <br />
+                        <asp:Button ID="Tagsearch" runat="server" OnClick="Tag_search" Text="Search" />
+                          <br />
                         <br />
-                        <asp:ListBox ID="ListBox3" runat="server" DataSourceID="SqlDataSource2" DataTextField="Name" DataValueField="UserId" Width="201px"></asp:ListBox>
-                        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:TomsListConnString %>" SelectCommand="SELECT [UserId], [Name] FROM [Users] WHERE [Name] = @username" DeleteCommand="DELETE FROM Users">
-                            <SelectParameters>
-                                <asp:ControlParameter ControlID="TextBox1" DefaultValue=" " Name="username" PropertyName="Text" />
-                            </SelectParameters>
-                        </asp:SqlDataSource>
-                        <asp:Button ID="Button2" runat="server" Text="Delete Tag" OnClick="Deletebutton_Click" />
+                        <asp:ListBox ID="ListBox3" runat="server" Width="201px"></asp:ListBox>
+                        <br />
+                        <br />
+                        <asp:Button ID="Deletetag" runat="server" Text="Delete Tag" OnClick="Delete_tag" />
                         <br />
                         <br />
                     </div>
