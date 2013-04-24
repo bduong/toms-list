@@ -32,7 +32,8 @@ public partial class Views_Admin : System.Web.UI.Page
             {
                 Membership.DeleteUser(name, true);
                 UserDataService.deleteUser(userid);
-                ListBox1.DataBind();
+                //ListBox1.DataBind();
+                ListBox1.Items.Clear();
             }
             catch (NullReferenceException ex)
             {
@@ -52,7 +53,8 @@ public partial class Views_Admin : System.Web.UI.Page
             {
                 List<int> id = networks.Select(t => t.id).ToList();
                 NetworkDataService.deleteNetwork(id[ListBox2.SelectedIndex]);
-                ListBox2.DataBind();
+               // ListBox2.DataBind();
+                ListBox2.Items.Clear();
             }
             catch (NullReferenceException ex)
             {
@@ -72,7 +74,8 @@ public partial class Views_Admin : System.Web.UI.Page
             {
                 List<int> id = tags.Select(t => t.id).ToList();
                 TagDataService.deleteTag(id[ListBox3.SelectedIndex]);
-                ListBox3.DataBind();
+//                ListBox3.DataBind();
+                ListBox3.Items.Clear();
             }
             catch (NullReferenceException ex)
             {
