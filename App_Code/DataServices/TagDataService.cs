@@ -118,4 +118,22 @@ public class TagDataService
         conn.Close();
         return (rowsAffected > 0);
     }
+
+    public static List<Tag> searchForTagByName(string pattern)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Tags where Name LIKE @Pattern", conn);
+        cmd.Parameters.AddWithValue("@Pattern", "%" + pattern + "%");
+        SqlDataReader reader = cmd.ExecuteReader();
+        List<Tag> tags = new List<Tag>();
+        while (reader.Read())
+        {
+            int id = (int)reader["TagId"];
+            string name = (string)reader["Name"];
+            tags.Add(new Tag(id, name));
+        }
+        conn.Close();
+        return tags;
+    }
 }
