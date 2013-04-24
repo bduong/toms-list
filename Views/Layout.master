@@ -84,7 +84,7 @@
                             <td style="text-align: right;">
                                                 <a id="search_icon" style="padding: 10px; display: inline; clear: both">]</a>
 
-                                                <asp:TextBox ID="search_bar" runat="server"></asp:TextBox><span> </span><asp:Button ID="Button1" runat="server" Text="Button" OnClick="search_query"/><br />
+                                                <asp:TextBox ID="search_bar" runat="server"></asp:TextBox><span> </span><asp:Button ID="search_button" runat="server" Text="Search" OnClick="search_query"/><br />
                                                 <a id="search_example">Example: big fat leather couch</a>
 
                             </td>
