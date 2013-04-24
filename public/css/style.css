@@ -335,17 +335,17 @@ div.featured_item_div:hover {
     padding: inherit;
     font-size: 14px;
     line-height: 8px;
-    width: 300px;
+    width: 500px;
     text-align: left;
 }
 .search_item_description {
-    display: inline;
+    //display: inline;
     padding: inherit;
     float: left;
     font-size: 14px;
     line-height: 8px;
     //width: 220px;
-    
+    text-align: left;
     color: #999;
 }
 .search_item_price {

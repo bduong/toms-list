@@ -252,6 +252,7 @@ public partial class Views_Landing : System.Web.UI.Page
             all_results.AddRange(word_results);
         }
 
+        results.InnerHtml = all_results.Count + " results found";
         foreach (Listing listing in all_results)
         {
             string objectHTML = createSearchItemDiv(listing);
@@ -292,13 +293,11 @@ public partial class Views_Landing : System.Web.UI.Page
         /* object title */
         objectHTML += "<div class=\"search_item_title\">" + listing.title + "</div>";
 
-        /* object price */
-        objectHTML += "<div class=\"search_item_price\">" + listing.price + " $</div></br>";
-
-
         /* object description */
         objectHTML += "<div class=\"search_item_description\">" + listing.description + "</div>";
 
+        /* object price */
+        objectHTML += "<div class=\"search_item_price\">" + listing.price + "$ </div>";
 
         objectHTML += "</div></br>";
 
