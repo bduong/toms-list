@@ -13,6 +13,7 @@ public partial class Views_Landing : System.Web.UI.Page
         string parameter = Request["__EVENTARGUMENT"];
         string page = Request["__EVENTTARGET"];
         string query = Request.Params["query"];
+        string user = Request.Params["user"];
         if (parameter != null)
         {
             if (parameter == "")
@@ -41,6 +42,11 @@ public partial class Views_Landing : System.Web.UI.Page
         {
             fr_view.ActiveViewIndex = 2;
             doQuery(query);
+        } 
+        else if (user != "" && user != null)
+        {
+            fr_view.ActiveViewIndex = 2;
+            doUserQuery(query);
         }
         else
         {
@@ -85,9 +91,10 @@ public partial class Views_Landing : System.Web.UI.Page
     }
 
     private void preview(String id)
-    {
+    {        
         Listing listing = ListingDataService.getListing(id);
         view_item_userid.Value = listing.userId.ToString();
+        view_item_listingid.Value = listing.ListingId.ToString();
         view_item_title.Text = listing.title;
         view_item_description.Text = listing.description;
         view_item_price.Text = listing.price.ToString();
@@ -99,7 +106,17 @@ public partial class Views_Landing : System.Web.UI.Page
         view_item_user.Text = user.name;
         view_item_user.Attributes.Add("userId", listing.userId.ToString());
 
-        
+
+        if (User.Identity.IsAuthenticated)
+        {
+            MembershipUser loggedInUserInfo = Membership.GetUser();
+            Guid loggedInId = (Guid)loggedInUserInfo.ProviderUserKey;
+            update_button.Visible = listing.userId.ToString().Equals(loggedInId.ToString());
+        }
+        else
+        {
+            update_button.Visible = false;
+        }
     }
 
 
@@ -242,6 +259,23 @@ public partial class Views_Landing : System.Web.UI.Page
         }
     }
 
+    protected void doUserQuery(string q)
+    {
+        fr_view.ActiveViewIndex = 2;
+        results.InnerHtml = "";
+
+        /* get values from database table */                        
+        MembershipUser userInfo = Membership.GetUser();
+        Guid userId = (Guid) userInfo.ProviderUserKey;
+        List<Listing> all_results = ListingDataService.getListingsBy(ListingDataService.ColumnNames.UserId, userId.ToString());
+        
+        foreach (Listing listing in all_results)
+        {
+            string objectHTML = createSearchItemDiv(listing);
+            results.InnerHtml += objectHTML;
+        }
+    }
+
 
     /* search items will have larger divisions */
     private string createSearchItemDiv(Listing listing)
@@ -291,6 +325,7 @@ public partial class Views_Landing : System.Web.UI.Page
         objectHTML += "</div></br>";
 
         return objectHTML;
+
     }
 
     protected void networks_SelectedIndexChanged(object sender, EventArgs e)
@@ -318,4 +353,11 @@ public partial class Views_Landing : System.Web.UI.Page
         }
 
     }
+
+
+    protected void update_button_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Views/Private/UpdatePost.aspx?L=" + view_item_listingid.Value);
+    }
+
 }

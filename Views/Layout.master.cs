@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 
+
 public partial class Views_MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -31,7 +32,17 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
     }
     protected void go_profile(object sender, EventArgs e)
     {
-        Response.Redirect("~/Views/Private/Profile.aspx");
+        if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            MembershipUser userInfo = Membership.GetUser();
+            Guid userId = (Guid)userInfo.ProviderUserKey;
+            Response.Redirect("~/Views/Search.aspx?user=" + userId.ToString());
+        }
+        else
+        {
+            Response.Redirect("~/Views/Login.aspx");
+        }
+
     }
     protected void go_notifications(object sender, EventArgs e)
     {
