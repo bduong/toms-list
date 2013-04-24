@@ -216,7 +216,7 @@ public partial class Views_Landing : System.Web.UI.Page
         objectHTML += "<div class=\"search_item_div\" onclick=\"javascript:preview(" + listing.ListingId + ")\" runat=\"server\">";
 
         /* object image */
-        objectHTML += "<div class=\"search_item_img\"><img>" + "" + "</img></div>";
+        objectHTML += "<div class=\"search_item_img\"><img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + listing.imageId + "\"></img></div>";
 
         /* object title */
         objectHTML += "<div class=\"search_item_title\">" + listing.title + "</div>";
@@ -238,7 +238,7 @@ public partial class Views_Landing : System.Web.UI.Page
         string objectHTML = "<div id=\"featured_item_div\">";
 
         /* object image */
-        objectHTML += "<div class=\"featured_item_img\"><img>" + "" + "</img></div>";
+        objectHTML += "<div class=\"featured_item_img\"><img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + listing.imageId + "\"></img></div>";
 
         /* object title */
         objectHTML += "<div class=\"featured_item_title\">" + listing.title + "</div>";
