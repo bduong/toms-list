@@ -186,7 +186,9 @@ public partial class Views_Landing : System.Web.UI.Page
             featured3_header.Text = "In Your Network";
             networks.Visible = true;
             networks_button.Visible = true;
+
             if(networks.SelectedIndex >= 0) getNetworkListings(networks.SelectedItem.Text);
+
         }
         else
         {

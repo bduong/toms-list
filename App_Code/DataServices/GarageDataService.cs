@@ -14,6 +14,25 @@ public class GarageDataService
 	
 	}
 
+    public static List<Garage> getGarageSales()
+    {
+        List<Garage> returnList = new List<Garage>();
+
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM GarageSale", conn);
+
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            Garage garage = extractGS(reader);
+            returnList.Add(garage);
+        }
+        conn.Close();
+
+        return returnList;
+    }
+
     public static Garage getGarageSale(string id)
     {
         SqlConnection conn = DBConnector.getSqlConnection();

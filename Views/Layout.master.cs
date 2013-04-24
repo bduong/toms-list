@@ -20,19 +20,22 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
             String query = search_bar.Text.Trim();
             Response.Redirect("~/Views/Search.aspx?query=" + query);
         }
-        
     }
     protected void go_search(object sender, EventArgs e)
     {
         Response.Redirect("~/Views/Search.aspx");
     }
-    protected void go_post(object sender, EventArgs e)
+    protected void go_networks(object sender, EventArgs e)
     {
-        Response.Redirect("~/Views/Private/Post.aspx");
+        Response.Redirect("~/Views/Private/Networks.aspx");
     }
     protected void go_garage(object sender, EventArgs e)
     {
         Response.Redirect("~/Views/Private/GarageSale.aspx");
+    }
+    protected void go_post(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Views/Private/Post.aspx");
     }
     protected void go_profile(object sender, EventArgs e)
     {
