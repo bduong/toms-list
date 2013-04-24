@@ -39,9 +39,9 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
-        if (begin_time_list.SelectedIndex > 0
+        if (begin_time_list.SelectedIndex >= 0
             && date_cal.SelectedDate != null
-            && end_time_list.SelectedIndex > 0
+            && end_time_list.SelectedIndex >= 0
             && textbox_location.Value != "" 
             && textbox_description.Value != "")
         {
