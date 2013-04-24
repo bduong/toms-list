@@ -15,10 +15,17 @@ public partial class Views_Profile : System.Web.UI.Page
             Guid AspUserId = (Guid)Membership.GetUser().ProviderUserKey;
             User user = UserDataService.getUser(AspUserId);
 
-            name.Text = user.name;
-            location.Text = user.location;
-            email.Text = user.email;
-            user_photo.ImageUrl = "~/Helpers/GetImage.ashx?ID=" + user.imageId;
+            if (user.name == "admin")
+            {
+                Response.Redirect("~/Views/Private/Admin.aspx");
+            }
+            else
+            {
+                name.Text = user.name;
+                location.Text = user.location;
+                email.Text = user.email;
+                user_photo.ImageUrl = "~/Helpers/GetImage.ashx?ID=" + user.imageId;
+            }
         }
         catch (System.NullReferenceException)
         {
