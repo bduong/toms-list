@@ -58,7 +58,7 @@ public class UserDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("Update Users SET Name = @Name, Email = @Email, Photo = @Photo, Location = @Location where UserId = @UserId", conn);
+        SqlCommand cmd = new SqlCommand("Update Users SET Name = @Name, Email = @Email, ImageId = @ImageId, Location = @Location where UserId = @UserId", conn);
         cmd.Parameters.AddWithValue("@Name", newUser.name);
         cmd.Parameters.AddWithValue("@Email", newUser.email);
         cmd.Parameters.AddWithValue("@ImageId", newUser.imageId);

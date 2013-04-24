@@ -4,7 +4,7 @@
     Hello <asp:LoginName ID="LoginName1" runat="server" />!<br /><br />
     <div style="text-align:left">Profile Info:<br /><br /><br />
         You:<br /><br />
-        <asp:Image ID="Image1" runat="server" />
+        <asp:Image Width="300px" Height="300px" ID="user_photo" runat="server" />
         <br /><br />
         Name: 
         <asp:Label ID="name" runat="server" Text="Label"></asp:Label>
