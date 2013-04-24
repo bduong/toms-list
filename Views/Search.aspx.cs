@@ -11,12 +11,24 @@ public partial class Views_Landing : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         string parameter = Request["__EVENTARGUMENT"];
+        string page = Request["__EVENTTARGET"];
         string query = Request.Params["query"];
         if (parameter != null)
         {
             if (parameter == "")
             {
-                fr_view.ActiveViewIndex = 2;
+                if (page == "1")
+                {
+
+                    fr_view.ActiveViewIndex = 1;
+                    getFeatured();
+                }
+                else
+                {
+                    fr_view.ActiveViewIndex = 2;
+
+                }
+
             }
             /* preview page */
             else
@@ -112,45 +124,49 @@ public partial class Views_Landing : System.Web.UI.Page
         /* get recently posted listings from database */
         returnList = ListingDataService.getRecentListings(3);
 
-
-
-        featured1.InnerHtml = "<span> Recently Posted Items</span>";
-        foreach (Listing listing in returnList)
-            featured1.InnerHtml += createFeaturedItemDiv(listing);
+        featured1.InnerHtml = "";
+        for (int i = returnList.Count - 1; i >= 0; i--)
+        {
+            featured1.InnerHtml += createFeaturedItemDiv(returnList[i]);
+        }
     }
 
     private void putRecentApts()
     {
         List<Listing> returnList = new List<Listing>();
-        // Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
-        // returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
 
         /* get recently posted appartments and rooms from database */
-        string[] tagslist = {"appartment"};
+        string[] tagslist = {"apt"};
         foreach (string tag in tagslist)
             returnList.AddRange(searchWithTag(tag));
 
-        featured2.InnerHtml = "<span> Nearby Appartments</span>";
-        foreach (Listing listing in returnList)
-            featured2.InnerHtml += createFeaturedItemDiv(listing);
+        featured2.InnerHtml = "";
+        for (int i = returnList.Count - 1; i >= 0; i--)
+        {
+            featured2.InnerHtml += createFeaturedItemDiv(returnList[i]);
+        }
     }
 
     private void putHighlights()
     {
         List<Listing> returnList = new List<Listing>();
-        //Guid guid = new Guid("12345678-1234-1234-1234-123456789123");
-        //returnList.Add(new Listing(guid, "something", "description for something", 100, "place of something", DateTime.Now));
 
-        string[] tagslist = { "gadget"};
-        foreach (string tag in tagslist)
-            returnList.AddRange(searchWithTag(tag));
+        /* defaults to showing listings around boston */
+        String location = "boston";
+        if (User.Identity.IsAuthenticated)
+        {
+            MembershipUser user = Membership.GetUser();
+            Guid userId = (Guid)user.ProviderUserKey;
+            location = UserDataService.getUser(userId).location;
+        }
+        
+        returnList = ListingDataService.getListingsBy("Location", location, 5);
 
-        returnList = returnList.Distinct().ToList();
-
-        /* get most viewed items from database */
-        featured3.InnerHtml = "<span> Electronics / Gadgets </span>";
-        foreach (Listing listing in returnList)
-            featured3.InnerHtml += createFeaturedItemDiv(listing);
+        featured3.InnerHtml = "";
+        for (int i = returnList.Count - 1; i >= 0; i--)
+        {
+            featured3.InnerHtml += createFeaturedItemDiv(returnList[i]);
+        }
     }
 
     private void getFeatured()
@@ -224,7 +240,7 @@ public partial class Views_Landing : System.Web.UI.Page
         
         //objectHTML = "<input type=\"button\" id=\"btnSave\" onclick=\"javascript:preview(" + listing.ListingId + ")\" value=\"click me\"/>";
 
-        objectHTML += "<div class=\"search_item_div\" onclick=\"javascript:preview(" + listing.ListingId + ")\" runat=\"server\">";
+        objectHTML += "<div class=\"search_item_div\" onclick=\"javascript:preview(" + listing.ListingId + ", '1')\" runat=\"server\">";
 
         /* object image */
         objectHTML += "<div class=\"search_item_img\"><img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + listing.imageId + "\"></img></div>";
@@ -232,11 +248,13 @@ public partial class Views_Landing : System.Web.UI.Page
         /* object title */
         objectHTML += "<div class=\"search_item_title\">" + listing.title + "</div>";
 
+        /* object price */
+        objectHTML += "<div class=\"search_item_price\">" + listing.price + " $</div></br>";
+
+
         /* object description */
         objectHTML += "<div class=\"search_item_description\">" + listing.description + "</div>";
 
-        /* object price */
-        objectHTML += "<div class=\"search_item_price\">" + listing.price + "</div>";
 
         objectHTML += "</div></br>";
 
@@ -246,7 +264,7 @@ public partial class Views_Landing : System.Web.UI.Page
     /* featured items will have smaller divisions */
     private string createFeaturedItemDiv(Listing listing)
     {
-        string objectHTML = "<div id=\"featured_item_div\">";
+        string objectHTML = "<div class=\"featured_item_div\" onclick=\"javascript:preview(" + listing.ListingId + ", '2')\" runat=\"server\">";
 
         /* object image */
         objectHTML += "<div class=\"featured_item_img\"><img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + listing.imageId + "\"></img></div>";
@@ -258,7 +276,7 @@ public partial class Views_Landing : System.Web.UI.Page
         objectHTML += "<div class=\"featured_item_description\">" + listing.description + "</div>";
 
         /* object price */
-        objectHTML += "<div class=\"featured_item_price\">" + listing.price + "</div>";
+        objectHTML += "<div class=\"featured_item_price\">" + listing.price + "$ </div>";
 
         objectHTML += "</div></br>";
 

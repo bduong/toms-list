@@ -34,8 +34,8 @@ public class ListingDataService
         SqlCommand cmd;
         if (limit > 0)
         {
-            cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value LIMIT 0, @Limit", conn);
-            cmd.Parameters.AddWithValue("@Limit", limit);
+            cmd = new SqlCommand("SELECT TOP " + limit + " * FROM Listing where " + columnName + " = @Value", conn);
+            // cmd.Parameters.AddWithValue("@Limit", limit);
         }
         else
         {
