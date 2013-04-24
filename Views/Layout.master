@@ -62,10 +62,28 @@
                                 </asp:LoginView>
                                 <nav id="navbar" runat="server">
                                     <ul class="menu" id="menu" runat="server">
-                                        <li><asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">n</asp:LinkButton></li>
-                                        <li><asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">â</asp:LinkButton></li>
-                                        <li><asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">Ü</asp:LinkButton></li>
-                                        <li><asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">h</asp:LinkButton></li>
+                                        <li>
+                                            <asp:LinkButton runat="server" OnClick="go_search">
+                                                <span class="nav_icon">n</span>
+                                                <span class="nav_text">Search</span>
+                                            </asp:LinkButton>
+
+                                        </li>
+                                        <li>
+                                            <asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">
+                                                <span class="nav_icon">â</span>
+                                                <span class="nav_text">Post</span>
+                                            </asp:LinkButton></li>
+                                        <li>
+                                            <asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">
+                                                <span class="nav_icon">Ü</span>
+                                                <span class="nav_text">Your Listings</span>
+                                            </asp:LinkButton></li>
+                                        <li>
+                                            <asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">
+                                                <span class="nav_icon">l</span>
+                                                <span class="nav_text">Messages</span>
+                                            </asp:LinkButton></li>
                                     </ul>
                                 </nav>
             </div>

@@ -389,10 +389,15 @@ nav .menu {
 
 }
 
+nav .menu li span.nav_icon {
+        font-family: 'sosa';
+        font-size: 30px;
+}
+
 nav .menu li {
     
     
-    font-family: 'sosa';
+
     
     
     list-style: none;
