@@ -66,7 +66,7 @@ public partial class Views_Landing : System.Web.UI.Page
             MembershipUser user = Membership.GetUser();
             Guid senderId = (Guid)user.ProviderUserKey;
 
-            Notification notification = new Notification(message, senderId, receiverId, DateTime.Now, 0);
+            Notification notification = new Notification(message, senderId, receiverId, DateTime.Now);
             NotificationDataService.saveNotification(notification);
 
             contact_log.Style.Add("color", "#00ff00");
