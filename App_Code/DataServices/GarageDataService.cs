@@ -33,12 +33,13 @@ public class GarageDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("INSERT INTO GarageSale (UserID, DateBegin, DateEnd, Address, Description) VALUES (@UserId, @DateBegin, @DateEnd, @Address, @Description); SELECT SCOPE_IDENTITY()", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO GarageSale (UserID, DateBegin, DateEnd, Address, Description, Image) VALUES (@UserId, @DateBegin, @DateEnd, @Address, @Description, @Image); SELECT SCOPE_IDENTITY()", conn);
         cmd.Parameters.AddWithValue("@UserId", gs.userID);
         cmd.Parameters.AddWithValue("@DateBegin", gs.DateBegin);
         cmd.Parameters.AddWithValue("@DateEnd", gs.DateEnd);
         cmd.Parameters.AddWithValue("@Address", gs.Address);
         cmd.Parameters.AddWithValue("@Description", gs.Description);
+        cmd.Parameters.AddWithValue("@Image", gs.imageId);
         int uid = Convert.ToInt32(cmd.ExecuteScalar());
         conn.Close();
         gs.GarageID = uid;
