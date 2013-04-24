@@ -7,8 +7,8 @@ using System.Data.SqlClient;
 public class GetImage : IHttpHandler {
     
     public void ProcessRequest (HttpContext context) {
-        if (!string.IsNullOrEmpty(context.Request.QueryString["ID"]))
-        {
+        if (!string.IsNullOrEmpty(context.Request.QueryString["ID"]) && context.Request.QueryString["ID"] != "0")
+        {            
             SqlConnection conn = DBConnector.getSqlConnection();
             conn.Open();
             SqlCommand cmd = new SqlCommand("SELECT ContentType, Data FROM Images where ImageId = @ImageId", conn);
