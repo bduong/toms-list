@@ -87,6 +87,11 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
         }
          else
         {
+            bool b1 = begin_time_list.SelectedIndex > 0;
+            bool b2 = (date_cal.SelectedDate != null);
+            bool b3 = (end_time_list.SelectedIndex > 0);
+            bool b4 = (textbox_location.Value != ""); 
+            bool b5 = (textbox_description.Value != "");
             /* Please fill all fields */
             creategarage_output.Text = "Please fill all of the fields.";
             creategarage_output.Style.Add("color", "#ff0000");
@@ -141,5 +146,43 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
         Image fullImage = new Image(data, contentType, height, width);
         Image thumbImage = new Image(thumbData, "image/jpg", thumbHeight, thumbWidth);
         return ImageDataService.addImage(fullImage, thumbImage);
+    }
+    protected void Button1_Click1(object sender, EventArgs e)
+    {
+        
+        garagesale_view.ActiveViewIndex = 0;
+        loadGarageSales();
+
+    }
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        garagesale_view.ActiveViewIndex = 1;
+    }
+
+    private void loadGarageSales()
+    {
+        List<Garage> garages = GarageDataService.getGarageSales();
+        String objectHTML = garages.Count + " Found In Your Area";
+        foreach(Garage garage in garages)
+        {
+            objectHTML += createGarageDiv(garage);
+        }
+        garagesales.InnerHtml = objectHTML;
+    }
+    private String createGarageDiv(Garage garage)
+    {
+        string objectHTML = "</br></br><div class=\"garage_item_div\">";
+        
+        objectHTML += "<div class=\"garage_item_img\"><img width=\"200px\" height=\"200px\" src=\"../../Helpers/GetImage.ashx?ID=" + garage.imageId + "\"></img></div>";
+        objectHTML += "<div class=\"garage_item_desc\"><div class=\"garage_item_user\">" + UserDataService.getUser(garage.userID).name + "</div>";
+        objectHTML += "<div class=\"garage_item_description\">" + garage.Description + "</div>";
+        objectHTML += "<div class=\"garage_item_datebegin\">From: " + garage.DateBegin + "</div>";
+        objectHTML += "<div class=\"garage_item_dateend\">To: " + garage.DateEnd + "</div>";
+        objectHTML += "<div class=\"garage_item_address\">Address: " + garage.Address + "</div>";
+
+        objectHTML += "</div></div></br></br>";
+
+        return objectHTML;
+
     }
 }

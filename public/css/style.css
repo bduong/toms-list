@@ -373,6 +373,18 @@ div.featured_item_div:hover {
     text-align: left;
 }
 
+.garage_item_div {
+    border: 1px #333 solid;
+    padding: 10px;
+}
+.garage_item_img {
+
+}
+.garage_item_desc {
+
+}
+
+
 
 #stitch {
     border: 2px #ccc dotted;
