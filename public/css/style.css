@@ -233,56 +233,107 @@ h2 {
     background-color: #aaa;
 }
 
-.featured {
-    //width: 300px;
-    height: 300px;
+#table_featured {
+
+
+}
+.vertical_hr {
+    width: 0px;
     background-color: #ddd;
+    border: 0px solid #ddd;
+}
+
+.featured {
+    width: 400px;
+    height: 500px;
+    padding: 10px;
 }
 
 .featured_item_div {
     padding: 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px #0088ff inset;
+    height: 60px;
+}
+div.featured_item_div:hover {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px #ffd303 inset;
+    cursor: pointer;
 }
 .featured_item_img {
     display: inline;
+    float: left;
     padding: inherit;
 }
 .featured_item_title {
     display: inline;
+    float: left;
     padding: inherit;
+    font-size: 14px;
+    line-height: 8px;
+    width: 300px;
+    text-align: left;
+
 }
 .featured_item_description {
     display: inline;
     padding: inherit;
+    float: left;
+    font-size: 14px;
+    line-height: 8px;
+    //width: 220px;
+    text-align: left;
+    color: #999;
 }
 .featured_item_price {
     display: inline;
     padding: inherit;
+    float: right;
+    line-height: 8px;
 }
 
 
 .search_item_div {
     padding: 10px;
-    background-color: #eee;
-    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px #0088ff inset;
+    height: 60px;
+    width: 600px;
 }
     .search_item_div:hover {
-        box-shadow: 0px 0px 2px #08f;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 10px #ffd303 inset;
+        cursor: pointer;
     }
 .search_item_img {
     display: inline;
+    float: left;
     padding: inherit;
 }
 .search_item_title {
     display: inline;
+    float: left;
     padding: inherit;
+    font-size: 14px;
+    line-height: 8px;
+    width: 300px;
+    text-align: left;
 }
 .search_item_description {
     display: inline;
     padding: inherit;
+    float: left;
+    font-size: 14px;
+    line-height: 8px;
+    //width: 220px;
+    
+    color: #999;
 }
 .search_item_price {
     display: inline;
     padding: inherit;
+    float: right;
+    line-height: 8px;
 }
 
 .preview_item {
