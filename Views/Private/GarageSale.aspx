@@ -18,6 +18,7 @@
         <div style="text-align: center">
                 <asp:Button ID="Button1" runat="server" Text="Explore Around You" OnClick="Button1_Click1" /> <span> </span>
                 <asp:Button ID="Button2" runat="server" Text="Setup Your Own" OnClick="Button2_Click" />
+                <asp:Button ID="Button3" runat="server" Text="Edit Existing Garage Sales" OnClick="Button3_Click" />
         </div>
 
             <asp:MultiView ID="garagesale_view" runat="server">

@@ -8,15 +8,14 @@ using System.Web.Security;
 using System.IO;
 using System.Drawing;
 
-public partial class Views_Private_GarageSale : System.Web.UI.Page
+public partial class Views_Private_UpdateGarage : System.Web.UI.Page
 {
-    
     protected void Page_Load(object sender, EventArgs e)
     {
         int[] hours = {12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
         if (!IsPostBack)
         {
-            foreach (int i in hours) {
+         foreach (int i in hours) {
                 for (int j = 0; j < 4; j++)
                 {
                     begin_time_list.Items.Add(i + ":" + (j*15).ToString().PadLeft(2,'0') + " AM");
@@ -31,26 +30,56 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
                     end_time_list.Items.Add(i + ":" + (j * 15).ToString().PadLeft(2, '0') + " PM");
                 }
             }
-            date_cal.SelectedDate = DateTime.Today;
-            date_cal.VisibleDate = DateTime.Today;
-            begin_time_list.SelectedIndex = 0;
-            end_time_list.SelectedIndex = 0;
+            if (string.IsNullOrEmpty(Request.QueryString["G"]))
+            {
+                Response.Redirect("~/Views/Error.aspx?e_code=404");
+                return;
+            }
 
+
+            int garageId = 0;
+            try
+            {
+                garageId = Convert.ToInt32(Request.QueryString["G"]);
+            }
+            catch
+            {
+                Response.Redirect("~/Views/Error.aspx?e_code=400");
+                return;
+            }
+            Garage garage = GarageDataService.getGarageSale(garageId.ToString());
+            
+            if (garage == null)
+            {
+                Response.Redirect("~/Views/Error.aspx?e_code=404");
+                return;
+            }
+            
+            original_imageid.Value = garage.imageId.ToString();
+            date_cal.SelectedDate = garage.DateBegin;
+            date_cal.VisibleDate = garage.DateBegin;
+            begin_time_list.SelectedValue = garage.DateBegin.TimeOfDay.ToString();
+            end_time_list.SelectedValue = garage.DateEnd.TimeOfDay.ToString();
+            textbox_location.Value = garage.Address;
+            textbox_description.Value = garage.Description;
+
+            image_preview.ImageUrl = "~/Helpers/GetImage.ashx?ID=" + garage.imageId;
         }
+
     }
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void Update_Click(object sender, EventArgs e)
     {
         if (begin_time_list.SelectedIndex >= 0
             && date_cal.SelectedDate != null
             && end_time_list.SelectedIndex >= 0
-            && textbox_location.Value != "" 
+            && textbox_location.Value != ""
             && textbox_description.Value != "")
         {
             try
-            {                
+            {
                 string address = textbox_location.Value.ToString();
                 string description = textbox_description.Value.ToString();
-                
+
 
                 DateTime begintime = date_cal.SelectedDate.Date + DateTime.Parse(begin_time_list.SelectedValue).TimeOfDay;
                 DateTime endtime = date_cal.SelectedDate.Date + DateTime.Parse(end_time_list.SelectedValue).TimeOfDay;
@@ -60,45 +89,46 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
                 MembershipUser user = Membership.GetUser();
                 Guid userId = (Guid)user.ProviderUserKey;
 
-                Garage garageSale = new Garage(userId, begintime, endtime, address, description);
+                Garage oldGarage = GarageDataService.getGarageSale(Request.QueryString["G"]);
+                oldGarage.userID = userId;
+                oldGarage.DateBegin = begintime; 
+                oldGarage.DateEnd = endtime; 
+                oldGarage.Address = address; 
+                oldGarage.Description = description;
+                
+                bool success = GarageDataService.updateGarageSale(oldGarage.GarageID.ToString(), oldGarage);
 
                 if (imageUpload.HasFile)
                 {
                     int imageId = saveImageFile();
-                    garageSale.imageId = imageId;
+                    oldGarage.imageId = imageId;
                 }
 
-                garageSale = GarageDataService.addGarageSale(garageSale);
 
-                textbox_description.Value = "";
-                textbox_location.Value = "";
-                begin_time_list.SelectedIndex = 0;
-                end_time_list.SelectedIndex = 0;
-                date_cal.SelectedDate = DateTime.Now;
-
-                creategarage_output.Text = "Garage Sale created successfully!";
-                creategarage_output.Style.Add("color", "#00ff00");
+                updategarage_output.Text = "Garage Sale updated successfully!";
+                updategarage_output.Style.Add("color", "#00ff00");
+                Response.Redirect("~/Views/Private/UpdateGarage.aspx?G=" + oldGarage.GarageID);
             }
             catch (Exception ex)
             {
-                creategarage_output.Text = ex.Message;
+                updategarage_output.Text = ex.Message;
             }
 
 
         }
-         else
+        else
         {
             bool b1 = begin_time_list.SelectedIndex > 0;
             bool b2 = (date_cal.SelectedDate != null);
             bool b3 = (end_time_list.SelectedIndex > 0);
-            bool b4 = (textbox_location.Value != ""); 
+            bool b4 = (textbox_location.Value != "");
             bool b5 = (textbox_description.Value != "");
             /* Please fill all fields */
-            creategarage_output.Text = "Please fill all of the fields.";
-            creategarage_output.Style.Add("color", "#ff0000");
-
+            updategarage_output.Text = "Please fill all of the fields.";
+            updategarage_output.Style.Add("color", "#ff0000");
         }
     }
+
     private int saveImageFile()
     {
         string ext = Path.GetExtension(imageUpload.PostedFile.FileName).ToLower();
@@ -148,46 +178,13 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
         Image thumbImage = new Image(thumbData, "image/jpg", thumbHeight, thumbWidth);
         return ImageDataService.addImage(fullImage, thumbImage);
     }
-    protected void Button1_Click1(object sender, EventArgs e)
-    {
-        
-        garagesale_view.ActiveViewIndex = 0;
-        loadGarageSales();
 
-    }
-    protected void Button2_Click(object sender, EventArgs e)
+    protected void do_delete_Click(object sender, EventArgs e)
     {
-        garagesale_view.ActiveViewIndex = 1;
-    }
-
-    protected void Button3_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Views/Private/UpdateGarage.aspx");
-    }
-    private void loadGarageSales()
-    {
-        List<Garage> garages = GarageDataService.getGarageSales();
-        String objectHTML = garages.Count + " Found In Your Area";
-        foreach(Garage garage in garages)
-        {
-            objectHTML += createGarageDiv(garage);
-        }
-        garagesales.InnerHtml = objectHTML;
-    }
-    private String createGarageDiv(Garage garage)
-    {
-        string objectHTML = "</br></br><div class=\"garage_item_div\">";
-        
-        objectHTML += "<div class=\"garage_item_img\"><img width=\"200px\" height=\"200px\" src=\"../../Helpers/GetImage.ashx?ID=" + garage.imageId + "\"></img></div>";
-        objectHTML += "<div class=\"garage_item_desc\"><div class=\"garage_item_user\">" + UserDataService.getUser(garage.userID).name + "</div>";
-        objectHTML += "<div class=\"garage_item_description\">" + garage.Description + "</div>";
-        objectHTML += "<div class=\"garage_item_datebegin\">From: " + garage.DateBegin + "</div>";
-        objectHTML += "<div class=\"garage_item_dateend\">To: " + garage.DateEnd + "</div>";
-        objectHTML += "<div class=\"garage_item_address\">Address: " + garage.Address + "</div>";
-
-        objectHTML += "</div></div></br></br>";
-
-        return objectHTML;
+        Garage garage = GarageDataService.getGarageSale(Request.QueryString["L"]);
+        ImageDataService.deleteImage(garage.imageId);
+        GarageDataService.deleteGarageSale(garage.GarageID.ToString());
+        Response.Redirect("~/Views/Search.aspx");
 
     }
 }
