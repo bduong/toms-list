@@ -383,6 +383,9 @@ div.featured_item_div:hover {
 .garage_item_desc {
 
 }
+.garage_item_description {
+    color: #999;
+}
 
 
 
@@ -534,6 +537,7 @@ fieldset {
 .message_receiver_user {
 }
 .message_receiver_message {
+    color: #999;
 }
 .message_receiver_date {
     font-size: smaller;

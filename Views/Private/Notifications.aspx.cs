@@ -123,7 +123,7 @@ public partial class Views_Notifications : System.Web.UI.Page
         objectHTML += "<div class=\"message_receiver_div\">";
 
         /* add item thumbnail */
-        objectHTML += "<img class=\"message_receiver_image\" align=\"left\">" + "" + "</img>";
+        objectHTML += "<img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.senderId).imageId + "\"></img>";
 
         /* add person name */
         objectHTML += "<div class=\"message_receiver_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
@@ -143,7 +143,7 @@ public partial class Views_Notifications : System.Web.UI.Page
         objectHTML += "<div class=\"message_sender_div\">";
 
         /* add item thumbnail */
-        objectHTML += "<img class=\"message_sender_image\">" + "" + "</img>";
+        objectHTML += "<img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.senderId).imageId + "\"></img>";
 
         /* add person name */
         objectHTML += "<div class=\"message_sender_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
