@@ -73,12 +73,16 @@ public class ImageDataService
 
     public static Boolean deleteImage(int imageid)
     {
-        SqlConnection conn = DBConnector.getSqlConnection();
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("DELETE FROM Images WHERE ImageId = @ImageId", conn);
-        cmd.Parameters.AddWithValue("@ImageId", imageid);
-        int rowsAffected = cmd.ExecuteNonQuery();
-        conn.Close();
-        return (rowsAffected > 0);
+        if (imageid > 0)
+        {
+            SqlConnection conn = DBConnector.getSqlConnection();
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("DELETE FROM Images WHERE ImageId = @ImageId", conn);
+            cmd.Parameters.AddWithValue("@ImageId", imageid);
+            int rowsAffected = cmd.ExecuteNonQuery();
+            conn.Close();
+            return (rowsAffected > 0);
+        }
+        return false;
     }
 }
