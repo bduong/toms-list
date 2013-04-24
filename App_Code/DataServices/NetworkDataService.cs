@@ -44,7 +44,7 @@ public class NetworkDataService
         SqlCommand cmd;
         if (limit > 0)
         {
-            cmd = new SqlCommand("SELECT * FROM Networks where " + columnName + " = @Value LIMIT 0, @Limit", conn);
+            cmd = new SqlCommand("SELECT TOP " + limit + " * FROM Networks where " + columnName + " = @Value", conn);
             cmd.Parameters.AddWithValue("@Limit", limit);
         }
         else
