@@ -15,7 +15,7 @@
                 <table align="center">                    
                     <tr>
                         <td>
-                            <asp:Button ID="update_button" Text="Update Listing" runat="server" /><br /><br />
+                            <asp:Button ID="update_button" Text="Update Listing" runat="server" OnClick="update_button_Click" /><br /><br />
                             <asp:Image ID="item_image" runat="server" Width="200" Height="200"/>
                         </td>
                         <td>

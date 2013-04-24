@@ -14,6 +14,13 @@
                 document.getElementById('MainContent_image_preview').setAttribute('src', "../../Helpers/GetImage.ashx?ID=" + id);
             }
         }
+
+        function confirmDelete() {
+            if (confirm('Are you sure you want to Delete This Listing?')) {
+                var button = document.getElementById('MainContent_do_delete');
+                button.click();
+            }
+        }
     </script>
     <div id="form_item">
         <table align="center">
@@ -32,7 +39,13 @@
                         <label for="Tags" class="form_label">Tags</label><asp:TextBox ID="textbox_tags" runat="server" name="Tags" class="form_field"></asp:TextBox><br /><br />
                         <label for="Image" class="form_label">Image (Optional)</label><asp:FileUpload ID="imageUpload" runat="server" onchange="changeImagePreview(this)"/><br /><br />
                         <asp:Label ID="addlisting_output" runat="server" Text=""></asp:Label><br />
-                        <label for="Tags" class="form_label"></label><asp:Button ID="button_post" runat="server" Text="Update Listing" class="form_button" OnClick="Update_Click"/>
+                        <asp:Button ID="button_post" runat="server" Text="Update Listing" class="form_button" OnClick="Update_Click"/>
+                        <br />
+                        <br />
+                        <button id="confirm_delete" runat="server" class="form_button" onclick="confirmDelete()">Delete Listing</button><br />
+                        <div style="display: none">
+                            <asp:Button ID="do_delete" runat="server" class="form_button" OnClick="do_delete_Click" />
+                        </div>
 
                     </fieldset>
                 </td>
