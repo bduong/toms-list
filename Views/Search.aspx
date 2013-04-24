@@ -69,7 +69,7 @@
                         <td class="featured" valign="top">
                             <div>
                                 <asp:Label ID="featured3_header" runat="server" Text="Label">Around You</asp:Label>
-                                <asp:DropDownList ID="networks" runat="server" OnSelectedIndexChanged="networks_SelectedIndexChanged" Visible="False"></asp:DropDownList> 
+                                <asp:DropDownList ID="networks" runat="server" OnSelectedIndexChanged="networks_SelectedIndexChanged" Visible="False" style="width: 100px"></asp:DropDownList> 
                             </div><br />
                             <div id="featured3" runat="server">
 

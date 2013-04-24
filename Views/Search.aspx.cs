@@ -182,9 +182,10 @@ public partial class Views_Landing : System.Web.UI.Page
         putRecentApts();
         if (User.Identity.IsAuthenticated)
         {
-            putNetworkListings();
+            getNetworks();
             featured3_header.Text = "In Your Network";
             networks.Visible = true;
+            getNetworkListings(networks.SelectedItem.Text);
         }
         else
         {
@@ -193,7 +194,7 @@ public partial class Views_Landing : System.Web.UI.Page
         }
     }
 
-    private void putNetworkListings()
+    private void getNetworks()
     {
         MembershipUser user = Membership.GetUser();
         Guid userId = (Guid)user.ProviderUserKey;
@@ -203,6 +204,33 @@ public partial class Views_Landing : System.Web.UI.Page
             networks.Items.Add(new ListItem(net.name));
         }
     }
+
+    private void getNetworkListings(String name)
+    {
+        String networkName = name;
+        List<Network> network = NetworkDataService.getNetworkBy("Name", networkName, 1);
+        if (network.Count > 0)
+        {
+            /* get all users from the network */
+            List<Guid> guids = NetworkDataService.getUsersOfNetwork(network[0].id.ToString());
+
+            /* for each guid get the listings */
+            List<Listing> networkListings = new List<Listing>();
+            foreach (Guid guid in guids)
+            {
+
+                networkListings.AddRange(ListingDataService.getListingsBy("UserId", guid.ToString()));
+            }
+
+            /* add the listings to featured3 */
+            featured3.InnerHtml = "";
+            for (int i = networkListings.Count - 1; i >= 0; i--)
+            {
+                featured3.InnerHtml += createFeaturedItemDiv(networkListings[i]);
+            }
+        }
+    }
+
 
 
     private List<Listing> searchWithTag(string word)
@@ -330,27 +358,7 @@ public partial class Views_Landing : System.Web.UI.Page
 
     protected void networks_SelectedIndexChanged(object sender, EventArgs e)
     {
-        String networkName = networks.SelectedItem.Text;
-        List<Network> network = NetworkDataService.getNetworkBy("Name", networkName, 1);
-        if (network.Count > 0)
-        {
-            /* get all users from the network */
-            List<Guid> guids = NetworkDataService.getUsersOfNetwork(network[0].id.ToString());
 
-            /* for each guid get the listings */
-            List<Listing> networkListings = new List<Listing>();
-            foreach (Guid guid in guids)
-            {
-                networkListings.AddRange(ListingDataService.getListingsBy("UserId", guid.ToString()));
-            }
-            
-            /* add the listings to featured3 */
-            featured3.InnerHtml = "";
-            for (int i = networkListings.Count - 1; i >= 0; i--)
-            {
-                featured3.InnerHtml += createFeaturedItemDiv(networkListings[i]);
-            }
-        }
 
     }
 
