@@ -68,7 +68,8 @@
                         <td class="vertical_hr"></td>
                         <td class="featured" valign="top">
                             <div>
-                                Around You
+                                <asp:Label ID="featured3_header" runat="server" Text="Label">Around You</asp:Label>
+                                <asp:DropDownList ID="networks" runat="server" OnSelectedIndexChanged="networks_SelectedIndexChanged" Visible="False" style="width: 100px"></asp:DropDownList> 
                             </div><br />
                             <div id="featured3" runat="server">
 

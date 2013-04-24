@@ -44,7 +44,7 @@ public class NetworkDataService
         SqlCommand cmd;
         if (limit > 0)
         {
-            cmd = new SqlCommand("SELECT * FROM Networks where " + columnName + " = @Value LIMIT 0, @Limit", conn);
+            cmd = new SqlCommand("SELECT TOP " + limit + " * FROM Networks where " + columnName + " = @Value", conn);
             cmd.Parameters.AddWithValue("@Limit", limit);
         }
         else
@@ -131,6 +131,45 @@ public class NetworkDataService
         bool result = reader.Read();
         conn.Close();
         return result;
+    }
+
+    public static List<Network> getNetworksOfUser(String id)
+    {
+        List<Network> networks = new List<Network>();
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM UserNetworks WHERE UserId = @UserId", conn);
+        cmd.Parameters.AddWithValue("@UserId", id);
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            int networkId = (int)reader[ColumnNames.Id];
+            Network network = NetworkDataService.getNetwork(networkId);
+            networks.Add(network);
+        }
+        bool result = reader.Read();
+        conn.Close();
+
+        return networks;
+    }
+    public static List<Guid> getUsersOfNetwork(String id)
+    {
+        /* list of user ids belonging to the network */
+
+        List<Guid> guids = new List<Guid>();
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM UserNetworks WHERE NetworkId = @NetworkId", conn);
+        cmd.Parameters.AddWithValue("@NetworkId", id);
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            Guid guid = (Guid)reader["UserId"];
+            guids.Add(guid);
+        }
+        conn.Close();
+
+        return guids;
     }
 
     public class ColumnNames

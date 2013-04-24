@@ -166,7 +166,8 @@ public partial class Views_Landing : System.Web.UI.Page
             location = UserDataService.getUser(userId).location;
         }
         
-        returnList = ListingDataService.getListingsBy("Location", location, 5);
+        /* no limit on the number of items */
+        returnList = ListingDataService.getListingsBy("Location", location);
 
         featured3.InnerHtml = "";
         for (int i = returnList.Count - 1; i >= 0; i--)
@@ -179,8 +180,57 @@ public partial class Views_Landing : System.Web.UI.Page
     {
         putRecentlyListings();
         putRecentApts();
-        putHighlights();
+        if (User.Identity.IsAuthenticated)
+        {
+            getNetworks();
+            featured3_header.Text = "In Your Network";
+            networks.Visible = true;
+            getNetworkListings(networks.SelectedItem.Text);
+        }
+        else
+        {
+            putHighlights();
+            networks.Visible = false;
+        }
     }
+
+    private void getNetworks()
+    {
+        MembershipUser user = Membership.GetUser();
+        Guid userId = (Guid)user.ProviderUserKey;
+
+        List<Network> returnedNetworks = NetworkDataService.getNetworksOfUser(userId.ToString());
+        foreach(Network net in returnedNetworks) {
+            networks.Items.Add(new ListItem(net.name));
+        }
+    }
+
+    private void getNetworkListings(String name)
+    {
+        String networkName = name;
+        List<Network> network = NetworkDataService.getNetworkBy("Name", networkName, 1);
+        if (network.Count > 0)
+        {
+            /* get all users from the network */
+            List<Guid> guids = NetworkDataService.getUsersOfNetwork(network[0].id.ToString());
+
+            /* for each guid get the listings */
+            List<Listing> networkListings = new List<Listing>();
+            foreach (Guid guid in guids)
+            {
+
+                networkListings.AddRange(ListingDataService.getListingsBy("UserId", guid.ToString()));
+            }
+
+            /* add the listings to featured3 */
+            featured3.InnerHtml = "";
+            for (int i = networkListings.Count - 1; i >= 0; i--)
+            {
+                featured3.InnerHtml += createFeaturedItemDiv(networkListings[i]);
+            }
+        }
+    }
+
 
 
     private List<Listing> searchWithTag(string word)
@@ -231,6 +281,7 @@ public partial class Views_Landing : System.Web.UI.Page
             all_results.AddRange(word_results);
         }
 
+        results.InnerHtml = all_results.Count + " results found";
         foreach (Listing listing in all_results)
         {
             string objectHTML = createSearchItemDiv(listing);
@@ -271,13 +322,11 @@ public partial class Views_Landing : System.Web.UI.Page
         /* object title */
         objectHTML += "<div class=\"search_item_title\">" + listing.title + "</div>";
 
-        /* object price */
-        objectHTML += "<div class=\"search_item_price\">" + listing.price + " $</div></br>";
-
-
         /* object description */
         objectHTML += "<div class=\"search_item_description\">" + listing.description + "</div>";
 
+        /* object price */
+        objectHTML += "<div class=\"search_item_price\">" + listing.price + "$ </div>";
 
         objectHTML += "</div></br>";
 
@@ -304,10 +353,19 @@ public partial class Views_Landing : System.Web.UI.Page
         objectHTML += "</div></br>";
 
         return objectHTML;
+
     }
+
+    protected void networks_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+
+    }
+
 
     protected void update_button_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Views/Private/UpdatePost.aspx?L=" + view_item_listingid.Value);
     }
+
 }

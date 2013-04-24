@@ -174,6 +174,22 @@ h2 {
     
     
 }
+.login_frank {
+    text-align: right;
+    float: right;
+    clear: both;
+}
+    .login_frank a {
+        color: #00a9ff;
+        text-decoration: none;
+    }
+    .login_frank a:hover {
+        color: #fff;
+    }
+    .login_frank a:visited {
+        color: #ffd303;
+    }
+
 
 
 
@@ -335,17 +351,17 @@ div.featured_item_div:hover {
     padding: inherit;
     font-size: 14px;
     line-height: 8px;
-    width: 300px;
+    width: 500px;
     text-align: left;
 }
 .search_item_description {
-    display: inline;
+    //display: inline;
     padding: inherit;
     float: left;
     font-size: 14px;
     line-height: 8px;
     //width: 220px;
-    
+    text-align: left;
     color: #999;
 }
 .search_item_price {
@@ -380,6 +396,8 @@ div.featured_item_div:hover {
 }
 nav .menu {
     text-align: center; 
+    float: right;
+    clear: both;
     // background-color: #eee;   
     // background: url('../../public/img/bg-middle-top.gif');
     //height: 40px;
@@ -389,20 +407,20 @@ nav .menu {
 
 }
 
+nav .menu li span.nav_icon {
+        font-family: 'sosa';
+        font-size: 30px;
+}
+
 nav .menu li {
-    
-    
-    font-family: 'sosa';
-    
     
     list-style: none;
     display: inline;
     width: 400px;
     
-    
     // padding-top: 10px;
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 0px;
 
 
 }

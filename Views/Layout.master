@@ -36,6 +36,7 @@
                 
             </div>
             <div id="login" class="right">
+                <div class="login_frank">
                             <span class="ep">Hello 
                             <asp:LoginView ID="LoginView1" runat="server">
                                 <AnonymousTemplate>
@@ -50,22 +51,43 @@
                                 
                                 !<br />
                                 </span>
-                                <asp:LoginView ID="LoginView2" runat="server">
-                                    <AnonymousTemplate>
-                                        <asp:HyperLink ID="RegisterLink" runat="server" NavigateUrl="~/Views/UserRegistration.aspx">Register</asp:HyperLink>
-                                        &nbsp;or
-                                        <asp:HyperLink ID="LoginLink" runat="server" NavigateUrl="~/Views/Login.aspx">Login</asp:HyperLink>
-                                    </AnonymousTemplate>
-                                    <LoggedInTemplate>
-                                        <asp:LoginStatus ID="LoginStatus1" runat="server" OnLoggingOut="LoginStatus1_LoggingOut" />
-                                    </LoggedInTemplate>
-                                </asp:LoginView>
+                                
+                                    <asp:LoginView ID="LoginView2"  runat="server">
+                                        <AnonymousTemplate>
+                                            <asp:HyperLink ID="RegisterLink" runat="server" NavigateUrl="~/Views/UserRegistration.aspx">Register</asp:HyperLink>
+                                            &nbsp;or
+                                            <asp:HyperLink ID="LoginLink" runat="server" NavigateUrl="~/Views/Login.aspx">Login</asp:HyperLink>
+                                        </AnonymousTemplate>
+                                        <LoggedInTemplate>
+                                            <asp:LoginStatus ID="LoginStatus1" runat="server" OnLoggingOut="LoginStatus1_LoggingOut" />
+                                        </LoggedInTemplate>
+                                    </asp:LoginView>
+                               </div>
+
                                 <nav id="navbar" runat="server">
                                     <ul class="menu" id="menu" runat="server">
-                                        <li><asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">n</asp:LinkButton></li>
-                                        <li><asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">â</asp:LinkButton></li>
-                                        <li><asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">Ü</asp:LinkButton></li>
-                                        <li><asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">h</asp:LinkButton></li>
+                                        <li>
+                                            <asp:LinkButton runat="server" OnClick="go_search">
+                                                <span class="nav_icon">n</span>
+                                                <span class="nav_text">Search</span>
+                                            </asp:LinkButton>
+
+                                        </li>
+                                        <li>
+                                            <asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">
+                                                <span class="nav_icon">â</span>
+                                                <span class="nav_text">Post</span>
+                                            </asp:LinkButton></li>
+                                        <li>
+                                            <asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">
+                                                <span class="nav_icon">l</span>
+                                                <span class="nav_text">Your Listings</span>
+                                            </asp:LinkButton></li>
+                                        <li>
+                                            <asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">
+                                                <span class="nav_icon">h</span>
+                                                <span class="nav_text">Messages</span>
+                                            </asp:LinkButton></li>
                                     </ul>
                                 </nav>
             </div>
