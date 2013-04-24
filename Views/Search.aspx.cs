@@ -185,12 +185,14 @@ public partial class Views_Landing : System.Web.UI.Page
             getNetworks();
             featured3_header.Text = "In Your Network";
             networks.Visible = true;
+            networks_button.Visible = true;
             getNetworkListings(networks.SelectedItem.Text);
         }
         else
         {
             putHighlights();
             networks.Visible = false;
+            networks_button.Visible = false;
         }
     }
 
@@ -368,4 +370,9 @@ public partial class Views_Landing : System.Web.UI.Page
         Response.Redirect("~/Views/Private/UpdatePost.aspx?L=" + view_item_listingid.Value);
     }
 
+    protected void networks_button_Click(object sender, EventArgs e)
+    {
+        fr_view.ActiveViewIndex = 1;
+        getFeatured();
+    }
 }

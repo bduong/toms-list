@@ -167,12 +167,10 @@ h2 {
 
     padding: 30px;
     margin: auto;
-    height: 600px;
+    min-height: 600px;
     margin-top: -8px;
     background: url('../../public/img/bg-middle-bottom.gif');
-    
-    
-    
+
 }
 .login_frank {
     text-align: right;
