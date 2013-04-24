@@ -15,27 +15,30 @@
          }
     </script>
     Hello <asp:LoginName ID="LoginName1" runat="server" />!<br /><br />
-    <div style="text-align:left">Profile Info:<br /><br /><br />
-        You:<br /><br />
-        <asp:FileUpload ID="imageUpload" runat="server" onchange="changeImagePreview(this)"/><br />
-        <asp:Image Width="300px" Height="300px" ID="user_photo" runat="server" />
-        <br /><br /><br /><br />
-        Name: 
-        <asp:Label ID="NameLabel" runat="server" Text="Label"></asp:Label>
-        <br /><br />
-        Location: 
-        <asp:TextBox ID="LocationTextBox" runat="server"></asp:TextBox>
-        <br /><br />
-        E-mail: 
-        <asp:TextBox ID="EmailTextBox" runat="server"></asp:TextBox>
-        <br />
-        <br />
-        <asp:Button ID="ChangePassword" runat="server" Text="Change My Password" PostBackUrl="~/Views/Private/ChangePassword.aspx" />
-    </div>
-            <br /><br />
-    <div>
-        <asp:Button ID="ChangeInfo" runat="server" Text="Update My Info" OnClick="ChangeInfo_Click" />
-        <br /><br />
-    </div>
+    <div style="text-align: center">
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="text-align:left">Profile Info:
+                        <br /><br />
+                        <asp:Image Width="300px" Height="300px" ID="user_photo" runat="server" /> <br /> <br />
+                        <asp:FileUpload ID="imageUpload" runat="server" onchange="changeImagePreview(this)"/><br />
+                    </div>
+                </td>
+                <td style="width: 600px; text-align: left">
+                    <div>
+                        <fieldset>
+                            <asp:Label class="form_label" runat="server">Name:</asp:Label><asp:Label ID="NameLabel" runat="server" Text="Label"></asp:Label><br /><br />
+                            <asp:Label class="form_label" runat="server">Location:</asp:Label><asp:TextBox ID="LocationTextBox" runat="server"></asp:TextBox><br /><br />
+                            <asp:Label class="form_label" runat="server">Email:</asp:Label><asp:TextBox ID="EmailTextBox" runat="server"></asp:TextBox><br /><br />
+                            <asp:Label ID="Label1" class="form_label" runat="server"> </asp:Label><asp:Button ID="ChangePassword" runat="server" Text="Change My Password" PostBackUrl="~/Views/Private/ChangePassword.aspx" /><br /><br />
+                            <asp:Label ID="Label2" class="form_label" runat="server"> </asp:Label><asp:Button ID="ChangeInfo" runat="server" Text="Update My Info" OnClick="ChangeInfo_Click" /><br /><br />
+                        </fieldset>
+                        
+                </td>
+            </tr>
+        </table>
+
+
 </asp:Content>
 
