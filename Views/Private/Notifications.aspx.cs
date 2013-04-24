@@ -33,7 +33,7 @@ public partial class Views_Notifications : System.Web.UI.Page
                 notifications = NotificationDataService.getNotifications(userId.ToString());
 
                 /* show results on page */
-                notifications_div.InnerHtml = "";
+                notifications_div.InnerHtml = "<span class=\"notifications_title\">You have " + notifications.Count + " notifications</span>";
                 foreach (Notification n in notifications)
                 {
                     String objectHTML = "";

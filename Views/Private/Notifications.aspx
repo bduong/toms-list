@@ -34,7 +34,6 @@
                 
                 
                 <div class="notification_window" runat="server">
-                    <span class="notifications_title">Your recent Notifications</span>
                     <div id="notifications_div" runat="server">
 
                     </div>
