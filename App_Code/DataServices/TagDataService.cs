@@ -99,8 +99,17 @@ public class TagDataService
         return returnList;
     }
 
-    public static Boolean deleteTag(Tag tag)
+    public static Boolean deleteTag(int id)
     {
+        Tag tag = getTag(id);
+        List<int> listingIds = ListingDataService.getListingOfTag(id.ToString());
+        foreach (int listingId in listingIds)
+        {
+            Listing listing = ListingDataService.getListing(listingId.ToString());
+            ListingDataService.deleteListingTag(listing, tag);
+        }
+
+
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("DELETE FROM Tags where TagId = @TagId", conn);
@@ -108,5 +117,23 @@ public class TagDataService
         int rowsAffected = cmd.ExecuteNonQuery();
         conn.Close();
         return (rowsAffected > 0);
+    }
+
+    public static List<Tag> searchForTagByName(string pattern)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Tags where Name LIKE @Pattern", conn);
+        cmd.Parameters.AddWithValue("@Pattern", "%" + pattern + "%");
+        SqlDataReader reader = cmd.ExecuteReader();
+        List<Tag> tags = new List<Tag>();
+        while (reader.Read())
+        {
+            int id = (int)reader["TagId"];
+            string name = (string)reader["Name"];
+            tags.Add(new Tag(id, name));
+        }
+        conn.Close();
+        return tags;
     }
 }

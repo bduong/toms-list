@@ -111,7 +111,7 @@ public partial class Views_Private_UpdatePost : System.Web.UI.Page
 
                 addlisting_output.Text = "Listing updated successfully!";
                 addlisting_output.Style.Add("color", "#00ff00");
-                Response.Redirect("~/Views/Private/UpdatePost.aspx?L=" + oldListing.ListingId;
+                Response.Redirect("~/Views/Private/UpdatePost.aspx?L=" + oldListing.ListingId);
             }
             catch (Exception ex)
             {

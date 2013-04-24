@@ -17,14 +17,13 @@ public class UserDataService
         SqlCommand cmd = new SqlCommand("SELECT * FROM Users where UserId = @GUID", conn);
         cmd.Parameters.AddWithValue("@GUID", id);
         SqlDataReader reader = cmd.ExecuteReader();
-        reader.Read();
-        Guid uid = (Guid) reader["UserId"];
-        string userName = (string) reader["Name"];
-        string email = (string) reader["Email"];
-        int imageId = (int)reader["ImageId"];
-        string location = (string) reader["Location"];
+        User user = null;
+        if (reader.Read())
+        {
+            user = extractUser(reader);
+        }
         conn.Close();
-        return new User(uid, userName, email, location, imageId);
+        return user;
     }
 
     public static bool addUser(User user)
@@ -45,9 +44,31 @@ public class UserDataService
 
     public static bool deleteUser(Guid idToDelete)
     {
+        User thisUser = getUser(idToDelete);
+        List<Network> networks = NetworkDataService.getNetworksOfUser(thisUser.uid.ToString());
+        foreach (Network network in networks) {
+            removeUserFromNetwork(thisUser, network);
+        }
+
+        List<Listing> listings = ListingDataService.getListingsBy(ListingDataService.ColumnNames.UserId, thisUser.uid.ToString());
+        foreach (Listing listing in listings)
+        {
+            ListingDataService.deleteListing(listing.ListingId.ToString());
+        }
+
+        List<Garage> garageSales = GarageDataService.getGarageSalesBy(GarageDataService.ColumnNames.UserId, thisUser.uid.ToString());
+        foreach (Garage garageSale in garageSales)
+        {
+            GarageDataService.deleteGarageSale(garageSale.GarageID.ToString());
+        }
+
+        //@ToDo Delete Notifications
+        ImageDataService.deleteImage(thisUser.imageId);
+
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("DELETE FROM Users WHERE UserId='" + idToDelete + "'", conn);
+        SqlCommand cmd = new SqlCommand("DELETE FROM Users WHERE UserId=@deleteId", conn);
+        cmd.Parameters.AddWithValue("@deleteId", idToDelete);
 
         int rowsAffected = cmd.ExecuteNonQuery();
         conn.Close();
@@ -96,4 +117,30 @@ public class UserDataService
         return (rowsAffected > 0);
     }
 
+    public static List<User> searchForUserByName(string pattern)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Users where Name LIKE @Pattern", conn);
+        cmd.Parameters.AddWithValue("@Pattern", "%" + pattern + "%");
+        SqlDataReader reader = cmd.ExecuteReader();
+        List<User> users = new List<User>();
+        while (reader.Read())
+        {
+            users.Add(extractUser(reader));
+        }
+        conn.Close();
+        return users;
+    }
+
+    private static User extractUser(SqlDataReader reader)
+    {
+        Guid uid = (Guid)reader["UserId"];
+        string userName = (string)reader["Name"];
+        string email = (string)reader["Email"];
+        int imageId = (int)reader["ImageId"];
+        string location = (string)reader["Location"];
+
+        return new User(uid, userName, email, location, imageId); ;
+    }
 }

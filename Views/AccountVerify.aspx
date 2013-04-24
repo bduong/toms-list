@@ -3,6 +3,5 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
-        <asp:Label ID="Information" runat="server"></asp:Label>
-        <a href="Profile.aspx"
+        <asp:Label ID="Information" runat="server"></asp:Label>        
 </asp:Content>

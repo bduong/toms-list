@@ -62,7 +62,7 @@ public partial class Views_Notifications : System.Web.UI.Page
             MembershipUser user = Membership.GetUser();
             Guid senderId = (Guid)user.ProviderUserKey;
 
-            Notification notification = new Notification(message, senderId, receiverId, DateTime.Now, 0);
+            Notification notification = new Notification(message, senderId, receiverId, DateTime.Now);
             NotificationDataService.saveNotification(notification);
             
             chat_area.Value = "";

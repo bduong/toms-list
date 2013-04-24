@@ -47,8 +47,7 @@ public class NotificationDataService
                     string Message = (string)reader[ColumnNames.Message];
                     int NotificationId = (int)reader[ColumnNames.NotificationId];
                     DateTime Date = (DateTime)reader[ColumnNames.Date];
-                    int ParentId = (int)reader[ColumnNames.ParentId];
-                    returnList.Add(new Notification(Message, SenderId, ReceiverId, Date, ParentId));
+                    returnList.Add(new Notification(Message, SenderId, ReceiverId, Date));
                     ids.Add(ReceiverId);
                 }
             } else if(ReceiverId.ToString().Equals(userId)) {
@@ -56,8 +55,7 @@ public class NotificationDataService
                     string Message = (string)reader[ColumnNames.Message];
                     int NotificationId = (int)reader[ColumnNames.NotificationId];
                     DateTime Date = (DateTime)reader[ColumnNames.Date];
-                    int ParentId = (int)reader[ColumnNames.ParentId];
-                    returnList.Add(new Notification(Message, SenderId, ReceiverId, Date, ParentId));
+                    returnList.Add(new Notification(Message, SenderId, ReceiverId, Date));
                     ids.Add(SenderId);
                 }
             }
@@ -66,6 +64,7 @@ public class NotificationDataService
 
         return returnList;
     }
+
 
 
     public static List<Notification> getConversation(String SenderId, String ReceiverId)
@@ -86,9 +85,8 @@ public class NotificationDataService
         {
             int NotificationId = (int)reader[ColumnNames.NotificationId];
             string Message = (string)reader[ColumnNames.Message];
-            DateTime date = (DateTime)reader[ColumnNames.Date];
-            int ParentId = (int)reader[ColumnNames.ParentId];
-            returnList.Add(new Notification(Message, senderId, receiverId, date, ParentId));
+            DateTime date = (DateTime)reader[ColumnNames.Date];            
+            returnList.Add(new Notification(Message, senderId, receiverId, date));
         }
         conn.Close();
 
@@ -99,12 +97,12 @@ public class NotificationDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("INSERT INTO Notifications (Message, SenderId, ReceiverId, Date, ParentId) VALUES (@Message, @SenderId, @ReceiverId, @Date, @ParentId); SELECT CONVERT(int, SCOPE_IDENTITY())", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO Notifications (Message, SenderId, ReceiverId, Date) VALUES (@Message, @SenderId, @ReceiverId, @Date); SELECT CONVERT(int, SCOPE_IDENTITY())", conn);
         cmd.Parameters.AddWithValue("@Message", notification.message);
         cmd.Parameters.AddWithValue("@SenderId", notification.senderId);
         cmd.Parameters.AddWithValue("@ReceiverId", notification.recieverId);
         cmd.Parameters.AddWithValue("@Date", notification.sentDate);
-        cmd.Parameters.AddWithValue("@ParentId", notification.parentId);
+        
         int uid = Convert.ToInt32(cmd.ExecuteScalar());
         conn.Close();
     }
@@ -116,6 +114,5 @@ public class NotificationDataService
         public static string SenderId = "SenderId";
         public static string ReceiverId = "ReceiverId";
         public static string Date = "Date";
-        public static string ParentId = "ParentId";
     }
 }

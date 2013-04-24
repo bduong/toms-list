@@ -14,6 +14,25 @@ public class GarageDataService
 	
 	}
 
+    public static List<Garage> getGarageSales()
+    {
+        List<Garage> returnList = new List<Garage>();
+
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM GarageSale", conn);
+
+        SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            Garage garage = extractGS(reader);
+            returnList.Add(garage);
+        }
+        conn.Close();
+
+        return returnList;
+    }
+
     public static Garage getGarageSale(string id)
     {
         SqlConnection conn = DBConnector.getSqlConnection();
@@ -49,6 +68,9 @@ public class GarageDataService
 
     public static Boolean deleteGarageSale(String id)
     {
+        Garage garage = getGarageSale(id);
+        ImageDataService.deleteImage(garage.imageId);
+
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("DELETE FROM GarageSale WHERE GarageID = @gid", conn);
@@ -63,18 +85,48 @@ public class GarageDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("UPDATE GarageSale SET UserID = @userID, DateBegin = @DateBegin, DateEnd = @DateEnd, Address = @Address, Description = @Description", conn);
+        SqlCommand cmd = new SqlCommand("UPDATE GarageSale SET UserID = @userID, DateBegin = @DateBegin, DateEnd = @DateEnd, Address = @Address, Description = @Description, Image = @Image where GarageID = @GarageID", conn);
         cmd.Parameters.AddWithValue("@userID", newGarage.userID);
         cmd.Parameters.AddWithValue("@DateBegin", newGarage.DateBegin);
         cmd.Parameters.AddWithValue("@DateEnd", newGarage.DateEnd);
         cmd.Parameters.AddWithValue("@Address", newGarage.Address);
         cmd.Parameters.AddWithValue("@Description", newGarage.Description);
+        cmd.Parameters.AddWithValue("@Image", newGarage.imageId);
+        cmd.Parameters.AddWithValue("@GarageId", newGarage.GarageID);
 
         int rowsAffected = cmd.ExecuteNonQuery();
         conn.Close();
 
         return (rowsAffected > 0);
     }
+
+    public static List<Garage> getGarageSalesBy(String columnName, String value, int limit = 0)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd;
+        if (limit > 0)
+        {
+            cmd = new SqlCommand("SELECT TOP " + limit + " * FROM GarageSale where " + columnName + " = @Value", conn);
+            // cmd.Parameters.AddWithValue("@Limit", limit);
+        }
+        else
+        {
+            cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value", conn);
+        }
+        cmd.Parameters.AddWithValue("@Value", value);
+        SqlDataReader reader = cmd.ExecuteReader();
+        List<Garage> garageSales = new List<Garage>();
+        while (reader.Read())
+        {
+            Garage listing = extractGS(reader);
+            garageSales.Add(listing);
+        }
+        conn.Close();
+
+        return garageSales;
+    }
+
 
     public static class ColumnNames
     {
@@ -84,6 +136,7 @@ public class GarageDataService
         public static string DateEnd = "DateEnd";
         public static string Address = "Address";
         public static string Description = "Description";
+        public static string Image = "Image";
     }
     private static Garage extractGS(SqlDataReader reader)
     {
@@ -94,6 +147,9 @@ public class GarageDataService
         DateTime datee = (DateTime)reader[ColumnNames.DateEnd];
         string address = (string)reader[ColumnNames.Address];
         string description = (string)reader[ColumnNames.Description];
-        return new Garage(userId, dateb, datee, address, description);
+        int imageid = (int)reader[ColumnNames.Image];
+        Garage garage =  new Garage(uid, userId, dateb, datee, address, description);
+        garage.imageId = imageid;
+        return garage;
     }
 }

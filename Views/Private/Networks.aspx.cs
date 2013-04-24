@@ -20,7 +20,7 @@ public partial class Views_Private_Networks : System.Web.UI.Page
             Guid userId = (Guid)user.ProviderUserKey;
 
             String username = (UserDataService.getUser(userId)).name;
-            if (username == "marc")
+            if (username == "admin")
             {
                 addnetwork_name.Visible = true;
                 addnetwork_pattern.Visible = true;
