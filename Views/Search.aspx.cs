@@ -73,9 +73,10 @@ public partial class Views_Landing : System.Web.UI.Page
     }
 
     private void preview(String id)
-    {
+    {        
         Listing listing = ListingDataService.getListing(id);
         view_item_userid.Value = listing.userId.ToString();
+        view_item_listingid.Value = listing.ListingId.ToString();
         view_item_title.Text = listing.title;
         view_item_description.Text = listing.description;
         view_item_price.Text = listing.price.ToString();
@@ -87,7 +88,17 @@ public partial class Views_Landing : System.Web.UI.Page
         view_item_user.Text = user.name;
         view_item_user.Attributes.Add("userId", listing.userId.ToString());
 
-        
+
+        if (User.Identity.IsAuthenticated)
+        {
+            MembershipUser loggedInUserInfo = Membership.GetUser();
+            Guid loggedInId = (Guid)loggedInUserInfo.ProviderUserKey;
+            update_button.Visible = listing.userId.ToString().Equals(loggedInId.ToString());
+        }
+        else
+        {
+            update_button.Visible = false;
+        }
     }
 
 
@@ -254,4 +265,8 @@ public partial class Views_Landing : System.Web.UI.Page
         return objectHTML;
     }
 
+    protected void update_button_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Views/Private/UpdatePost.aspx?L=" + view_item_listingid.Value);
+    }
 }

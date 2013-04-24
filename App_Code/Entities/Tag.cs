@@ -16,4 +16,10 @@ public class Tag
         this.id = id;
         this.name = name;
 	}
+
+    public Tag(int id)
+    {
+        this.id = id;
+        name = "";
+    }
 }

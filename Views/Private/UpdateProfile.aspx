@@ -10,10 +10,12 @@
                  };
                  fileReader.readAsDataURL(uploadControl.files[0]);
              } else {
-                 document.getElementById('MainContent_user_photo').setAttribute('src', "../../public/img/grey_wash_wall.png");
+                 var id = document.getElementById('MainContent_original_image_id').getAttribute('Value');
+                 document.getElementById('MainContent_user_photo').setAttribute('src', "../../Helpers/GetImage.ashx?ID=" + id);
              }
          }
     </script>
+    <asp:HiddenField ID="original_image_id" runat="server" />
     Hello <asp:LoginName ID="LoginName1" runat="server" />!<br /><br />
     <div style="text-align:left">Profile Info:<br /><br /><br />
         You:<br /><br />

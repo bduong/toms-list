@@ -15,13 +15,15 @@
                 <table align="center">
                     <tr>
                         <td>
+                            <asp:Button ID="update_button" runat="server" Text="Change Listing" Visible="false" OnClick="update_button_Click"/><br /><br />
                             <asp:Image ID="item_image" runat="server" Width="200" Height="200"/>
                         </td>
                         <td>
                             <div class="preview_item">
-                                <asp:Button ID="Button1" runat="server" Text="Back To Search" OnClick="backto_search"/>
+                                <asp:Button ID="Button1" runat="server" Text="Back To Search" OnClick="backto_search"/><br />
                                 <fieldset>
                                     <asp:HiddenField ID="view_item_userid" runat="server" />
+                                    <asp:HiddenField ID="view_item_listingid" runat="server" />
                                     <asp:Label ID="Label1" class="form_label" runat="server" Text="Label">Title: </asp:Label><asp:Label ID="view_item_title" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label3" class="form_label" runat="server" Text="Label">Description: </asp:Label><asp:Label ID="view_item_description" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label4" class="form_label" runat="server" Text="Label">Price: </asp:Label><asp:Label ID="view_item_price" runat="server" Text="Label"></asp:Label><br />

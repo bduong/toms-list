@@ -20,8 +20,8 @@ public class ListingDataService
         cmd.Parameters.AddWithValue("@ListingId", id);
 
         SqlDataReader reader = cmd.ExecuteReader();
-        reader.Read();
-        Listing returnListing = extractListing(reader);
+        Listing returnListing = null;
+        if(reader.Read()) returnListing = extractListing(reader);
         conn.Close();
         return returnListing;
     }
@@ -116,15 +116,15 @@ public class ListingDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("UPDATE Listing SET UserId = @UserId, Title = @Title, Description = @Description, Price = @Price, Location = @Location, Date = @Date WHERE ListingId = @ListingId");
-        cmd.Parameters.AddWithValue("@UserId", newListing.userId);
+        SqlCommand cmd = new SqlCommand("UPDATE Listing SET Title = @Title, Description = @Description, Price = @Price, Location = @Location, Date = @Date, Image = @Image WHERE ListingId = @ListingId", conn);
         cmd.Parameters.AddWithValue("@Title", newListing.title);
         cmd.Parameters.AddWithValue("@Description", newListing.description);
         cmd.Parameters.AddWithValue("@Price", newListing.price);
         cmd.Parameters.AddWithValue("@Location", newListing.location);
         cmd.Parameters.AddWithValue("@Date", newListing.date);
+        cmd.Parameters.AddWithValue("@Image", newListing.imageId);
         cmd.Parameters.AddWithValue("@ListingId", idToUpdate);
-
+        
         int rowsAffected = cmd.ExecuteNonQuery();
         conn.Close();
 
@@ -154,6 +154,17 @@ public class ListingDataService
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("INSERT INTO ListingTags (ListingId, TagId) VALUES (@ListingId, @TagId); SELECT SCOPE_IDENTITY()", conn);
+        cmd.Parameters.AddWithValue("@ListingId", listing.ListingId);
+        cmd.Parameters.AddWithValue("@TagId", tag.id);
+        cmd.ExecuteNonQuery();
+        conn.Close();
+    }
+
+    public static void deleteListingTag(Listing listing, Tag tag)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("DELETE FROM ListingTags WHERE ListingId = @ListingID AND TagId = @TagId", conn);
         cmd.Parameters.AddWithValue("@ListingId", listing.ListingId);
         cmd.Parameters.AddWithValue("@TagId", tag.id);
         cmd.ExecuteNonQuery();
