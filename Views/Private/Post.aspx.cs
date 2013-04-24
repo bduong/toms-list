@@ -44,7 +44,7 @@ public partial class Views_Post : System.Web.UI.Page
                 Listing newListing = ListingDataService.addListing(listing);
 
                 /* save the tags along with the listing id */
-                string[] words = textbox_tags.Text.Split(' ');
+                string[] words = textbox_tags.Text.Trim().Split(' ');
                 for (int i = 0; i < words.Length; i++ )
                 {
                     Tag newTag = TagDataService.createNewTag(words[i]);

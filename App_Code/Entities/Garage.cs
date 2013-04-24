@@ -14,13 +14,17 @@ public class Garage
     public DateTime DateEnd { get; set; }
     public string Address { get; set; }
     public string Description { get; set; }
+    public int imageId { get; set; }
 
-    public Garage(Guid userID, DateTime DateBegin, DateTime DateEnd, string Address, string Description)
+    public Garage(int id, Guid userID, DateTime DateBegin, DateTime DateEnd, string Address, string Description): 
+        this(userID, DateBegin, DateEnd, Address, Description)
+    {
+        this.GarageID = id;
+    }
+
+    public Garage(Guid userID, DateTime DateBegin, DateTime DateEnd, string Address, string Description) 
+        : this(userID, DateBegin, DateEnd, Address)
 	{
-        this.userID = userID;
-        this.DateBegin = DateBegin;
-        this.DateEnd = DateEnd;
-        this.Address = Address;
         this.Description = Description;
 	}
 
@@ -30,5 +34,6 @@ public class Garage
         this.DateBegin = DateBegin;
         this.DateEnd = DateEnd;
         this.Address = Address;
+        imageId = 0;
     }
 }

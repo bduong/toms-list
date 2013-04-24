@@ -13,7 +13,23 @@ public partial class Views_Private_Networks : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (User.Identity.IsAuthenticated)
+        {
 
+            MembershipUser user = Membership.GetUser();
+            Guid userId = (Guid)user.ProviderUserKey;
+
+            String username = (UserDataService.getUser(userId)).name;
+            if (username == "marc")
+            {
+                addnetwork_name.Visible = true;
+                addnetwork_pattern.Visible = true;
+                addnetwork_button.Visible = true;
+                networklabel.Visible = true;
+                networklabel_name.Visible = true;
+                networklabel_pattern.Visible = true;
+            }
+        }
     }
 
     protected void Do_Search_Click(object sender, EventArgs e)
@@ -118,5 +134,34 @@ public partial class Views_Private_Networks : System.Web.UI.Page
         mailMessage.IsBodyHtml = true;
 
         new SmtpClient().Send(mailMessage);
+    }
+    protected void addnetwork_button_Click(object sender, EventArgs e)
+    {
+        if (addnetwork_name.Text != "" && addnetwork_pattern.Text != "")
+        {
+            String name = addnetwork_name.Text;
+            bool exists = false;
+            for (int i = 0; i < Results.Items.Count; i++)
+            {
+                if(Results.Items[i].Text.Equals(name) ){
+                    exists = true;
+                    break;
+                }
+            }
+            if(exists) {
+                addnetwork_label.Text = "Network already exists!";
+            }
+            else {
+                Network network = new Network(addnetwork_name.Text.ToString(), addnetwork_pattern.Text.ToString());
+                Network savedNetwork = NetworkDataService.addNetwork(network);
+                // Results.Items.Add(new ListItem(savedNetwork.name, savedNetwork.id.ToString()));
+                addnetwork_label.Text = "Network Added Successfully!";
+            }
+            
+        }
+        else
+        {
+            addnetwork_label.Text = "Please fill in both fields";
+        }
     }
 }

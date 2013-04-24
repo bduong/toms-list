@@ -12,9 +12,10 @@
         <asp:MultiView ID="fr_view" runat="server">
             <asp:View ID="view_item" runat="server">
                 <button onclick="history.go(-1)">Back</button><br /><br />
-                <table align="center">
+                <table align="center">                    
                     <tr>
                         <td>
+                            <asp:Button ID="update_button" Text="Update Listing" runat="server" /><br /><br />
                             <asp:Image ID="item_image" runat="server" Width="200" Height="200"/>
                         </td>
                         <td>
@@ -25,6 +26,7 @@
                                 
                                 <fieldset>
                                     <asp:HiddenField ID="view_item_userid" runat="server" />
+                                    <asp:HiddenField ID="view_item_listingid" runat="server" />
                                     <asp:Label ID="Label1" class="form_label" runat="server" Text="Label">Title: </asp:Label><asp:Label ID="view_item_title" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label3" class="form_label" runat="server" Text="Label">Description: </asp:Label><asp:Label ID="view_item_description" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label4" class="form_label" runat="server" Text="Label">Price: </asp:Label><asp:Label ID="view_item_price" runat="server" Text="Label"></asp:Label><br />
@@ -66,7 +68,9 @@
                         <td class="vertical_hr"></td>
                         <td class="featured" valign="top">
                             <div>
-                                Around You
+                                <asp:Label ID="featured3_header" runat="server" Text="Label">Around You</asp:Label>
+                                <asp:DropDownList ID="networks" runat="server" OnSelectedIndexChanged="networks_SelectedIndexChanged" Visible="False" style="width: 100px"></asp:DropDownList> 
+                                <asp:Button ID="networks_button" runat="server" Text="Go" Visible="False" OnClick="networks_button_Click" />
                             </div><br />
                             <div id="featured3" runat="server">
 

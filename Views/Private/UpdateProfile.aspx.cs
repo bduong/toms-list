@@ -23,6 +23,7 @@ public partial class Views_UpdateProfile : System.Web.UI.Page
                 LocationTextBox.Text = user.location;
                 EmailTextBox.Text = user.email;
                 user_photo.ImageUrl = "~/Helpers/GetImage.ashx?ID=" + user.imageId;
+                original_image_id.Value = user.imageId.ToString();
             }
             catch (Exception)
             {

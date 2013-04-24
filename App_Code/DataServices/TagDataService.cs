@@ -34,6 +34,40 @@ public class TagDataService
         return new Tag(id, name);
     }
 
+    public static List<Tag> getTagsFromListing(Listing listing)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT TagId FROM ListingTags where ListingId = @ListingId", conn);
+        cmd.Parameters.AddWithValue("@ListingId", listing.ListingId);
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        List<Tag> tags = new List<Tag>();
+
+        while (reader.Read())
+        {
+            int tagId = (int) reader["TagId"];
+            tags.Add(new Tag(tagId));
+        }
+        cmd.Dispose();
+        reader.Dispose();
+
+        string selectStr = "SELECT Name FROM Tags where TagId = @TagId";
+
+        foreach (Tag t in tags) {
+            SqlCommand getName = new SqlCommand(selectStr, conn);
+            getName.Parameters.AddWithValue("@TagId", t.id);
+            SqlDataReader nameReader = getName.ExecuteReader();
+            if (nameReader.Read())
+            {
+                t.name = (string) nameReader["Name"];
+            }
+            getName.Dispose();
+            nameReader.Dispose();
+        }
+        return tags;
+    }
+
     public static Tag getTag(int id)
     {
         SqlConnection conn = DBConnector.getSqlConnection();
