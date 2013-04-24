@@ -166,7 +166,8 @@ public partial class Views_Landing : System.Web.UI.Page
             location = UserDataService.getUser(userId).location;
         }
         
-        returnList = ListingDataService.getListingsBy("Location", location, 5);
+        /* no limit on the number of items */
+        returnList = ListingDataService.getListingsBy("Location", location);
 
         featured3.InnerHtml = "";
         for (int i = returnList.Count - 1; i >= 0; i--)

@@ -36,6 +36,7 @@
                 
             </div>
             <div id="login" class="right">
+                <div class="login_frank">
                             <span class="ep">Hello 
                             <asp:LoginView ID="LoginView1" runat="server">
                                 <AnonymousTemplate>
@@ -50,16 +51,19 @@
                                 
                                 !<br />
                                 </span>
-                                <asp:LoginView ID="LoginView2" runat="server">
-                                    <AnonymousTemplate>
-                                        <asp:HyperLink ID="RegisterLink" runat="server" NavigateUrl="~/Views/UserRegistration.aspx">Register</asp:HyperLink>
-                                        &nbsp;or
-                                        <asp:HyperLink ID="LoginLink" runat="server" NavigateUrl="~/Views/Login.aspx">Login</asp:HyperLink>
-                                    </AnonymousTemplate>
-                                    <LoggedInTemplate>
-                                        <asp:LoginStatus ID="LoginStatus1" runat="server" OnLoggingOut="LoginStatus1_LoggingOut" />
-                                    </LoggedInTemplate>
-                                </asp:LoginView>
+                                
+                                    <asp:LoginView ID="LoginView2"  runat="server">
+                                        <AnonymousTemplate>
+                                            <asp:HyperLink ID="RegisterLink" runat="server" NavigateUrl="~/Views/UserRegistration.aspx">Register</asp:HyperLink>
+                                            &nbsp;or
+                                            <asp:HyperLink ID="LoginLink" runat="server" NavigateUrl="~/Views/Login.aspx">Login</asp:HyperLink>
+                                        </AnonymousTemplate>
+                                        <LoggedInTemplate>
+                                            <asp:LoginStatus ID="LoginStatus1" runat="server" OnLoggingOut="LoginStatus1_LoggingOut" />
+                                        </LoggedInTemplate>
+                                    </asp:LoginView>
+                               </div>
+
                                 <nav id="navbar" runat="server">
                                     <ul class="menu" id="menu" runat="server">
                                         <li>
