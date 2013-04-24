@@ -93,8 +93,15 @@ public class NetworkDataService
         return network;
     }
 
-    public static Boolean deleteNetwork(String id)
+    public static Boolean deleteNetwork(int id)
     {
+        Network network = getNetwork(id);
+        List<Guid> usersInNetwork = getUsersOfNetwork(network.id.ToString());
+        foreach (Guid userId in usersInNetwork)
+        {            
+            UserDataService.removeUserFromNetwork(UserDataService .getUser(userId), network);
+        }
+
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("DELETE FROM Networks where NetworkId = @id", conn);

@@ -45,9 +45,31 @@ public class UserDataService
 
     public static bool deleteUser(Guid idToDelete)
     {
+        User thisUser = getUser(idToDelete);
+        List<Network> networks = NetworkDataService.getNetworksOfUser(thisUser.uid.ToString());
+        foreach (Network network in networks) {
+            removeUserFromNetwork(thisUser, network);
+        }
+
+        List<Listing> listings = ListingDataService.getListingsBy(ListingDataService.ColumnNames.UserId, thisUser.uid.ToString());
+        foreach (Listing listing in listings)
+        {
+            ListingDataService.deleteListing(listing.ListingId.ToString());
+        }
+
+        List<Garage> garageSales = GarageDataService.getGarageSalesBy(GarageDataService.ColumnNames.UserId, thisUser.uid.ToString());
+        foreach (Garage garageSale in garageSales)
+        {
+            GarageDataService.deleteGarageSale(garageSale.GarageID.ToString());
+        }
+
+        //@ToDo Delete Notifications
+        ImageDataService.deleteImage(thisUser.imageId);
+
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("DELETE FROM Users WHERE UserId='" + idToDelete + "'", conn);
+        SqlCommand cmd = new SqlCommand("DELETE FROM Users WHERE UserId=@deleteId", conn);
+        cmd.Parameters.AddWithValue("@deleteId", idToDelete);
 
         int rowsAffected = cmd.ExecuteNonQuery();
         conn.Close();

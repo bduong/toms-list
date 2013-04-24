@@ -99,8 +99,17 @@ public class TagDataService
         return returnList;
     }
 
-    public static Boolean deleteTag(Tag tag)
+    public static Boolean deleteTag(int id)
     {
+        Tag tag = getTag(id);
+        List<int> listingIds = ListingDataService.getListingOfTag(id.ToString());
+        foreach (int listingId in listingIds)
+        {
+            Listing listing = ListingDataService.getListing(listingId.ToString());
+            ListingDataService.deleteListingTag(listing, tag);
+        }
+
+
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("DELETE FROM Tags where TagId = @TagId", conn);
