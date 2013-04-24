@@ -111,6 +111,7 @@ public partial class Views_Private_UpdatePost : System.Web.UI.Page
 
                 addlisting_output.Text = "Listing updated successfully!";
                 addlisting_output.Style.Add("color", "#00ff00");
+                Response.Redirect("~/Views/Private/UpdatePost.aspx?L=" + oldListing.ListingId);
             }
             catch (Exception ex)
             {
@@ -188,5 +189,14 @@ public partial class Views_Private_UpdatePost : System.Web.UI.Page
         Image fullImage = new Image(data, contentType, height, width);
         Image thumbImage = new Image(thumbData, "image/jpg", thumbHeight, thumbWidth);
         return ImageDataService.addImage(fullImage, thumbImage);
+    }
+
+    protected void do_delete_Click(object sender, EventArgs e)
+    {
+        Listing listing = ListingDataService.getListing(Request.QueryString["L"]);
+        ImageDataService.deleteImage(listing.imageId);
+        ListingDataService.deleteListing(listing.ListingId.ToString());
+        Response.Redirect("~/Views/Search.aspx");
+        
     }
 }

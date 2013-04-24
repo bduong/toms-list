@@ -20,7 +20,6 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
             String query = search_bar.Text.Trim();
             Response.Redirect("~/Views/Search.aspx?query=" + query);
         }
-        
     }
     protected void go_search(object sender, EventArgs e)
     {

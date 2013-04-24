@@ -102,6 +102,15 @@ public class ListingDataService
 
     public static Boolean deleteListing(String id)
     {
+        Listing listing = getListing(id);
+        List<Tag> tags = TagDataService.getTagsFromListing(listing);
+        foreach (Tag tag in tags)
+        {
+            deleteListingTag(listing, tag);
+        }
+
+        ImageDataService.deleteImage(listing.imageId);
+
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("DELETE FROM Listing where ListingId = @ListingId", conn);
@@ -113,7 +122,7 @@ public class ListingDataService
     }
 
     public static Boolean updateListing(String idToUpdate, Listing newListing)
-    {
+    {        
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("UPDATE Listing SET Title = @Title, Description = @Description, Price = @Price, Location = @Location, Date = @Date, Image = @Image WHERE ListingId = @ListingId", conn);

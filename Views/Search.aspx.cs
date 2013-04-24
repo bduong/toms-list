@@ -186,10 +186,9 @@ public partial class Views_Landing : System.Web.UI.Page
             featured3_header.Text = "In Your Network";
             networks.Visible = true;
             networks_button.Visible = true;
-            if (networks.Items.Count > 0)
-            {
-                getNetworkListings(networks.SelectedItem.Text);
-            }
+
+            if(networks.SelectedIndex >= 0) getNetworkListings(networks.SelectedItem.Text);
+
         }
         else
         {
@@ -363,7 +362,7 @@ public partial class Views_Landing : System.Web.UI.Page
 
     protected void networks_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+            
 
     }
 
@@ -378,4 +377,5 @@ public partial class Views_Landing : System.Web.UI.Page
         fr_view.ActiveViewIndex = 1;
         getFeatured();
     }
+
 }
