@@ -47,7 +47,7 @@ public class UserDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("DELETE FROM Users where UserId = @IdDelete", conn);
+        SqlCommand cmd = new SqlCommand("DELETE FROM Users WHERE UserId='" + idToDelete + "'", conn);
 
         int rowsAffected = cmd.ExecuteNonQuery();
         conn.Close();
