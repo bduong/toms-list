@@ -162,7 +162,28 @@ public partial class Views_Landing : System.Web.UI.Page
     {
         putRecentlyListings();
         putRecentApts();
-        putHighlights();
+        if (User.Identity.IsAuthenticated)
+        {
+            putNetworkListings();
+            featured3_header.Text = "In Your Network";
+            networks.Visible = true;
+        }
+        else
+        {
+            putHighlights();
+            networks.Visible = false;
+        }
+    }
+
+    private void putNetworkListings()
+    {
+        MembershipUser user = Membership.GetUser();
+        Guid userId = (Guid)user.ProviderUserKey;
+
+        List<Network> returnedNetworks = NetworkDataService.getNetworksOfUser(userId.ToString());
+        foreach(Network net in returnedNetworks) {
+            networks.Items.Add(new ListItem(net.name));
+        }
     }
 
 
@@ -272,4 +293,29 @@ public partial class Views_Landing : System.Web.UI.Page
         return objectHTML;
     }
 
+    protected void networks_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        String networkName = networks.SelectedItem.Text;
+        List<Network> network = NetworkDataService.getNetworkBy("Name", networkName, 1);
+        if (network.Count > 0)
+        {
+            /* get all users from the network */
+            List<Guid> guids = NetworkDataService.getUsersOfNetwork(network[0].id.ToString());
+
+            /* for each guid get the listings */
+            List<Listing> networkListings = new List<Listing>();
+            foreach (Guid guid in guids)
+            {
+                networkListings.AddRange(ListingDataService.getListingsBy("UserId", guid.ToString()));
+            }
+            
+            /* add the listings to featured3 */
+            featured3.InnerHtml = "";
+            for (int i = networkListings.Count - 1; i >= 0; i--)
+            {
+                featured3.InnerHtml += createFeaturedItemDiv(networkListings[i]);
+            }
+        }
+
+    }
 }
