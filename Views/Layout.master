@@ -76,12 +76,12 @@
                                             </asp:LinkButton></li>
                                         <li>
                                             <asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">
-                                                <span class="nav_icon">Ü</span>
+                                                <span class="nav_icon">l</span>
                                                 <span class="nav_text">Your Listings</span>
                                             </asp:LinkButton></li>
                                         <li>
                                             <asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">
-                                                <span class="nav_icon">l</span>
+                                                <span class="nav_icon">h</span>
                                                 <span class="nav_text">Messages</span>
                                             </asp:LinkButton></li>
                                     </ul>
