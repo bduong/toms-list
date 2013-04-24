@@ -85,11 +85,12 @@ public class ListingDataService
     {
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
-        SqlCommand cmd = new SqlCommand("INSERT INTO Listing (UserId, Title, Description, Price, Location, Date) VALUES (@UserId, @Title, @Description, @Price, @Location, @Date); SELECT SCOPE_IDENTITY()", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO Listing (UserId, Title, Description, Price, Location, Date, Image) VALUES (@UserId, @Title, @Description, @Price, @Location, @Date, @Image); SELECT SCOPE_IDENTITY()", conn);
         cmd.Parameters.AddWithValue("@UserId", listing.userId);
         cmd.Parameters.AddWithValue("@Title", listing.title);
         cmd.Parameters.AddWithValue("@Description", listing.description);
         cmd.Parameters.AddWithValue("@Price", listing.price);
+        cmd.Parameters.AddWithValue("@Image", listing.imageId);
         cmd.Parameters.AddWithValue("@Location", listing.location);
         cmd.Parameters.AddWithValue("@Date", listing.date);
         int uid = Convert.ToInt32(cmd.ExecuteScalar());
@@ -196,6 +197,7 @@ public class ListingDataService
         public static string Price = "Price";
         public static string Location = "Location";
         public static string Date = "Date";
+        public static string ImageId = "Image";
     }
 
     private static Listing extractListing(SqlDataReader reader)
@@ -208,6 +210,7 @@ public class ListingDataService
         decimal price = (decimal)reader[ColumnNames.Price];
         string location = (string)reader[ColumnNames.Location];
         DateTime date = (DateTime)reader[ColumnNames.Date];
-        return new Listing(uid, userId, title, description, price, location, date);        
+        int imageId = (int)reader[ColumnNames.ImageId];
+        return new Listing(uid, userId, title, description, price, location, date, imageId);        
     }
 }

@@ -59,17 +59,15 @@
                                     <LoggedInTemplate>
                                         <asp:LoginStatus ID="LoginStatus1" runat="server" OnLoggingOut="LoginStatus1_LoggingOut" />
                                     </LoggedInTemplate>
-
                                 </asp:LoginView>
-                                        
-                                        <nav id="navbar" runat="server">
-                                            <ul id="Ul1" class="menu" runat="server">
-                                                <li><asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">n</asp:LinkButton></li>
-                                                <li><asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">â</asp:LinkButton></li>
-                                                <li><asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">l</asp:LinkButton></li>
-                                                <li><asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">h</asp:LinkButton></li>
-                                            </ul>
-                                        </nav>
+                                <nav id="navbar" runat="server">
+                                    <ul id="menu" runat="server">
+                                        <li><asp:LinkButton ID="nav_search" runat="server" OnClick="go_search">n</asp:LinkButton></li>
+                                        <li><asp:LinkButton ID="nav_post" runat="server" OnClick="go_post">â</asp:LinkButton></li>
+                                        <li><asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">l</asp:LinkButton></li>
+                                        <li><asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">h</asp:LinkButton></li>
+                                    </ul>
+                                </nav>
             </div>
             <!--div id="login" class="right">
                 Login
@@ -123,7 +121,7 @@
                             <a class="social_network">ĵ</a>
                         </td>
                         <td>
-                            <a class="social_network">Ķ</a>
+                            <a id="tweeter" href="https://twitter.com/toms_list_bu" class="social_network">Ķ</a>
                         </td>
                     </tr>
                 </table>
