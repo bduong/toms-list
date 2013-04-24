@@ -30,6 +30,10 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
     {
         Response.Redirect("~/Views/Private/Post.aspx");
     }
+    protected void go_garage(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Views/Private/GarageSale.aspx");
+    }
     protected void go_profile(object sender, EventArgs e)
     {
         if (HttpContext.Current.User.Identity.IsAuthenticated)

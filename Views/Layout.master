@@ -79,6 +79,12 @@
                                                 <span class="nav_text">Post</span>
                                             </asp:LinkButton></li>
                                         <li>
+                                        <li>
+                                            <asp:LinkButton ID="nav_garage" runat="server" OnClick="go_garage">
+                                                <span class="nav_icon">b</span>
+                                                <span class="nav_text">Garage Sale</span>
+                                            </asp:LinkButton></li>
+                                        <li>
                                             <asp:LinkButton ID="nav_profile" runat="server" OnClick="go_profile">
                                                 <span class="nav_icon">l</span>
                                                 <span class="nav_text">Your Listings</span>
