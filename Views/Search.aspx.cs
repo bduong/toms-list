@@ -13,6 +13,7 @@ public partial class Views_Landing : System.Web.UI.Page
         string parameter = Request["__EVENTARGUMENT"];
         string page = Request["__EVENTTARGET"];
         string query = Request.Params["query"];
+        string user = Request.Params["user"];
         if (parameter != null)
         {
             if (parameter == "")
@@ -41,6 +42,11 @@ public partial class Views_Landing : System.Web.UI.Page
         {
             fr_view.ActiveViewIndex = 2;
             doQuery(query);
+        } 
+        else if (user != "" && user != null)
+        {
+            fr_view.ActiveViewIndex = 2;
+            doUserQuery(query);
         }
         else
         {
@@ -225,6 +231,23 @@ public partial class Views_Landing : System.Web.UI.Page
             all_results.AddRange(word_results);
         }
 
+        foreach (Listing listing in all_results)
+        {
+            string objectHTML = createSearchItemDiv(listing);
+            results.InnerHtml += objectHTML;
+        }
+    }
+
+    protected void doUserQuery(string q)
+    {
+        fr_view.ActiveViewIndex = 2;
+        results.InnerHtml = "";
+
+        /* get values from database table */                        
+        MembershipUser userInfo = Membership.GetUser();
+        Guid userId = (Guid) userInfo.ProviderUserKey;
+        List<Listing> all_results = ListingDataService.getListingsBy(ListingDataService.ColumnNames.UserId, userId.ToString());
+        
         foreach (Listing listing in all_results)
         {
             string objectHTML = createSearchItemDiv(listing);
