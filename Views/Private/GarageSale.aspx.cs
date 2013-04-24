@@ -31,7 +31,8 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
                     end_time_list.Items.Add(i + ":" + (j * 15).ToString().PadLeft(2, '0') + " PM");
                 }
             }
-            date_cal.SelectedDate = DateTime.Now;
+            date_cal.SelectedDate = DateTime.Today;
+            date_cal.VisibleDate = DateTime.Today;
             begin_time_list.SelectedIndex = 0;
             end_time_list.SelectedIndex = 0;
 

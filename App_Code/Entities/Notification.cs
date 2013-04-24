@@ -13,18 +13,17 @@ public class Notification
     public Guid senderId { get; set; }
     public Guid recieverId { get; set; }
     public DateTime sentDate { get; set; }
-    public int parentId { get; set; }
 
-	public Notification(string message, Guid senderId, Guid recieverId, DateTime date, int parentId) 
+	public Notification(string message, Guid senderId, Guid recieverId, DateTime date) 
 	{
         this.message = message;
         this.senderId = senderId;
         this.recieverId = recieverId;
         this.sentDate = date;
-        this.parentId = parentId;
+        
 	}
 
     public static Notification createNewNotification(Guid sender, Guid reciever) {
-        return new Notification("", sender, reciever, DateTime.Now, 0);
+        return new Notification("", sender, reciever, DateTime.Now);
     }
 }
