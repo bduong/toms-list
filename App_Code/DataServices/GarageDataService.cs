@@ -49,12 +49,31 @@ public class GarageDataService
 
     public static Boolean deleteGarageSale(String id)
     {
-        return false; //placeholder
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("DELETE FROM GarageSale WHERE GarageID = @gid", conn);
+        cmd.Parameters.AddWithValue("@gid", id);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+        conn.Close();
+        return (rowsAffected > 0);
     }
 
-    public static Boolean updateGarageSale(String id)
+    public static Boolean updateGarageSale(String id, Garage newGarage)
     {
-        return false; //placeholder
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("UPDATE GarageSale SET UserID = @userID, DateBegin = @DateBegin, DateEnd = @DateEnd, Address = @Address, Description = @Description", conn);
+        cmd.Parameters.AddWithValue("@userID", newGarage.userID);
+        cmd.Parameters.AddWithValue("@DateBegin", newGarage.DateBegin);
+        cmd.Parameters.AddWithValue("@DateEnd", newGarage.DateEnd);
+        cmd.Parameters.AddWithValue("@Address", newGarage.Address);
+        cmd.Parameters.AddWithValue("@Description", newGarage.Description);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+        conn.Close();
+
+        return (rowsAffected > 0);
     }
 
     public static class ColumnNames
