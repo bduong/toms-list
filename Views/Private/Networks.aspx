@@ -2,9 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     
-    <table>
+    <table align="center">
         <tr>
-            <td>
+            <td style="width: 400px;">
                 Search For Networks<br />
                 <br />
                 <asp:TextBox ID="Network_Search" runat="server" ></asp:TextBox>
@@ -27,11 +27,14 @@
                 <br />
                 <asp:Label ID="ErrorMessage" runat="server"></asp:Label>
             </td>
-            <td>
-                <asp:TextBox ID="addnetwork_name" runat="server" Visible="False"></asp:TextBox><br />
-                <asp:TextBox ID="addnetwork_pattern" runat="server" Visible="False"></asp:TextBox><br />
+            <td style="width: 300px">
+                <asp:Label ID="networklabel" runat="server" Text="Create Your Network"></asp:Label>
+                <fieldset>
+                <asp:Label ID="networklabel_name" class="form_label" runat="server" Text="Name"></asp:Label><asp:TextBox ID="addnetwork_name" runat="server" Visible="False"></asp:TextBox><br />
+                <asp:Label ID="networklabel_pattern" class="form_label" runat="server" Text="Pattern"></asp:Label><asp:TextBox ID="addnetwork_pattern" runat="server" Visible="False"></asp:TextBox><br />
                 <asp:Label ID="addnetwork_label" runat="server" Text=""></asp:Label>
                 <asp:Button ID="addnetwork_button" runat="server" Text="Add Network" Visible="False" OnClick="addnetwork_button_Click" />
+                </fieldset>
             </td>
         </tr>
     </table>

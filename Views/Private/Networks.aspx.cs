@@ -25,6 +25,9 @@ public partial class Views_Private_Networks : System.Web.UI.Page
                 addnetwork_name.Visible = true;
                 addnetwork_pattern.Visible = true;
                 addnetwork_button.Visible = true;
+                networklabel.Visible = true;
+                networklabel_name.Visible = true;
+                networklabel_pattern.Visible = true;
             }
         }
     }

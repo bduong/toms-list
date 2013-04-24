@@ -87,7 +87,14 @@
                                             <asp:LinkButton ID="nav_notifications" runat="server" OnClick="go_notifications">
                                                 <span class="nav_icon">h</span>
                                                 <span class="nav_text">Messages</span>
-                                            </asp:LinkButton></li>
+                                            </asp:LinkButton>
+                                        </li>
+                                        <li>
+                                            <asp:LinkButton ID="nav_networks" runat="server" OnClick="go_networks">
+                                                <span class="nav_icon">q</span>
+                                                <span class="nav_text">Networks</span>
+                                            </asp:LinkButton>
+                                        </li>
                                     </ul>
                                 </nav>
             </div>

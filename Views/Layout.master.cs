@@ -26,6 +26,10 @@ public partial class Views_MasterPage : System.Web.UI.MasterPage
     {
         Response.Redirect("~/Views/Search.aspx");
     }
+    protected void go_networks(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Views/Private/Networks.aspx");
+    }
     protected void go_post(object sender, EventArgs e)
     {
         Response.Redirect("~/Views/Private/Post.aspx");
