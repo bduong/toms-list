@@ -102,7 +102,7 @@ public partial class Views_Admin : System.Web.UI.Page
     protected void Tag_search(object sender, EventArgs e)
     {
         string search = TextBox3.Text; ;
-        List<Tag> tags = TagDataService.getTagsByName(search);
+        List<Tag> tags = TagDataService.searchForTagByName(search);
                
         ListBox3.DataSource = tags.Select(t => t.name).ToList();
         ListBox3.DataBind();
