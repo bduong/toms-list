@@ -11,12 +11,24 @@ public partial class Views_Notifications : System.Web.UI.Page
     // public Notification(string message, Guid senderId, Guid recieverId, DateTime date, int parentId) 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string parameter = Request["__EVENTARGUMENT"];
+        String parameter = Request["__EVENTARGUMENT"];
+        
         if (parameter != null && parameter != "")
         {
-            notifications_multiview.ActiveViewIndex = 0;
-            conversation_div.InnerHtml = "";
-            showConversation(parameter);
+            string argument = parameter.Split('=')[0];
+            string value = parameter.Split('=')[1];
+            if (argument.Equals("preview"))
+            {
+
+                notifications_multiview.ActiveViewIndex = 0;
+                conversation_div.InnerHtml = "";
+                showConversation(value);
+            }
+            else if (argument.Equals("delete"))
+            {
+                Boolean deleted = NotificationDataService.deleteNotification(value);
+                showConversation(otherUserId.Value.ToString());
+            }
         }
         else
         {
@@ -74,6 +86,7 @@ public partial class Views_Notifications : System.Web.UI.Page
 
     private void showConversation(String uid)
     {
+        conversation_div.InnerHtml = "";
         otherUserId.Value = uid;
         conversation_title.Text = "Conversation with " + UserDataService.getUser(new Guid(uid)).name;
         MembershipUser user = Membership.GetUser();
@@ -125,7 +138,10 @@ public partial class Views_Notifications : System.Web.UI.Page
         /* add item thumbnail */
         objectHTML += "<img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.senderId).imageId + "\"></img>";
 
+        objectHTML += "<div class=\"notification_div\" onclick=\"previewchat('delete=" + n.id + "')\" runat=\"server\">remove</div>";
+
         /* add person name */
+
         objectHTML += "<div class=\"message_receiver_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
 
         objectHTML += "<div class=\"message_receiver_message\">" + n.message + "</div>";
@@ -146,6 +162,7 @@ public partial class Views_Notifications : System.Web.UI.Page
         objectHTML += "<img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.senderId).imageId + "\"></img>";
 
         /* add person name */
+        objectHTML += "<div class=\"notification_div\" onclick=\"previewchat('delete=" + n.id + "')\" runat=\"server\">remove</div>";
         objectHTML += "<div class=\"message_sender_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
 
         objectHTML += "<div class=\"message_sender_message\">" + n.message + "</div>";
@@ -163,7 +180,7 @@ public partial class Views_Notifications : System.Web.UI.Page
         if (sender)
         {
             /* if i'm the sender, put information about the receiving user */
-            objectHTML += "<div class=\"notification_div\" onclick=\"javascript:previewchat('" + n.recieverId + "')\" runat=\"server\">";
+            objectHTML += "<div class=\"notification_div\" onclick=\"previewchat('preview=" + n.recieverId + "')\" runat=\"server\">";
 
             /* add item thumbnail */
             objectHTML += "<img class=\"notification_image\" align=\"left\">" + "" + "</img>";
@@ -188,7 +205,7 @@ public partial class Views_Notifications : System.Web.UI.Page
         else
         {
             /* if i'm the receiver, put information about the sending user */
-            objectHTML += "<div class=\"notification_div\" onclick=\"javascript:previewchat('" + n.senderId + "')\" runat=\"server\">";
+            objectHTML += "<div class=\"notification_div\" onclick=\"previewchat('preview=" + n.senderId + "')\" runat=\"server\">";
 
             /* add item thumbnail */
             objectHTML += "<img class=\"notification_image\" align=\"left\">" + "" + "</img>";

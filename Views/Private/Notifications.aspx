@@ -11,7 +11,6 @@
 
         <asp:MultiView ID="notifications_multiview" runat="server">
             <asp:View ID="onenotification_view" runat="server">
-
                 <div class="conversation_window">
                     
                     <asp:HiddenField ID="otherUserId" runat="server" />
@@ -23,6 +22,13 @@
                     </div>
                 
                 </div>
+                    <script type="text/javascript">
+                        function deletenotification(parameter, number) {
+                            //   __doPostBack(parameter, parameter)
+                            window.location.replace("http://stackoverflow.com");
+                        }
+                    </script>
+                
                 <div class="conversation_window_chat">
                     <textarea class="chat_area" ID="chat_area" cols="20" rows="2" runat="server"></textarea><br />
                     <asp:Button class="chat_send" ID="Button1" runat="server" Text="Send" OnClick="send_message" PostBackUrl="#"/>
