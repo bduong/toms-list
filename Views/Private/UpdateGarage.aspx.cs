@@ -56,10 +56,10 @@ public partial class Views_Private_UpdateGarage : System.Web.UI.Page
             }
             
             original_imageid.Value = garage.imageId.ToString();
-            date_cal.SelectedDate = garage.DateBegin;
-            date_cal.VisibleDate = garage.DateBegin;
-            begin_time_list.SelectedValue = garage.DateBegin.TimeOfDay.ToString();
-            end_time_list.SelectedValue = garage.DateEnd.TimeOfDay.ToString();
+            date_cal.SelectedDate = garage.DateBegin.Date;
+            date_cal.VisibleDate = garage.DateBegin.Date;
+            begin_time_list.SelectedValue = String.Format("{0:h:mm tt}" ,garage.DateBegin);
+            end_time_list.SelectedValue = String.Format("{0:h:mm tt}", garage.DateEnd);
             textbox_location.Value = garage.Address;
             textbox_description.Value = garage.Description;
 
@@ -91,14 +91,18 @@ public partial class Views_Private_UpdateGarage : System.Web.UI.Page
 
                 Garage oldGarage = GarageDataService.getGarageSale(Request.QueryString["G"]);
 
-                Garage newGarage = new Garage(userId, begintime, endtime, address, description);
+                oldGarage.Address = address;
+                oldGarage.DateBegin = begintime;
+                oldGarage.DateEnd = endtime;
+                oldGarage.Description = description;
+                
                 if (imageUpload.HasFile)
                 {
-                    int imageId = saveImageFile();
-                    oldGarage.imageId = imageId;
-                    newGarage.imageId = imageId;
+                    int oldImageId = oldGarage.imageId;
+                    oldGarage.imageId = saveImageFile();
+                    ImageDataService.deleteImage(oldImageId);
                 }
-                bool success = GarageDataService.updateGarageSale(oldGarage.GarageID.ToString(), newGarage);
+                bool success = GarageDataService.updateGarageSale(oldGarage.GarageID.ToString(), oldGarage);
                 
 
                 updategarage_output.Text = "Garage Sale updated successfully!";

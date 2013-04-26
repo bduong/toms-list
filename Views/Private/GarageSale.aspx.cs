@@ -14,8 +14,9 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         string parameter = Request["__EVENTARGUMENT"];
-        if (parameter == "" || parameter == null)
-        {
+        if (parameter != null && parameter.StartsWith("G=")) {
+              Response.Redirect("~/Views/Private/UpdateGarage.aspx?" + parameter);
+        } else {
             String view = Request.QueryString["View"];
             if (view == "3")
             {
@@ -52,11 +53,7 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
                 }
             }
         }
-        else
-        {
-            /* update page */
-            Response.Redirect("~/Views/Private/UpdateGarage.aspx?G=" + parameter);
-        }
+       
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
