@@ -34,7 +34,7 @@
         <table style="table-layout:fixed; width: 100%;">
             <tr>
                 <td>
-                    <div id="user" style="display: none; text-align: left">
+                    <div id="user" style="display: block; text-align: left">
                         <br /><br />
                         Query User:<br />
                         <br />
@@ -53,7 +53,7 @@
                     </div>
                 </td>
                 <td>
-                    <div id="network" style="display: none; text-align: left">
+                    <div id="network" style="display: block; text-align: left">
                         <br /><br />
                         Query Network:<br />
                         <br />
@@ -72,7 +72,7 @@
                     </div>
                 </td>
                 <td>
-                    <div id="tags" style="display: none; text-align: left">
+                    <div id="tags" style="display: block; text-align: left">
                         <br /><br />
                         Query Tags:<br />
                         <br />
