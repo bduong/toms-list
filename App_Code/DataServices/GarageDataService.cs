@@ -112,7 +112,7 @@ public class GarageDataService
         }
         else
         {
-            cmd = new SqlCommand("SELECT * FROM Listing where " + columnName + " = @Value", conn);
+            cmd = new SqlCommand("SELECT * FROM GarageSale where " + columnName + " = @Value", conn);
         }
         cmd.Parameters.AddWithValue("@Value", value);
         SqlDataReader reader = cmd.ExecuteReader();
@@ -123,7 +123,7 @@ public class GarageDataService
             garageSales.Add(listing);
         }
         conn.Close();
-
+        reader.Dispose();
         return garageSales;
     }
 

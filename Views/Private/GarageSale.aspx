@@ -24,6 +24,7 @@
             <asp:MultiView ID="garagesale_view" runat="server">
                 
                 <asp:View ID="view_viewgarage" runat="server">
+                    
                     <div id="viewgarage_title">
                         Garage Sales Around You
                     </div>
@@ -68,7 +69,25 @@
                                 </tr>
                             </table>
                 </asp:View>
+                <asp:View ID="view_editgarage" runat="server">
 
+                    List of your garage sales here
+                    <script type="text/javascript">
+                        function editgarage(parameter, number) {
+                            __doPostBack(parameter, parameter)
+                        }
+                    </script>
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <div id="your_garages" runat="server">
+                                            
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </asp:View>
             </asp:MultiView>
         
 

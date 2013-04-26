@@ -90,24 +90,20 @@ public partial class Views_Private_UpdateGarage : System.Web.UI.Page
                 Guid userId = (Guid)user.ProviderUserKey;
 
                 Garage oldGarage = GarageDataService.getGarageSale(Request.QueryString["G"]);
-                oldGarage.userID = userId;
-                oldGarage.DateBegin = begintime; 
-                oldGarage.DateEnd = endtime; 
-                oldGarage.Address = address; 
-                oldGarage.Description = description;
-                
-                bool success = GarageDataService.updateGarageSale(oldGarage.GarageID.ToString(), oldGarage);
 
+                Garage newGarage = new Garage(userId, begintime, endtime, address, description);
                 if (imageUpload.HasFile)
                 {
                     int imageId = saveImageFile();
                     oldGarage.imageId = imageId;
+                    newGarage.imageId = imageId;
                 }
-
+                bool success = GarageDataService.updateGarageSale(oldGarage.GarageID.ToString(), newGarage);
+                
 
                 updategarage_output.Text = "Garage Sale updated successfully!";
                 updategarage_output.Style.Add("color", "#00ff00");
-                Response.Redirect("~/Views/Private/UpdateGarage.aspx?G=" + oldGarage.GarageID);
+                Response.Redirect("~/Views/Private/GarageSale.aspx?View=" + 3);
             }
             catch (Exception ex)
             {

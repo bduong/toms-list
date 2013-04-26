@@ -13,29 +13,49 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
     
     protected void Page_Load(object sender, EventArgs e)
     {
-        int[] hours = {12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-        if (!IsPostBack)
+        string parameter = Request["__EVENTARGUMENT"];
+        if (parameter == "" || parameter == null)
         {
-            foreach (int i in hours) {
-                for (int j = 0; j < 4; j++)
-                {
-                    begin_time_list.Items.Add(i + ":" + (j*15).ToString().PadLeft(2,'0') + " AM");
-                    end_time_list.Items.Add(i + ":" + (j * 15).ToString().PadLeft(2, '0') + " AM");
-                }
-            }
-            foreach (int i in hours)
+            String view = Request.QueryString["View"];
+            if (view == "3")
             {
-                for (int j = 0; j < 4; j++)
+                garagesale_view.SetActiveView(view_editgarage);
+                loadYourGarageSales();
+            }
+            else
+            {
+
+                int[] hours = { 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+                if (!IsPostBack)
                 {
-                    begin_time_list.Items.Add(i + ":" + (j * 15).ToString().PadLeft(2, '0') + " PM");
-                    end_time_list.Items.Add(i + ":" + (j * 15).ToString().PadLeft(2, '0') + " PM");
+                    foreach (int i in hours)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            begin_time_list.Items.Add(i + ":" + (j * 15).ToString().PadLeft(2, '0') + " AM");
+                            end_time_list.Items.Add(i + ":" + (j * 15).ToString().PadLeft(2, '0') + " AM");
+                        }
+                    }
+                    foreach (int i in hours)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            begin_time_list.Items.Add(i + ":" + (j * 15).ToString().PadLeft(2, '0') + " PM");
+                            end_time_list.Items.Add(i + ":" + (j * 15).ToString().PadLeft(2, '0') + " PM");
+                        }
+                    }
+                    date_cal.SelectedDate = DateTime.Today;
+                    date_cal.VisibleDate = DateTime.Today;
+                    begin_time_list.SelectedIndex = 0;
+                    end_time_list.SelectedIndex = 0;
+
                 }
             }
-            date_cal.SelectedDate = DateTime.Today;
-            date_cal.VisibleDate = DateTime.Today;
-            begin_time_list.SelectedIndex = 0;
-            end_time_list.SelectedIndex = 0;
-
+        }
+        else
+        {
+            /* update page */
+            Response.Redirect("~/Views/Private/UpdateGarage.aspx?G=" + parameter);
         }
     }
     protected void Button1_Click(object sender, EventArgs e)
@@ -162,8 +182,24 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
 
     protected void Button3_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Views/Private/UpdateGarage.aspx");
+        // Response.Redirect("~/Views/Private/UpdateGarage.aspx");
+        garagesale_view.SetActiveView(view_editgarage);
+        loadYourGarageSales();
     }
+    private void loadYourGarageSales()
+    {
+        /* load user garage sales here */
+        MembershipUser user = Membership.GetUser();
+        Guid userId = (Guid)user.ProviderUserKey;
+
+        List<Garage> garages = GarageDataService.getGarageSalesBy("UserId", userId.ToString());
+        your_garages.InnerHtml = "";
+        foreach (Garage garage in garages)
+        {
+            your_garages.InnerHtml += createGarageDiv(garage);
+        }
+    }
+
     private void loadGarageSales()
     {
         List<Garage> garages = GarageDataService.getGarageSales();
@@ -185,9 +221,9 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
         objectHTML += "<div class=\"garage_item_dateend\">To: " + garage.DateEnd + "</div>";
         objectHTML += "<div class=\"garage_item_address\">Address: " + garage.Address + "</div>";
 
-        objectHTML += "</div></div></br></br>";
+        objectHTML += "</div><button onclick=\"editgarage('"+ garage.GarageID + "', '');\">Update</button></div></br></br>";
 
         return objectHTML;
-
     }
+
 }
