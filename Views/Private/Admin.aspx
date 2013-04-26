@@ -1,26 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Layout.master" AutoEventWireup="true" CodeFile="Admin.aspx.cs" Inherits="Views_Admin" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
-    <script type="text/javascript">
-        function showDiv1(checked) {
-            document.getElementById("user").style.display = "none";
-            if (checked == 1) {
-                document.getElementById("user").style.display = "block";
-            }
-        }
-        function showDiv2(checked) {
-            document.getElementById("network").style.display = "none";
-            if (checked == 1) {
-                document.getElementById("network").style.display = "block";
-            }
-        }
-        function showDiv3(checked) {
-            document.getElementById("tags").style.display = "none";
-            if (checked == 1) {
-                document.getElementById("tags").style.display = "block";
-            }
-        }
-    </script>
+
     Hello Admin!<br />
     <br />
     <div style="text-align: center"><span style="font-size: xx-large">This is the admin page!</span><br />
@@ -28,9 +9,8 @@
         <br />
     </div>
     <div>
-        <asp:CheckBox ID="UserCheckBox" runat="server" Text="User" onclick="showDiv1(this.checked)" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-        <asp:CheckBox ID="NetworkCheckBox" runat="server" Text="Network" onclick="showDiv2(this.checked)" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:CheckBox ID="TagCheckBox" runat="server" Text="Tags" onclick="showDiv3(this.checked)" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <table style="table-layout:fixed; width: 100%;">
             <tr>
                 <td>
