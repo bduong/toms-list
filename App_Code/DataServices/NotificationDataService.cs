@@ -44,18 +44,20 @@ public class NotificationDataService
             {
                 if (!ids.Contains(ReceiverId))
                 {
+                    int uid = (int)reader[ColumnNames.NotificationId];
                     string Message = (string)reader[ColumnNames.Message];
                     int NotificationId = (int)reader[ColumnNames.NotificationId];
                     DateTime Date = (DateTime)reader[ColumnNames.Date];
-                    returnList.Add(new Notification(Message, SenderId, ReceiverId, Date));
+                    returnList.Add(new Notification(uid, Message, SenderId, ReceiverId, Date));
                     ids.Add(ReceiverId);
                 }
             } else if(ReceiverId.ToString().Equals(userId)) {
                 if(!ids.Contains(SenderId)) {
+                    int uid = (int)reader[ColumnNames.NotificationId];
                     string Message = (string)reader[ColumnNames.Message];
                     int NotificationId = (int)reader[ColumnNames.NotificationId];
                     DateTime Date = (DateTime)reader[ColumnNames.Date];
-                    returnList.Add(new Notification(Message, SenderId, ReceiverId, Date));
+                    returnList.Add(new Notification(uid, Message, SenderId, ReceiverId, Date));
                     ids.Add(SenderId);
                 }
             }
@@ -86,11 +88,23 @@ public class NotificationDataService
             int NotificationId = (int)reader[ColumnNames.NotificationId];
             string Message = (string)reader[ColumnNames.Message];
             DateTime date = (DateTime)reader[ColumnNames.Date];            
-            returnList.Add(new Notification(Message, senderId, receiverId, date));
+            returnList.Add(new Notification(NotificationId, Message, senderId, receiverId, date));
         }
         conn.Close();
 
         return returnList;
+    }
+
+    public static Boolean deleteNotification(String id)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("DELETE FROM Notifications where NotificationId = @NotificationId", conn);
+        cmd.Parameters.AddWithValue("@NotificationId", id);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+        conn.Close();
+        return (rowsAffected > 0);
     }
 
     public static void saveNotification(Notification notification)
