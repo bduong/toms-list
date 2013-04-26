@@ -242,14 +242,19 @@ public partial class Views_Landing : System.Web.UI.Page
         List<Listing> returnList = new List<Listing>();
 
         List<Tag> taglist = TagDataService.getTagsByName(word);
+        HashSet<int> set = new HashSet<int>();
         foreach (Tag tag in taglist)
         {
             String id = tag.id.ToString();
             List<int> listingIds = ListingDataService.getListingOfTag(id);
             foreach (int listingId in listingIds)
             {
-                Listing listing = ListingDataService.getListing(listingId.ToString());
-                returnList.Add(listing);
+                if (!set.Contains(listingId))
+                {
+                    Listing listing = ListingDataService.getListing(listingId.ToString());
+                    returnList.Add(listing);
+                    set.Add(listingId);
+                }
             }
         }
 
@@ -286,10 +291,15 @@ public partial class Views_Landing : System.Web.UI.Page
         }
 
         results.InnerHtml = all_results.Count + " results found";
+        HashSet<int> set = new HashSet<int>();
         foreach (Listing listing in all_results)
         {
-            string objectHTML = createSearchItemDiv(listing);
-            results.InnerHtml += objectHTML;
+            if (!set.Contains(listing.ListingId))
+            {
+                string objectHTML = createSearchItemDiv(listing);
+                results.InnerHtml += objectHTML;
+                set.Add(listing.ListingId);
+            }
         }
     }
 
