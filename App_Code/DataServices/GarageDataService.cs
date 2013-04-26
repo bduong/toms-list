@@ -41,8 +41,11 @@ public class GarageDataService
         cmd.Parameters.AddWithValue("@GarageId", id);
 
         SqlDataReader reader = cmd.ExecuteReader();
-        reader.Read();
-        Garage returnGarage = extractGS(reader);
+        Garage returnGarage = null;
+        if (reader.Read())
+        {
+            returnGarage = extractGS(reader);
+        }
         conn.Close();
 
         return returnGarage;

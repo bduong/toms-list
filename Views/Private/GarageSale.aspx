@@ -74,7 +74,7 @@
                     List of your garage sales here
                     <script type="text/javascript">
                         function editgarage(parameter, number) {
-                            __doPostBack(parameter, parameter)
+                            __doPostBack("G="+parameter, "G=" + parameter)
                         }
                     </script>
                     <table align="center">
