@@ -45,7 +45,7 @@ public partial class Views_Notifications : System.Web.UI.Page
                 notifications = NotificationDataService.getNotifications(userId.ToString());
 
                 /* show results on page */
-                notifications_div.InnerHtml = "<span class=\"notifications_title\">You have " + notifications.Count + " notifications</span>";
+                notifications_div.InnerHtml = "<span class=\"notifications_title\">You have " + notifications.Count + " notifications</span><br/><br/>";
                 foreach (Notification n in notifications)
                 {
                     String objectHTML = "";
@@ -135,10 +135,11 @@ public partial class Views_Notifications : System.Web.UI.Page
         string objectHTML = "";
         objectHTML += "<div class=\"message_receiver_div\">";
 
-        /* add item thumbnail */
-        objectHTML += "<img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.senderId).imageId + "\"></img>";
+        objectHTML += "<div class=\"message_receiver_remove\" onclick=\"previewchat('delete=" + n.id + "')\" runat=\"server\">~</div>";
 
-        objectHTML += "<div class=\"notification_div\" onclick=\"previewchat('delete=" + n.id + "')\" runat=\"server\">remove</div>";
+        /* add item thumbnail */
+        objectHTML += "<img width=\"40px\" height=\"40px\" src=\"../../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.senderId).imageId + "\"></img>";
+
 
         /* add person name */
 
@@ -159,7 +160,7 @@ public partial class Views_Notifications : System.Web.UI.Page
         objectHTML += "<div class=\"message_sender_div\">";
 
         /* add item thumbnail */
-        objectHTML += "<img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.senderId).imageId + "\"></img>";
+        objectHTML += "<img width=\"40px\" height=\"40px\" src=\"../../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.senderId).imageId + "\"></img>";
 
         /* add person name */
         objectHTML += "<div class=\"notification_div\" onclick=\"previewchat('delete=" + n.id + "')\" runat=\"server\">remove</div>";
@@ -183,7 +184,7 @@ public partial class Views_Notifications : System.Web.UI.Page
             objectHTML += "<div class=\"notification_div\" onclick=\"previewchat('preview=" + n.recieverId + "')\" runat=\"server\">";
 
             /* add item thumbnail */
-            objectHTML += "<img class=\"notification_image\" align=\"left\">" + "" + "</img>";
+            objectHTML += "<img img width=\"40px\" height=\"40px\" class=\"notification_image\" align=\"left\" src=\"../../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.recieverId).imageId + "\"></img>";
 
             /* add person name */
             objectHTML += "<div class=\"notification_user\">" + UserDataService.getUser(n.recieverId).name + "</div>";

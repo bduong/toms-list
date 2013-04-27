@@ -42,7 +42,7 @@
                         <label for="Location" class="form_label">Address</label><textarea ID="textbox_location" runat="server" name="Location" class="form_field"></textarea>
                         <br /><br />
                         <label for="Description" class="form_label">Description</label><textarea id="textbox_description" runat="server" name="Description" class="form_field"></textarea><br /><br />
-                        <label for="Image" class="form_label">Image (Optional)</label><asp:FileUpload ID="imageUpload" runat="server" onchange="changeImagePreview(this)"/><br /><br />
+                        <label for="Image" class="form_label">Image (Optional)</label><asp:FileUpload class="image_box" ID="imageUpload" runat="server" onchange="changeImagePreview(this)"/><br /><br />
                         <asp:Label ID="updategarage_output" runat="server" Text=""></asp:Label><br />
                         <asp:Button ID="button_post" runat="server" Text="Update Garage Sale" class="form_button" OnClick="Update_Click"/>
                         <br />

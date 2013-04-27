@@ -205,9 +205,9 @@ h2 {
 
 input {
     width: 150px;
-    border-radius: 5px;
-    border: 1px #444 solid ;
-    padding: 5px;
+    //border-radius: 5px;
+    border: 1px #999 solid;
+    padding: 2px;
     //box-shadow: 0px 0px 3px #0088ff;
     height: 20px;
 }
@@ -224,18 +224,28 @@ input {
 }
 .form_button {
     padding: 10px;
-    height: 50px;
+    height: 40px;
+    width: auto;
 }
     .form_button:hover {
         border: 1px #00b9ff solid;
-        background-color: rgba(0, 81, 255, 0.5);
-        box-shadow: 0px 0px 5px rgba(0, 81, 255, 0.5);
+        border: 1px #999 solid;
+        cursor: pointer;
+        box-shadow: 0px 0px 0px rgba(0,0,0,0);
+        background-color: #ffd303;
     }
 .side_button {
     border-radius: 0px;
     padding: 0px;
     height: 20px;
     width: 80px;
+}
+.side_button:hover {
+        border: 1px #00b9ff solid;
+        border: 1px #999 solid;
+        cursor: pointer;
+        box-shadow: 0px 0px 0px rgba(0,0,0,0);
+        background-color: #ffd303;
 }
 .image_box {
     border: 0px;
@@ -252,12 +262,17 @@ input {
     }
 textarea {
     border-radius: 5px;
-    border: 1px #444 solid ;
+    border: 1px #999 solid ;
     padding: 5px;
+    overflow: auto;
 }
     textarea:focus {
         border: 1px #00b9ff solid;
         
+        box-shadow: 0px 0px 5px #00b9ff;
+    }
+    textarea:hover {
+        border: 1px #00b9ff solid;
         box-shadow: 0px 0px 5px #00b9ff;
     }
 .login_button {
@@ -285,6 +300,10 @@ textarea {
 }
     #search_bar:focus {
         box-shadow: 0px 0px 10px #ffd303;
+        border: 1px rgba(256,190,0,0.4) solid;
+    }
+    #search_bar:hover {
+        box-shadow: 0px 0px 10px #ffea03;
         border: 1px rgba(256,190,0,0.4) solid;
     }
 #search_button {
@@ -325,7 +344,7 @@ textarea {
 }
 
 .featured {
-    width: 400px;
+    width: 300px;
     height: 500px;
     padding: 10px;
 }
@@ -333,56 +352,63 @@ textarea {
 .featured_item_div {
     padding: 10px;
     background-color: #fff;
-    box-shadow: 0px 0px 4px #0088ff inset;
-    height: 60px;
+    border: 1px #999 solid;
+    height: auto;
+    border-radius: 3px;
+    text-align: left;
 }
-div.featured_item_div:hover {
-    background-color: #ffffff;
-    box-shadow: 0px 0px 10px #ffd303 inset;
-    cursor: pointer;
+    div.featured_item_div:hover {
+        background-color: #ffffff;
+        border: 1px #ffd303 solid;
+        box-shadow: 0px 0px 10px #ffd303 inset;
+        cursor: pointer;
+    }
+.featured_item_div_cell1 {
+    padding: 3px;
+}
+.featured_item_div_cell3 {
+    padding: 3px;
 }
 .featured_item_img {
     display: inline;
-    float: left;
+    //float: right;
     padding: inherit;
 }
 .featured_item_title {
     display: inline;
-    float: left;
+    //float: left;
+    //clear: both;
     padding: inherit;
     font-size: 14px;
-    line-height: 8px;
-    width: 300px;
+    //line-height: 8px;
+    //width: 100px;
     text-align: left;
 
 }
 .featured_item_description {
-    display: inline;
     padding: inherit;
-    float: left;
     font-size: 14px;
-    line-height: 8px;
-    //width: 220px;
     text-align: left;
     color: #999;
 }
 .featured_item_price {
-    display: inline;
     padding: inherit;
-    float: right;
-    line-height: 8px;
+    text-align: right;
 }
 
 
 .search_item_div {
     padding: 10px;
     background-color: #fff;
-    box-shadow: 0px 0px 4px #0088ff inset;
-    height: 60px;
     width: 600px;
+
+    border: 1px #999 solid;
+    height: auto;
+    border-radius: 3px;
 }
     .search_item_div:hover {
         background-color: #ffffff;
+        border: 1px #ffd303 solid;
         box-shadow: 0px 0px 10px #ffd303 inset;
         cursor: pointer;
     }
@@ -396,26 +422,30 @@ div.featured_item_div:hover {
     float: left;
     padding: inherit;
     font-size: 14px;
-    line-height: 8px;
+    //line-height: 8px;
     width: 500px;
     text-align: left;
 }
 .search_item_description {
-    //display: inline;
     padding: inherit;
-    float: left;
     font-size: 14px;
-    line-height: 8px;
-    //width: 220px;
     text-align: left;
     color: #999;
 }
 .search_item_price {
-    display: inline;
     padding: inherit;
-    float: right;
-    line-height: 8px;
+    text-align: right;
 }
+.search_item_div_cell1 {
+    padding: 3px;
+}
+.search_item_div_cell3 {
+    padding: 3px;
+}
+
+
+
+
 
 .preview_item {
     text-align: left;
@@ -571,13 +601,22 @@ fieldset {
 }
 .message_receiver_div {
     padding: 5px;
-    box-shadow: 0px 0px 3px #08f inset;
-    border-radius: 6px;
+    //box-shadow: 0px 0px 3px #08f inset;
+    border: 1px #333 solid;
+    border-radius: 3px;
     width: 250px;
     text-align: right;
     background-color: #eee;
     float: right;
     clear: both;
+}
+.message_receiver_remove {  
+    display: inline;
+    float: left;
+    cursor: pointer;
+    color: red;
+    //background-color: red;
+    font-family: 'sosa';
 }
 .message_receiver_img {
     float: right;
@@ -595,8 +634,8 @@ fieldset {
 
 .message_sender_div {
     padding: 5px;
-    box-shadow: 0px 0px 3px #08f inset;
-    border-radius: 6px;
+    //box-shadow: 0px 0px 3px #08f inset;
+    border-radius: 3px;
     width: 250px;
     text-align: left;
     background-color: #eee;
@@ -642,11 +681,15 @@ fieldset {
     background-color: #eee;
     padding: 10px;
     cursor: pointer;
-    height: 25px;
+    height: 40px;
+    //height: auto;
     border-radius: 5px;
+    border: 1px #000 solid;
+    cursor: pointer;
 }
 .notification_div:hover {
-    box-shadow: 0px 0px 1px #08f;
+    box-shadow: 0px 0px 5px #00a1ff;
+    border: 0px;
 }
 
 .notification_img {
@@ -665,6 +708,7 @@ fieldset {
     color: #333;
     padding: inherit;
     float: left;
+    color: #999;
 }
 .notification_date {
     display: inline;

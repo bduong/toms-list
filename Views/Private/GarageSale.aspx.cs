@@ -217,8 +217,8 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
         objectHTML += "<div class=\"garage_item_datebegin\">From: " + garage.DateBegin + "</div>";
         objectHTML += "<div class=\"garage_item_dateend\">To: " + garage.DateEnd + "</div>";
         objectHTML += "<div class=\"garage_item_address\">Address: " + garage.Address + "</div>";
-
-        objectHTML += "</div><button onclick=\"editgarage('"+ garage.GarageID + "', '');\">Update</button></div></br></br>";
+        objectHTML += "<br/>";
+        objectHTML += "</div><button class=\"form_button\" onclick=\"editgarage('"+ garage.GarageID + "', '');\">Update</button></div></br></br>";
 
         return objectHTML;
     }

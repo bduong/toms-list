@@ -16,9 +16,9 @@
     </script>
     <div id="form_item">
         <div style="text-align: center">
-                <asp:Button ID="Button1" runat="server" Text="Explore Around You" OnClick="Button1_Click1" /> <span> </span>
-                <asp:Button ID="Button2" runat="server" Text="Setup Your Own" OnClick="Button2_Click" />
-                <asp:Button ID="Button3" runat="server" Text="Edit Existing Garage Sales" OnClick="Button3_Click" />
+                <asp:Button ID="Button1" runat="server" class="form_button" Text="Explore Around You" OnClick="Button1_Click1" /> <span> </span>
+                <asp:Button ID="Button2" runat="server" class="form_button" Text="Setup Your Own" OnClick="Button2_Click" />
+                <asp:Button ID="Button3" runat="server" class="form_button" Text="Edit Existing Garage Sales" OnClick="Button3_Click" />
         </div>
 
             <asp:MultiView ID="garagesale_view" runat="server">
@@ -57,7 +57,7 @@
                                             <label for="Location" class="form_label">Address</label><textarea ID="textbox_location" runat="server" name="Location" class="form_field"></textarea>
                                             <br /><br />
                                             <label for="Description" class="form_label">Description</label><textarea id="textbox_description" runat="server" name="Description" class="form_field"></textarea><br /><br />
-                                            <label for="Image" class="form_label">Image (Optional)</label><asp:FileUpload ID="imageUpload" runat="server" onchange="changeImagePreview(this)"/><br /><br />
+                                            <label for="Image" class="form_label">Image (Optional)</label><asp:FileUpload ID="imageUpload" class="image_box" runat="server" onchange="changeImagePreview(this)"/><br /><br />
                                             <asp:Label ID="creategarage_output" runat="server" Text=""></asp:Label><br />
                                             <asp:Button ID="button_post" runat="server" Text="List New Garage Sale" class="form_button" OnClick="Button1_Click"/>
                         

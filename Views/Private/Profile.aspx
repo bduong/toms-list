@@ -13,7 +13,7 @@
 
                         </div>
                         <div>
-                            <asp:Button ID="ChangeInfo" runat="server" Text="Update My Info" PostBackUrl="~/Views/Private/UpdateProfile.aspx" />
+                            <asp:Button ID="ChangeInfo" runat="server" class="form_button" Text="Update My Info" PostBackUrl="~/Views/Private/UpdateProfile.aspx" />
                         </div>
                     </td>
                     <td style="width: 600px; text-align: left">

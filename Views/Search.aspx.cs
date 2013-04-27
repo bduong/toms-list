@@ -290,7 +290,9 @@ public partial class Views_Landing : System.Web.UI.Page
             all_results.AddRange(word_results);
         }
 
-        results.InnerHtml = all_results.Count + " results found";
+        //results.InnerHtml = all_results.Count + " results found";
+        results.InnerHtml = "";
+        int count = 0;
         HashSet<int> set = new HashSet<int>();
         foreach (Listing listing in all_results)
         {
@@ -299,8 +301,10 @@ public partial class Views_Landing : System.Web.UI.Page
                 string objectHTML = createSearchItemDiv(listing);
                 results.InnerHtml += objectHTML;
                 set.Add(listing.ListingId);
+                count++;
             }
         }
+        results.InnerHtml = count + " results found" + results.InnerHtml;
     }
 
     protected void doUserQuery(string q)
@@ -325,22 +329,24 @@ public partial class Views_Landing : System.Web.UI.Page
     private string createSearchItemDiv(Listing listing)
     {
         string objectHTML = "";
-        
-        //objectHTML = "<input type=\"button\" id=\"btnSave\" onclick=\"javascript:preview(" + listing.ListingId + ")\" value=\"click me\"/>";
 
         objectHTML += "<div class=\"search_item_div\" onclick=\"javascript:preview(" + listing.ListingId + ", '1')\" runat=\"server\">";
 
         /* object image */
-        objectHTML += "<div class=\"search_item_img\"><img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + listing.imageId + "\"></img></div>";
+        objectHTML += "<table><tr><td class=\"search_item_div_cell1\"><div class=\"search_item_img\"><img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + listing.imageId + "\"></img></div></td>";
+
+        /* vertical rule in div */
+        objectHTML += "<td class=\"search_item_div_cell2\" style=\"border-left: 1px solid #999; width=0px;\"></td>";
 
         /* object title */
-        objectHTML += "<div class=\"search_item_title\">" + listing.title + "</div>";
+        objectHTML += "<td class=\"search_item_div_cell3\" style=\"width: 100%\"><td class=\"search_item_div_cell3\"><div class=\"search_item_title\">" + listing.title + "</div>";
 
         /* object description */
         objectHTML += "<div class=\"search_item_description\">" + listing.description + "</div>";
 
         /* object price */
-        objectHTML += "<div class=\"search_item_price\">" + listing.price + "$ </div>";
+        objectHTML += "<div class=\"search_item_price\">" + listing.price + "$ </div></td></tr></table>";
+
 
         objectHTML += "</div></br>";
 
@@ -353,16 +359,19 @@ public partial class Views_Landing : System.Web.UI.Page
         string objectHTML = "<div class=\"featured_item_div\" onclick=\"javascript:preview(" + listing.ListingId + ", '2')\" runat=\"server\">";
 
         /* object image */
-        objectHTML += "<div class=\"featured_item_img\"><img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + listing.imageId + "\"></img></div>";
+        objectHTML += "<table><tr><td class=\"featured_item_div_cell1\"><div class=\"featured_item_img\"><img width=\"40px\" height=\"40px\" src=\"../Helpers/GetThumbnail.ashx?ID=" + listing.imageId + "\"></img></div></td>";
+
+        /* vertical rule in div */
+        objectHTML += "<td class=\"featured_item_div_cell2\" style=\"border-left: 1px solid #999; width=0px;\"></td>";
 
         /* object title */
-        objectHTML += "<div class=\"featured_item_title\">" + listing.title + "</div>";
+        objectHTML += "<td class=\"featured_item_div_cell3\" style=\"width: 100%\"><div class=\"featured_item_title\">" + listing.title + "</div>";
 
         /* object description */
         objectHTML += "<div class=\"featured_item_description\">" + listing.description + "</div>";
 
         /* object price */
-        objectHTML += "<div class=\"featured_item_price\">" + listing.price + "$ </div>";
+        objectHTML += "<div class=\"featured_item_price\">" + listing.price + "$ </div></td></tr></table>";
 
         objectHTML += "</div></br>";
 

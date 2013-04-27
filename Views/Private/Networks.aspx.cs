@@ -22,6 +22,8 @@ public partial class Views_Private_Networks : System.Web.UI.Page
             String username = (UserDataService.getUser(userId)).name;
             if (username == "admin")
             {
+                admin_td.Visible = true;
+                admin_vr.Visible = true;
                 addnetwork_name.Visible = true;
                 addnetwork_pattern.Visible = true;
                 addnetwork_button.Visible = true;
