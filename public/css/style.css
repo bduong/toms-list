@@ -202,16 +202,64 @@ h2 {
     text-align:right;
     vertical-align: top;
 }
-.login_field {
+
+input {
     width: 150px;
-    border-radius: 2px;
-    border: 0px;
-    box-shadow: 0px 0px 3px #0088ff;
+    border-radius: 5px;
+    border: 1px #444 solid ;
+    padding: 5px;
+    //box-shadow: 0px 0px 3px #0088ff;
     height: 20px;
 }
-input {
+    input:focus {
+        border: 1px #00b9ff solid;
+        box-shadow: 0px 0px 5px #00b9ff;
+    }
+    input:hover {
+        border: 1px #00b9ff solid;
+        box-shadow: 0px 0px 5px #00b9ff;
+    }
+.input_button {
 
 }
+.form_button {
+    padding: 10px;
+    height: 50px;
+}
+    .form_button:hover {
+        border: 1px #00b9ff solid;
+        background-color: rgba(0, 81, 255, 0.5);
+        box-shadow: 0px 0px 5px rgba(0, 81, 255, 0.5);
+    }
+.side_button {
+    border-radius: 0px;
+    padding: 0px;
+    height: 20px;
+    width: 80px;
+}
+.image_box {
+    border: 0px;
+    height: 30px;
+    width: 210px;
+}
+    .image_box:hover {
+        border: 0px;
+        box-shadow: 0px 0px 0px #000;
+    }
+    .image_box:focus {
+        border: 0px;
+        box-shadow: 0px 0px 0px #000;
+    }
+textarea {
+    border-radius: 5px;
+    border: 1px #444 solid ;
+    padding: 5px;
+}
+    textarea:focus {
+        border: 1px #00b9ff solid;
+        
+        box-shadow: 0px 0px 5px #00b9ff;
+    }
 .login_button {
     width: 155px;
     height: 40px;
