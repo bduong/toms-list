@@ -103,11 +103,11 @@ public class ListingDataService
     public static Boolean deleteListing(String id)
     {
         Listing listing = getListing(id);
-        List<Tag> tags = TagDataService.getTagsFromListing(listing);
-        foreach (Tag tag in tags)
-        {
-            deleteListingTag(listing, tag);
-        }
+        //List<Tag> tags = TagDataService.getTagsFromListing(listing);
+        //foreach (Tag tag in tags)
+        //{
+        //    deleteListingTag(listing, tag);
+        //}
 
         ImageDataService.deleteImage(listing.imageId);
 

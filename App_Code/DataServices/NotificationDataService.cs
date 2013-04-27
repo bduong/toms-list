@@ -121,7 +121,22 @@ public class NotificationDataService
         conn.Close();
     }
 
-    private static class ColumnNames
+    public static Boolean deleteNofiticationsBy(String columnName, String value)
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd;      
+                
+        cmd = new SqlCommand("DELETE FROM Notifications where " + columnName + " = @Value", conn);
+        
+        cmd.Parameters.AddWithValue("@Value", value);
+        int rowsAffected = cmd.ExecuteNonQuery();
+        conn.Close();
+
+        return (rowsAffected > 0);
+    }
+
+    public static class ColumnNames
     {
         public static string NotificationId = "NotificationId";
         public static string Message = "Message";

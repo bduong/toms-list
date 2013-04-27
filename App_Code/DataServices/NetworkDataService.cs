@@ -12,13 +12,6 @@ public class NetworkDataService
 {
     private const string NETWORKS_TABLE_NAME = "Networks"; 
 
-	public NetworkDataService()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
-
     public static Network getNetwork(int id)
     {
         SqlConnection conn = DBConnector.getSqlConnection();
@@ -35,6 +28,21 @@ public class NetworkDataService
         conn.Close();
 
         return network;
+    }
+
+    public static List<Network> getAllNetworks()
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Networks", conn);
+        SqlDataReader reader = cmd.ExecuteReader();
+        List<Network> networks = new List<Network>();
+        while (reader.Read())
+        {
+            networks.Add(extractNetwork(reader));
+        }
+        conn.Close();
+        return networks;
     }
 
     public static List<Network> getNetworkBy(String columnName, String value, int limit)
@@ -95,13 +103,6 @@ public class NetworkDataService
 
     public static Boolean deleteNetwork(int id)
     {
-        Network network = getNetwork(id);
-        List<Guid> usersInNetwork = getUsersOfNetwork(network.id.ToString());
-        foreach (Guid userId in usersInNetwork)
-        {            
-            UserDataService.removeUserFromNetwork(UserDataService .getUser(userId), network);
-        }
-
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("DELETE FROM Networks where NetworkId = @id", conn);

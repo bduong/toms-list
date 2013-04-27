@@ -81,6 +81,24 @@ public class TagDataService
         return new Tag(id, name);
 
     }
+
+    public static List<Tag> getAllTags()
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Tags", conn);
+        SqlDataReader reader = cmd.ExecuteReader();
+        List<Tag> tags = new List<Tag>();
+        while (reader.Read())
+        {
+            int id = (int)reader["TagId"];
+            string name = (string)reader["Name"];
+            tags.Add(new Tag(id, name));
+        }
+        conn.Close();
+        return tags;
+    }
+
     public static List<Tag> getTagsByName(string name)
     {
         List<Tag> returnList = new List<Tag>();
@@ -101,19 +119,10 @@ public class TagDataService
 
     public static Boolean deleteTag(int id)
     {
-        Tag tag = getTag(id);
-        List<int> listingIds = ListingDataService.getListingOfTag(id.ToString());
-        foreach (int listingId in listingIds)
-        {
-            Listing listing = ListingDataService.getListing(listingId.ToString());
-            ListingDataService.deleteListingTag(listing, tag);
-        }
-
-
         SqlConnection conn = DBConnector.getSqlConnection();
         conn.Open();
         SqlCommand cmd = new SqlCommand("DELETE FROM Tags where TagId = @TagId", conn);
-        cmd.Parameters.AddWithValue("@TagId", tag.id);
+        cmd.Parameters.AddWithValue("@TagId", id);
         int rowsAffected = cmd.ExecuteNonQuery();
         conn.Close();
         return (rowsAffected > 0);

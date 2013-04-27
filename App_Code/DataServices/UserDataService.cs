@@ -26,6 +26,21 @@ public class UserDataService
         return user;
     }
 
+    public static List<User> getAllUsers()
+    {
+        SqlConnection conn = DBConnector.getSqlConnection();
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("SELECT * FROM Users", conn);
+        SqlDataReader reader = cmd.ExecuteReader();
+        List<User> users = new List<User>();
+        while (reader.Read())
+        {
+            users.Add(extractUser(reader));
+        }
+        conn.Close();
+        return users;
+    }
+
     public static bool addUser(User user)
     {
         SqlConnection conn = DBConnector.getSqlConnection();
@@ -44,25 +59,10 @@ public class UserDataService
 
     public static bool deleteUser(Guid idToDelete)
     {
-        User thisUser = getUser(idToDelete);
-        List<Network> networks = NetworkDataService.getNetworksOfUser(thisUser.uid.ToString());
-        foreach (Network network in networks) {
-            removeUserFromNetwork(thisUser, network);
-        }
+        User thisUser = getUser(idToDelete); 
+        NotificationDataService.deleteNofiticationsBy(NotificationDataService.ColumnNames.SenderId, thisUser.uid.ToString());
+        NotificationDataService.deleteNofiticationsBy(NotificationDataService.ColumnNames.ReceiverId, thisUser.uid.ToString());
 
-        List<Listing> listings = ListingDataService.getListingsBy(ListingDataService.ColumnNames.UserId, thisUser.uid.ToString());
-        foreach (Listing listing in listings)
-        {
-            ListingDataService.deleteListing(listing.ListingId.ToString());
-        }
-
-        List<Garage> garageSales = GarageDataService.getGarageSalesBy(GarageDataService.ColumnNames.UserId, thisUser.uid.ToString());
-        foreach (Garage garageSale in garageSales)
-        {
-            GarageDataService.deleteGarageSale(garageSale.GarageID.ToString());
-        }
-
-        //@ToDo Delete Notifications
         ImageDataService.deleteImage(thisUser.imageId);
 
         SqlConnection conn = DBConnector.getSqlConnection();

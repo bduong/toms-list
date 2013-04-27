@@ -13,12 +13,18 @@ public partial class Views_Admin : System.Web.UI.Page
         try
         {
             Guid AspUserId = (Guid)Membership.GetUser().ProviderUserKey;
-            User user = UserDataService.getUser(AspUserId);
-
+            User user = UserDataService.getUser(AspUserId);            
         }
         catch (System.NullReferenceException)
         {
             Response.Redirect("~/Views/Login.aspx");
+        }
+
+        if (!IsPostBack)
+        {
+            fillUserList();
+            fillNetworkList();
+            fillTagList();
         }
 
     }
@@ -33,7 +39,7 @@ public partial class Views_Admin : System.Web.UI.Page
                 Membership.DeleteUser(name, true);
                 UserDataService.deleteUser(userid);
                 //ListBox1.DataBind();
-                ListBox1.Items.Clear();
+                fillUserList();
             }
             catch (NullReferenceException ex)
             {
@@ -54,7 +60,7 @@ public partial class Views_Admin : System.Web.UI.Page
                 List<int> id = networks.Select(t => t.id).ToList();
                 NetworkDataService.deleteNetwork(id[ListBox2.SelectedIndex]);
                // ListBox2.DataBind();
-                ListBox2.Items.Clear();
+                fillNetworkList();
             }
             catch (NullReferenceException ex)
             {
@@ -75,7 +81,7 @@ public partial class Views_Admin : System.Web.UI.Page
                 List<int> id = tags.Select(t => t.id).ToList();
                 TagDataService.deleteTag(id[ListBox3.SelectedIndex]);
 //                ListBox3.DataBind();
-                ListBox3.Items.Clear();
+                fillTagList();
             }
             catch (NullReferenceException ex)
             {
@@ -86,24 +92,61 @@ public partial class Views_Admin : System.Web.UI.Page
     protected void User_search(object sender, EventArgs e)
     {
         string search = TextBox1.Text;
-        List<User> users = UserDataService.searchForUserByName(search);
+        if (string.IsNullOrEmpty(search))
+        {
+            fillUserList();
+        } else {            
+            List<User> users = UserDataService.searchForUserByName(search);
 
-        ListBox1.DataSource = users.Select(t => t.name).ToList();
-        ListBox1.DataBind();
+            ListBox1.DataSource = users.Select(t => t.name).ToList();
+            ListBox1.DataBind();
+        }
     }
     protected void Network_search(object sender, EventArgs e)
     {
         string search = TextBox2.Text; ;
-        List<Network> networks = NetworkDataService.searchForNetworksByName(search);
+        if (string.IsNullOrEmpty(search))
+        {
+            fillNetworkList();
+        } else {
+            List<Network> networks = NetworkDataService.searchForNetworksByName(search);
 
-        ListBox2.DataSource = networks.Select(t => t.name).ToList();
-        ListBox2.DataBind();
+            ListBox2.DataSource = networks.Select(t => t.name).ToList();
+            ListBox2.DataBind();
+        }
     }
     protected void Tag_search(object sender, EventArgs e)
     {
-        string search = TextBox3.Text; ;
-        List<Tag> tags = TagDataService.searchForTagByName(search);
-               
+        string search = TextBox3.Text;
+        if (string.IsNullOrEmpty(search))
+        {
+            fillTagList();
+        } else {
+            List<Tag> tags = TagDataService.searchForTagByName(search);
+
+            ListBox3.DataSource = tags.Select(t => t.name).ToList();
+            ListBox3.DataBind();
+        }
+    }
+
+
+    private void fillUserList()
+    {
+        List<User> users = UserDataService.getAllUsers();
+        ListBox1.DataSource = users.Select(t => t.name).ToList();
+        ListBox1.DataBind();
+    }
+
+    private void fillNetworkList()
+    {
+        List<Network> networks = NetworkDataService.getAllNetworks();
+        ListBox2.DataSource = networks.Select(t => t.name).ToList();
+        ListBox2.DataBind();
+    }
+
+    private void fillTagList()
+    {
+        List<Tag> tags = TagDataService.getAllTags();
         ListBox3.DataSource = tags.Select(t => t.name).ToList();
         ListBox3.DataBind();
     }
