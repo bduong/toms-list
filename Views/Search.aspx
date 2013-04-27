@@ -62,7 +62,7 @@
                         <td class="vertical_hr"></td>
                         <td class="featured" valign="top">
                             <div>
-                                Appartments
+                                Apartments
                             </div><br />
                             <div id="featured2" runat="server">
 
