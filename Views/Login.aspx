@@ -10,7 +10,7 @@
                     <fieldset>
                         <a class="login_label">Username</a><asp:TextBox ID="UserName" class="login_field" runat="server"></asp:TextBox><br /><br />
                         <a class="login_label">Password</a><asp:TextBox ID="Password" class="login_field" runat="server" TextMode="Password"></asp:TextBox> <br /><br />
-                        <a class="login_label"></a><asp:Button ID="submitLoginBtn" class="login_button" runat="server" CommandName="Login" defaultbutton="SubmitButton" Text="Login" /><br />
+                        <a class="login_label"></a><asp:Button ID="submitLoginBtn" class="form_button" runat="server" CommandName="Login" defaultbutton="SubmitButton" Text="Login" /><br />
                         
                         <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
                     </fieldset>

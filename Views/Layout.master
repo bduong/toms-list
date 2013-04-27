@@ -28,15 +28,17 @@
     <div id="main-frame">
         <form id="form1" runat="server">
         <header>    
+            <table id="header-table">
+                <tr id="header-table-top">
+                    <td>
             <div id="masthead" class="left">
                 <h1>Tomslist</h1>
                 <div id="div-h2">
                     <h2>Boston University Craigslist</!h2>
                 </div>
-                
-            </div>
-            <div id="login" class="right">
-                <div class="login_frank">
+                </td>
+                <td>
+<div class="login_frank">
                             <span class="ep">Hello 
                             <asp:LoginView ID="LoginView1" runat="server">
                                 <AnonymousTemplate>
@@ -63,11 +65,15 @@
                                         </LoggedInTemplate>
                                     </asp:LoginView>
                                </div>
-                
-                                <nav id="navbar" runat="server">
+                </div>
+                    </td>
+                    </tr>
+                </table>
+ <div id="navbar" class="right">
+                                <!--<nav id="navbar" runat="server">-->
                                     <ul class="menu" id="menu" runat="server">
                                         <li>
-                                            <asp:LinkButton runat="server" OnClick="go_search">
+                                            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="go_search">
                                                 <span class="nav_icon">n</span>
                                                 <span class="nav_text">Search</span>
                                             </asp:LinkButton>
@@ -106,8 +112,11 @@
 
 
                                     </ul>
-                                </nav>
+                              <!--  </nav>-->
             </div>
+
+            
+           
             <!--div id="login" class="right">
                 Login
             </div-->
