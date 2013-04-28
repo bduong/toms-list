@@ -181,7 +181,7 @@ public partial class Views_Private_UpdateGarage : System.Web.UI.Page
 
     protected void do_delete_Click(object sender, EventArgs e)
     {
-        Garage garage = GarageDataService.getGarageSale(Request.QueryString["L"]);
+        Garage garage = GarageDataService.getGarageSale(Request.QueryString["G"]);
         ImageDataService.deleteImage(garage.imageId);
         GarageDataService.deleteGarageSale(garage.GarageID.ToString());
         Response.Redirect("~/Views/Search.aspx");
