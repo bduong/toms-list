@@ -163,7 +163,7 @@ public partial class Views_Notifications : System.Web.UI.Page
         objectHTML += "<img width=\"40px\" height=\"40px\" src=\"../../Helpers/GetThumbnail.ashx?ID=" + UserDataService.getUser(n.senderId).imageId + "\"></img>";
 
         /* add person name */
-        objectHTML += "<div class=\"notification_div\" onclick=\"previewchat('delete=" + n.id + "')\" runat=\"server\">remove</div>";
+        objectHTML += "<div class=\"message_sender_remove\" onclick=\"previewchat('delete=" + n.id + "')\" runat=\"server\">~</div>";
         objectHTML += "<div class=\"message_sender_user\">" + UserDataService.getUser(n.senderId).name + "</div>";
 
         objectHTML += "<div class=\"message_sender_message\">" + n.message + "</div>";

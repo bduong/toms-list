@@ -91,7 +91,7 @@ hr {
     //border-radius: 5px;
     //border: 1px #999 solid;
     // border: 1px rgba(255, 200, 3,0.5) solid;
-    box-shadow: 0px 0px 3px #ffd303;
+    box-shadow: 0px 0px 5px #ffd303;
     height: 40px;
 }
 
@@ -168,7 +168,9 @@ h2 {
 
     padding: 30px;
     margin: auto;
-    min-height: 600px;
+    height: 600px;
+    overflow: visible;
+    overflow: scroll;
     margin-top: -8px;
     //background: url('../../public/img/bg-middle-bottom.gif');
     background: url('../../public/img/cream_dust.png');
@@ -634,15 +636,25 @@ fieldset {
 .message_sender_div {
     padding: 5px;
     //box-shadow: 0px 0px 3px #08f inset;
+    border: 1px #333 solid;
     border-radius: 3px;
     width: 250px;
     text-align: left;
     background-color: #eee;
     clear: both;
 }
+.message_sender_remove {
+    display: inline;
+    float: right;
+    cursor: pointer;
+    color: red;
+    //background-color: red;
+    font-family: 'sosa';
+}
 .message_sender_user {
 }
 .message_sender_message {
+        color: #999;
 }
 .message_sender_date {
     font-size: smaller;
