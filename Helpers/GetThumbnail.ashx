@@ -18,13 +18,11 @@ public class GetThumbnail : IHttpHandler {
             {
                 context.Response.ContentType = "image/jpg";
                 context.Response.BinaryWrite((byte[])reader["Thumbnail"]);
+                return;
             }
-            else
-            {
-                context.Response.Write(HttpContext.Current.Server.MapPath("~/public/img/grey_wash_wall.png"));
-                context.Response.ContentType = "image/png";
-            }
-        }
+        }            
+            context.Response.WriteFile(HttpContext.Current.Server.MapPath("~/public/img/grey_wash_wall.png"));
+            context.Response.ContentType = "image/png";                    
     }
  
     public bool IsReusable {
