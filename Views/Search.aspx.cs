@@ -102,6 +102,13 @@ public partial class Views_Landing : System.Web.UI.Page
         view_item_date.Text = listing.date.ToString();
         item_image.ImageUrl = "~/Helpers/GetImage.ashx?ID=" + listing.imageId;
 
+        List<Tag> tags = TagDataService.getTagsFromListing(listing);
+        tags_box.Items.Clear();
+        foreach (Tag t in tags)
+        {
+            tags_box.Items.Add(t.name);
+        }
+
         User user = UserDataService.getUser(listing.userId);
         view_item_user.Text = user.name;
         view_item_user.Attributes.Add("userId", listing.userId.ToString());
