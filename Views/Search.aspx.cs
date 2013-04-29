@@ -20,14 +20,12 @@ public partial class Views_Landing : System.Web.UI.Page
             {
                 if (page == "1")
                 {
-
                     fr_view.ActiveViewIndex = 1;
                     getFeatured();
                 }
                 else
                 {
                     fr_view.ActiveViewIndex = 2;
-
                 }
 
             }
@@ -36,6 +34,10 @@ public partial class Views_Landing : System.Web.UI.Page
             {
                 fr_view.ActiveViewIndex = 0;
                 preview(parameter);
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    Button2.Enabled = false;
+                }
             }
         }
         else if (query != "" && query != null)
@@ -97,7 +99,7 @@ public partial class Views_Landing : System.Web.UI.Page
         view_item_listingid.Value = listing.ListingId.ToString();
         view_item_title.Text = listing.title;
         view_item_description.Text = listing.description;
-        view_item_price.Text = listing.price.ToString();
+        view_item_price.Text = listing.price.ToString() + " $";
         view_item_location.Text = listing.location;
         view_item_date.Text = listing.date.ToString();
         item_image.ImageUrl = "~/Helpers/GetImage.ashx?ID=" + listing.imageId;
