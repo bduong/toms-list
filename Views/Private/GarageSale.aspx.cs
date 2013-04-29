@@ -193,7 +193,7 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
         your_garages.InnerHtml = "";
         foreach (Garage garage in garages)
         {
-            your_garages.InnerHtml += createGarageDiv(garage);
+            your_garages.InnerHtml += createGarageDiv(garage, true);
         }
     }
 
@@ -203,11 +203,11 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
         String objectHTML = garages.Count + " Found In Your Area";
         foreach(Garage garage in garages)
         {
-            objectHTML += createGarageDiv(garage);
+            objectHTML += createGarageDiv(garage, false);
         }
         garagesales.InnerHtml = objectHTML;
     }
-    private String createGarageDiv(Garage garage)
+    private String createGarageDiv(Garage garage, Boolean updateAble)
     {
         string objectHTML = "</br></br><div class=\"garage_item_div\">";
         
@@ -218,7 +218,12 @@ public partial class Views_Private_GarageSale : System.Web.UI.Page
         objectHTML += "<div class=\"garage_item_dateend\">To: " + garage.DateEnd + "</div>";
         objectHTML += "<div class=\"garage_item_address\">Address: " + garage.Address + "</div>";
         objectHTML += "<br/>";
-        objectHTML += "</div><button class=\"form_button\" onclick=\"editgarage('"+ garage.GarageID + "', '');\">Update</button></div></br></br>";
+        objectHTML += "</div>";
+        if (updateAble)
+        {
+            objectHTML += "<button class=\"form_button\" onclick=\"editgarage('" + garage.GarageID + "', '');\">Update</button>";
+        }
+        objectHTML += "</div></br></br>";
 
         return objectHTML;
     }

@@ -6,6 +6,17 @@
         function preview(parameter, number) {
             __doPostBack(number, parameter)
         }
+
+        function tag_double_click(box) {
+            var index = box.selectedIndex;
+            if (index >= 0) {
+                var tag = box.options[index].text;
+                if (tag !== "") {
+                    window.location = "./Search.aspx?query=" + tag;
+                }
+            }
+
+        }
     </script>
     <!--hr id="hr_search"/-->
     <div id="featured-results">        
@@ -33,7 +44,8 @@
                                     <asp:Label ID="Label4" class="form_label" runat="server" Text="Label">Price: </asp:Label><asp:Label ID="view_item_price" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label2" class="form_label" runat="server" Text="Label">Location: </asp:Label><asp:Label ID="view_item_location" runat="server" Text="Label"></asp:Label><br />
                                     <asp:Label ID="Label5" class="form_label" runat="server" Text="Label">Posting Date: </asp:Label><asp:Label ID="view_item_date" runat="server" Text="Label"></asp:Label><br />
-                                    <asp:Label ID="Label6" class="form_label" runat="server" Text="Label">Seller:</asp:Label><asp:Label ID="view_item_user" runat="server" Text="Label"></asp:Label><br /><br />
+                                    <asp:Label ID="Label6" class="form_label" runat="server" Text="Label">Seller:</asp:Label><asp:Label ID="view_item_user" runat="server" Text="Label"></asp:Label><br />
+                                    <asp:Label ID="Label8" class="form_label" runat="server" Text="Label">Tags:</asp:Label><asp:ListBox ID="tags_box" Rows="2" Width="50%" ondblclick="tag_double_click(this)" runat="server"></asp:ListBox><br /><br />
                                     <asp:Label ID="Label7" class="form_label" runat="server" Text="Label">Contact Seller:</asp:Label>
                                     <textarea id="textarea_message" cols="20" rows="3" runat="server" ></textarea>
                                     <asp:Button style="height: 40px;" class="form_button" ID="Button2" runat="server" Text="Send" OnClick="contact_seller"/>

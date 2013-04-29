@@ -16,6 +16,8 @@ public partial class TL_basiclayout_UserRegistration : System.Web.UI.Page
     {
         MembershipUser info = Membership.GetUser(CreateUserWizard1.UserName);
         Guid guid = (Guid)info.ProviderUserKey;
+        info.IsApproved = false;
+        Membership.UpdateUser(info);
 
         User user = new User(guid, info.UserName, info.Email);
         UserDataService.addUser(user);

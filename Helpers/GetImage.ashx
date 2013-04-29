@@ -22,8 +22,7 @@ public class GetImage : IHttpHandler {
             }
         }
             context.Response.WriteFile(HttpContext.Current.Server.MapPath("../public/img/grey_wash_wall.png"));
-            context.Response.ContentType = "image/png";
-    
+            context.Response.ContentType = "image/png";    
     }
  
     public bool IsReusable {

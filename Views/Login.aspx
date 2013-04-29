@@ -2,10 +2,15 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Layout.master" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Views_Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
+    <script type="text/javascript">
+        function resend(login) {
+            __doPostBack(login, login);
+        }
+    </script>
     <div class="login_form" align="center">
         <div class="login">
             
-            <asp:Login ID="Login1" runat="server" Height="165px" DestinationPageUrl="~/Views/Private/Profile.aspx">
+            <asp:Login ID="Login1" runat="server" Height="165px" DestinationPageUrl="~/Views/Private/Profile.aspx" OnLoginError="Login1_LoginError">
                 <LayoutTemplate>
                     <fieldset>
                         <a class="login_label">Username</a><asp:TextBox ID="UserName" class="login_field" runat="server"></asp:TextBox><br /><br />
@@ -17,9 +22,7 @@
                 </LayoutTemplate>
             </asp:Login>
             <br />
-            <asp:HyperLink ID="ForgotPassword" runat="server" NavigateUrl="~/Views/PassRecovery.aspx" >I forgot my password!</asp:HyperLink>
-
-            
+            <asp:HyperLink ID="ForgotPassword" runat="server" NavigateUrl="~/Views/PassRecovery.aspx" >I forgot my password!</asp:HyperLink>            
         </div>
 
     </div>
