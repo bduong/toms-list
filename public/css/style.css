@@ -48,7 +48,8 @@ header {
 
     //background-color: #999;
     //background: url('../../public/img/grey_wash_wall.png') repeat;
-    background: url('../../public/img/cutoff.png') repeat;
+    //background: url('../../public/img/cutoff.png') repeat;
+    background: url('../../public/img/argyle.png') repeat;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
     
     text-shadow: 0px 1px 0px #999;
