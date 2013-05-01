@@ -11,9 +11,10 @@ using System.Web.Security;
 
 public partial class Views_Private_Networks : System.Web.UI.Page
 {
+    bool firstload = true;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (User.Identity.IsAuthenticated)
+        if (User.Identity.IsAuthenticated && !firstload)
         {
 
             MembershipUser user = Membership.GetUser();
@@ -30,12 +31,29 @@ public partial class Views_Private_Networks : System.Web.UI.Page
                 name_label.Visible = true;
                 pattern_label.Visible = true;
             }
-
         }
     }
-
+    protected void Results_Init(object sender, EventArgs e)
+    {
+        Result_Label.Text = "Current Networks";
+        List<Network> networks = NetworkDataService.searchForNetworksByName("");
+        foreach (Network n in networks)
+        {
+            Results.Items.Add(new ListItem(n.name, n.id.ToString()));
+        }
+        if (networks.Count > 0)
+        {
+            Join.Visible = true;
+        }
+        else
+        {
+            Join.Visible = false;
+        }
+    }
     protected void Do_Search_Click(object sender, EventArgs e)
     {
+        Result_Label.Text = "Result Networks";
+        toggleVisibilityOfJoinControls(false);
         ErrorMessage.Text = "";
         string searchPattern = Network_Search.Text;
         Network_Search.Text = "";

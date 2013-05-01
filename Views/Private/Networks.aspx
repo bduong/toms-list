@@ -11,8 +11,8 @@
                 <asp:Button ID="Do_Search" class="form_button" runat="server" Text="Search" OnClick="Do_Search_Click" />
                 <br />
                 <br />
-
-                <asp:ListBox ID="Results" runat="server" Width="200px" Font-Size="Large"></asp:ListBox><br /><br />
+                <asp:Label ID="Result_Label" runat="server" Visible="true"></asp:Label><br />
+                <asp:ListBox ID="Results" runat="server" Width="200px" Font-Size="Large" OnInit="Results_Init"></asp:ListBox><br /><br />
                 <asp:Button class="form_button" ID="Join" Text="Join" runat="server"  Visible="false" OnClick="Join_Click" /> 
                 <br />
                 <br />
