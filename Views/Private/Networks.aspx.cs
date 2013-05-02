@@ -11,10 +11,9 @@ using System.Web.Security;
 
 public partial class Views_Private_Networks : System.Web.UI.Page
 {
-    bool firstload = true;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (User.Identity.IsAuthenticated && !firstload)
+        if (User.Identity.IsAuthenticated)
         {
 
             MembershipUser user = Membership.GetUser();
